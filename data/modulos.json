@@ -1,0 +1,79 @@
+{
+  "dominios": [
+    { "id": "conceitos", "nome": "Conceitos de nuvem", "peso": "25–30%" },
+    { "id": "arquitetura", "nome": "Arquitetura e serviços do Azure", "peso": "35–40%" },
+    { "id": "governanca", "nome": "Gerenciamento e governança", "peso": "30–35%" }
+  ],
+  "modulos": [
+    {
+      "id": "conceitos-nuvem",
+      "dominio": "conceitos",
+      "titulo": "O que é computação em nuvem",
+      "resumo": "Modelo de consumo, benefícios da nuvem, IaaS, PaaS, SaaS e responsabilidade compartilhada.",
+      "minutos": 20,
+      "learn": "https://learn.microsoft.com/training/paths/microsoft-azure-fundamentals-describe-cloud-concepts",
+      "conteudo": [
+        {
+          "titulo": "Pague pelo que usar",
+          "texto": "Num datacenter próprio, a empresa compra servidores antes de precisar deles. Esse gasto inicial é chamado de CapEx (despesa de capital). Na nuvem, você aluga recursos e paga pelo consumo, mês a mês. Isso é o OpEx (despesa operacional). Quem testa uma ideia nova não precisa investir em hardware antes de saber se vai funcionar."
+        },
+        {
+          "titulo": "Benefícios da nuvem",
+          "texto": "Alta disponibilidade: o serviço continua no ar mesmo quando algo falha. Escalabilidade: dá para aumentar ou diminuir os recursos conforme a necessidade. Elasticidade: o ajuste acontece automaticamente, acompanhando a demanda (por exemplo, o pico de acessos na Black Friday). Agilidade: criar um recurso leva minutos, não semanas. Recuperação de desastres: dados e serviços podem ser replicados em outro local."
+        },
+        {
+          "titulo": "IaaS, PaaS e SaaS",
+          "texto": "IaaS (infraestrutura como serviço): você recebe a máquina virtual e cuida do sistema operacional e de tudo que roda nela. Exemplo: Azure Virtual Machines. PaaS (plataforma como serviço): o provedor cuida da infraestrutura e do sistema, e você cuida só do código e dos dados. Exemplo: Azure App Service. SaaS (software como serviço): você usa o software pronto. Exemplo: Microsoft 365."
+        },
+        {
+          "titulo": "Responsabilidade compartilhada",
+          "texto": "A segurança na nuvem é dividida entre o provedor e o cliente. A Microsoft sempre cuida da parte física (datacenters, hardware, rede física). Os dados, as contas e os acessos são sempre responsabilidade do cliente. O que fica no meio muda conforme o modelo: no IaaS o cliente cuida de mais coisas, e no SaaS, de menos."
+        }
+      ]
+    },
+    {
+      "id": "regioes-e-grupos",
+      "dominio": "arquitetura",
+      "titulo": "Regiões, zonas e grupos de recursos",
+      "resumo": "Como o Azure é organizado fisicamente e como você organiza seus recursos.",
+      "minutos": 15,
+      "learn": "https://learn.microsoft.com/training/paths/azure-fundamentals-describe-azure-architecture-services",
+      "conteudo": [
+        {
+          "titulo": "Regiões e pares de regiões",
+          "texto": "Uma região é um conjunto de datacenters próximos entre si, ligados por uma rede de baixa latência. Muitas regiões têm um par em outra localização da mesma área geográfica, o que ajuda na recuperação de desastres."
+        },
+        {
+          "titulo": "Zonas de disponibilidade",
+          "texto": "Dentro de uma região, as zonas de disponibilidade são datacenters fisicamente separados, cada um com energia, refrigeração e rede próprias. Distribuir a aplicação entre zonas protege contra a falha de um datacenter."
+        },
+        {
+          "titulo": "Grupos de recursos",
+          "texto": "Um grupo de recursos é um contêiner lógico que reúne recursos relacionados, como a VM, o disco e a rede de uma mesma aplicação. Excluir o grupo exclui tudo que está dentro dele, o que é ótimo para limpar um laboratório e perigoso se você não prestar atenção."
+        }
+      ]
+    },
+    {
+      "id": "governanca-basica",
+      "dominio": "governanca",
+      "titulo": "Governança: RBAC, Policy e bloqueios",
+      "resumo": "Como controlar quem pode fazer o quê, quais regras valem e como evitar exclusões acidentais.",
+      "minutos": 15,
+      "learn": "https://learn.microsoft.com/credentials/certifications/resources/study-guides/az-900",
+      "conteudo": [
+        {
+          "titulo": "Azure RBAC: quem pode fazer o quê",
+          "texto": "O controle de acesso baseado em função (RBAC) atribui permissões a usuários, grupos ou aplicações em um determinado escopo (assinatura, grupo de recursos ou recurso). Exemplo: dar a alguém o papel de Leitor em um grupo de recursos."
+        },
+        {
+          "titulo": "Azure Policy: quais regras valem",
+          "texto": "O Azure Policy define regras sobre como os recursos podem ser criados e configurados. Exemplo: permitir criar recursos só em determinadas regiões. Enquanto o RBAC fala de pessoas e permissões, a Policy fala dos recursos e de seus padrões."
+        },
+        {
+          "titulo": "Bloqueios de recurso",
+          "texto": "Um bloqueio (lock) impede mudanças ou exclusões acidentais. O tipo CanNotDelete permite alterar o recurso, mas não excluí-lo. O tipo ReadOnly permite apenas leitura. O bloqueio vale até para quem tem permissão total, até que ele seja removido."
+        }
+      ]
+    }
+  ]
+}

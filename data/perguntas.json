@@ -1,0 +1,129 @@
+{
+  "conceitos-nuvem": [
+    {
+      "pergunta": "Uma empresa troca seus servidores próprios por recursos na nuvem e passa a pagar apenas pelo que consome. Como se chama esse modelo de gasto?",
+      "opcoes": [
+        "OpEx (despesa operacional)",
+        "CapEx (despesa de capital)",
+        "Licenciamento perpétuo",
+        "Hospedagem dedicada com valor fixo"
+      ],
+      "correta": 0,
+      "explicacao": "Pagar pelo consumo, de forma contínua, é OpEx. CapEx é o investimento inicial em hardware, típico do datacenter próprio."
+    },
+    {
+      "pergunta": "Uma loja virtual recebe muito mais acessos na Black Friday. Os recursos aumentam sozinhos durante o pico e diminuem depois. Que característica da nuvem isso descreve?",
+      "opcoes": [
+        "Elasticidade",
+        "Soberania de dados",
+        "Governança",
+        "Recuperação de desastres"
+      ],
+      "correta": 0,
+      "explicacao": "Elasticidade é ajustar os recursos automaticamente conforme a demanda, para mais e para menos. Escalabilidade é a capacidade de crescer ou diminuir, mas não diz que isso acontece sozinho."
+    },
+    {
+      "pergunta": "Você criou uma máquina virtual no Azure (IaaS). Quem é responsável por instalar as atualizações de segurança do sistema operacional dela?",
+      "opcoes": [
+        "Você, o cliente",
+        "A Microsoft, sempre",
+        "Ninguém, o Azure atualiza tudo sozinho",
+        "O provedor de internet"
+      ],
+      "correta": 0,
+      "explicacao": "No IaaS, a Microsoft cuida da infraestrutura física, mas o sistema operacional e o que roda nele ficam com o cliente."
+    },
+    {
+      "pergunta": "Qual destes é um exemplo de SaaS?",
+      "opcoes": [
+        "Microsoft 365",
+        "Azure Virtual Machines",
+        "Azure Virtual Network",
+        "Azure Managed Disks"
+      ],
+      "correta": 0,
+      "explicacao": "No SaaS você usa o software pronto, sem se preocupar com servidor ou sistema. Máquinas virtuais, redes e discos são blocos de infraestrutura."
+    },
+    {
+      "pergunta": "Você quer publicar uma aplicação web sem se preocupar com servidor e sistema operacional, cuidando só do código e dos dados. Qual modelo de serviço combina com isso?",
+      "opcoes": [
+        "PaaS",
+        "IaaS",
+        "SaaS",
+        "On-premises"
+      ],
+      "correta": 0,
+      "explicacao": "No PaaS o provedor gerencia a infraestrutura e a plataforma, e você entrega o código. O Azure App Service é um exemplo."
+    }
+  ],
+  "regioes-e-grupos": [
+    {
+      "pergunta": "Qual recurso do Azure protege a aplicação contra a falha de um único datacenter dentro de uma região?",
+      "opcoes": [
+        "Zonas de disponibilidade",
+        "Grupos de recursos",
+        "Tags",
+        "Assinaturas"
+      ],
+      "correta": 0,
+      "explicacao": "Zonas de disponibilidade são datacenters separados dentro da mesma região, com energia, refrigeração e rede independentes."
+    },
+    {
+      "pergunta": "O que acontece com os recursos de um grupo de recursos quando você exclui o grupo?",
+      "opcoes": [
+        "Todos são excluídos junto com o grupo",
+        "Eles são movidos para um grupo padrão",
+        "Eles continuam existindo, sem grupo",
+        "Só os recursos vazios são excluídos"
+      ],
+      "correta": 0,
+      "explicacao": "Excluir o grupo exclui tudo que está dentro dele. Por isso é um bom jeito de limpar um laboratório, e um risco se você esquecer o que havia lá."
+    },
+    {
+      "pergunta": "O que é um par de regiões (region pair) no Azure?",
+      "opcoes": [
+        "Duas regiões na mesma área geográfica que ajudam na recuperação de desastres",
+        "Dois datacenters dentro da mesma zona de disponibilidade",
+        "Dois grupos de recursos ligados entre si",
+        "Duas assinaturas que compartilham a mesma fatura"
+      ],
+      "correta": 0,
+      "explicacao": "Pares de regiões ficam na mesma geografia, mas separados o bastante para que um desastre não atinja os dois ao mesmo tempo."
+    }
+  ],
+  "governanca-basica": [
+    {
+      "pergunta": "Sua empresa quer garantir que ninguém crie máquinas virtuais fora da região Brazil South. Qual serviço aplica essa regra?",
+      "opcoes": [
+        "Azure Policy",
+        "Azure RBAC",
+        "Azure Advisor",
+        "Azure Monitor"
+      ],
+      "correta": 0,
+      "explicacao": "O Azure Policy define regras sobre como os recursos podem ser criados, como limitar as regiões permitidas."
+    },
+    {
+      "pergunta": "Para que serve principalmente o Azure RBAC?",
+      "opcoes": [
+        "Definir quem pode fazer o quê em quais recursos",
+        "Impor padrões de configuração aos recursos",
+        "Monitorar o desempenho das aplicações",
+        "Criptografar dados armazenados"
+      ],
+      "correta": 0,
+      "explicacao": "O RBAC trata de permissões: atribui papéis a pessoas, grupos ou aplicações em um escopo. Regras sobre os recursos são papel do Azure Policy."
+    },
+    {
+      "pergunta": "Qual recurso impede que um recurso importante seja excluído por acidente, mesmo por alguém com permissão total?",
+      "opcoes": [
+        "Bloqueio de recurso (lock) do tipo CanNotDelete",
+        "Tag de ambiente",
+        "Grupo de recursos",
+        "Região secundária"
+      ],
+      "correta": 0,
+      "explicacao": "Um bloqueio vale até para quem tem permissão de proprietário. A exclusão só é possível depois que o bloqueio for removido."
+    }
+  ]
+}

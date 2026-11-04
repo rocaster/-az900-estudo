@@ -1,114 +1,115 @@
-# Estudo AZ-900
+# AZ-900 Study
 
-Ferramenta gratuita e aberta para estudar para a certificação **Microsoft Azure Fundamentals (AZ-900)**, feita por quem passou pelo perrengue de juntar material em vários lugares.
+A free, open study tool for the **Microsoft Azure Fundamentals (AZ-900)** certification, built by someone who went through the hassle of gathering study material from many different places.
 
-> Projeto independente da comunidade, sem vínculo com a Microsoft. As perguntas são originais, escritas para este projeto.
+> Independent community project, not affiliated with Microsoft. All questions are original, written for this project.
 
-**Acesse o site:** https://polite-coast-0d1f46c0f.6.azurestaticapps.net/
+**Live site:** https://polite-coast-0d1f46c0f.6.azurestaticapps.net/?lang=en
 
-## O que já funciona
+## Features
 
-- Página inicial com o **progresso por domínio** da prova
-- **Módulos** separados por domínio (com o peso de cada um na prova), cada um com uma lista "O que você precisa saber" baseada no guia oficial e link para o Microsoft Learn
-- **Quiz** por módulo, com explicação após cada resposta
-- **Simulado** de 40 questões em 45 minutos, sorteadas pelo peso de cada domínio (11, 15 e 14), com navegação entre questões, marcação para revisão, nota estimada de 0 a 1000 (aprovação em 700), resultado por domínio, revisão comentada e histórico dos 10 últimos
-- **Prontidão estimada** na página inicial
-- Progresso salvo no navegador (sem login, sem banco de dados)
-- **Dois idiomas: português e inglês**, com o seletor PT | EN no topo de todas as páginas. O progresso, as notas e os simulados são os mesmos nos dois idiomas, e dá para trocar no meio de um quiz ou simulado sem perder as respostas. Link direto para a versão em inglês: `?lang=en` (por exemplo, `https://polite-coast-0d1f46c0f.6.azurestaticapps.net/?lang=en`)
-- Visual com **fundo animado de nuvens** (claro e escuro automáticos, mais discreto no quiz e no simulado; fica parado se o sistema estiver com animações desativadas)
+- Home page with **progress by exam domain**
+- **Modules** grouped by domain (with each domain's exam weight), each with a "What you need to know" checklist based on the official study guide and a link to Microsoft Learn
+- **Quiz** for each module, with an explanation after every answer
+- **Practice exam** with 40 questions in 45 minutes, drawn by domain weight (11, 15 and 14), with question navigation, flag for review, an estimated 0–1000 score (pass at 700), results by domain, a commented review and a history of the last 10 attempts
+- **Estimated readiness** on the home page
+- Progress saved in the browser (no sign-in, no database)
+- **Two languages: Portuguese and English**, with a PT | EN switch in the header of every page. Progress, scores and practice exams are shared across both languages, and you can switch in the middle of a quiz or exam without losing answers. Direct links: `?lang=en` and `?lang=pt`
+- **Animated cloud background** (automatic light and dark modes, calmer on quiz and exam pages, static when the system has animations turned off)
 
-## Conteúdo
+## Content
 
-Baseado no guia oficial de habilidades medidas da AZ-900 e nos módulos do Microsoft Learn: **12 módulos e 105 perguntas**.
+Based on the official AZ-900 skills-measured study guide and the Microsoft Learn modules: **12 modules and 105 questions**.
 
-| Domínio | Peso na prova | Módulos | Perguntas |
+| Domain | Exam weight | Modules | Questions |
 |---|---|---|---|
-| Conceitos de nuvem | 25–30% | 3 | 25 |
-| Arquitetura e serviços do Azure | 35–40% | 5 | 45 |
-| Gerenciamento e governança do Azure | 30–35% | 4 | 35 |
+| Cloud concepts | 25–30% | 3 | 25 |
+| Azure architecture and services | 35–40% | 5 | 45 |
+| Azure management and governance | 30–35% | 4 | 35 |
 
-## Como rodar no seu computador
+## Running locally
 
-O projeto não precisa instalar nada. Só precisa ser aberto por um servidor local, porque o navegador não deixa carregar os arquivos de dados (JSON) quando a página é aberta direto do disco.
+Nothing to install. It only needs to be served by a local web server, because browsers block loading the JSON data files when the page is opened straight from disk.
 
 ```bash
 python3 -m http.server 8000
 ```
 
-Depois acesse http://localhost:8000. Outra opção é a extensão **Live Server** do VS Code.
+Then open http://localhost:8000. The VS Code **Live Server** extension also works.
 
-## Estrutura
+## Project structure
 
 ```
-index.html        Página inicial (progresso + lista de módulos)
-modulo.html       Mostra o conteúdo de um módulo
-quiz.html         Quiz de um módulo
-simulado.html     Simulado no formato da prova
-css/estilo.css    Visual (cores ficam nas variáveis do topo)
-js/i18n.js        Idiomas: textos da interface em PT e EN e o seletor PT | EN
-js/comum.js       Funções usadas por todas as páginas
-js/progresso.js   Salva e lê o progresso no navegador
-js/home.js        Lógica da página inicial
-js/modulo.js      Lógica da página de módulo
-js/quiz.js        Lógica do quiz
-js/simulado.js    Lógica do simulado (sorteio, cronômetro, correção e revisão)
-data/modulos.json Domínios e módulos (o conteúdo de estudo)
-data/perguntas.json Perguntas do quiz, por módulo
-data/en/          Os mesmos arquivos de dados, em inglês
+index.html          Home page (progress + module list)
+modulo.html         Module content page
+quiz.html           Module quiz
+simulado.html       Practice exam in the real exam format
+css/estilo.css      Styles (colors are variables at the top)
+js/i18n.js          Languages: PT and EN interface text and the PT | EN switch
+js/comum.js         Shared functions used by every page
+js/progresso.js     Saves and reads progress in the browser
+js/home.js          Home page logic
+js/modulo.js        Module page logic
+js/quiz.js          Quiz logic
+js/simulado.js      Practice exam logic (draw, timer, scoring and review)
+data/modulos.json   Domains and modules (Portuguese study content)
+data/perguntas.json Quiz questions by module (Portuguese)
+data/en/            The same data files, in English
 ```
 
-## Idiomas
+## Languages
 
-- O idioma vem, nesta ordem, de `?lang=pt` ou `?lang=en` na URL (a escolha fica salva), da escolha salva no navegador ou do idioma do navegador: português para navegadores em português, inglês para os demais.
-- Os textos da interface ficam em `js/i18n.js` (mesma chave em `pt` e `en`). O conteúdo em inglês fica em `data/en/`, com os mesmos `id`, a mesma ordem das opções e o mesmo índice `correta` do português, por isso o progresso vale para os dois idiomas.
+- The language comes, in this order, from `?lang=pt` or `?lang=en` in the URL (the choice is saved), the choice saved in the browser, or the browser language: Portuguese for Portuguese browsers, English for all others.
+- Interface text lives in `js/i18n.js` (same keys under `pt` and `en`). English content lives in `data/en/`, with the same `id`s, the same option order and the same `correta` index as the Portuguese files, so progress is shared between languages.
 
-## Como adicionar conteúdo
+## Adding content
 
-1. **Novo módulo:** adicione um item em `data/modulos.json`, com um `id` único e o `dominio` correspondente. Os campos opcionais `objetivos` (lista "O que você precisa saber") e `itens` (marcadores dentro de uma seção do conteúdo) ajudam a organizar o texto.
-2. **Perguntas:** em `data/perguntas.json`, crie uma lista com o mesmo `id` do módulo. Cada pergunta tem `pergunta`, `opcoes`, `correta` (posição da resposta certa, começando em 0) e `explicacao`.
-3. **Inglês:** repita a mudança em `data/en/modulos.json` e `data/en/perguntas.json`, com o mesmo `id`, as opções na mesma ordem e o mesmo `correta`.
+1. **New module:** add an item to `data/modulos.json` with a unique `id` and the matching `dominio`. The optional `objetivos` ("What you need to know" checklist) and `itens` (bullets inside a content section) fields help organize the text.
+2. **Questions:** in `data/perguntas.json`, add a list under the module's `id`. Each question has `pergunta`, `opcoes`, `correta` (position of the right answer, starting at 0) and `explicacao`.
+3. **English:** repeat the change in `data/en/modulos.json` and `data/en/perguntas.json`, with the same `id`, options in the same order and the same `correta`.
 
-## Como o percentual é calculado
+## How progress is calculated
 
-O percentual de cada domínio é a média das **melhores notas** dos quizzes dos módulos daquele domínio. Módulo ainda não feito conta como 0.
+Each domain's percentage is the average of the **best scores** on that domain's module quizzes. Modules not yet attempted count as 0.
 
-## Simulado e prontidão
+## Practice exam and readiness
 
-- A nota do simulado é **uma estimativa**: acertos ÷ 40 × 1000. A Microsoft usa uma escala própria (a aprovação é 700), que não é simplesmente proporcional aos acertos.
-- A **prontidão** é a média dos percentuais por domínio, ponderada pelo peso de cada domínio na prova (meio da faixa: 27,5%, 37,5% e 32,5%). Se você já fez algum simulado, ela usa a média dos últimos até 3 simulados. Se não, usa as melhores notas dos quizzes dos módulos (módulo não feito conta como 0). A página sempre diz qual fonte foi usada.
-- O histórico fica no navegador (`localStorage`), separado do progresso dos módulos.
+- The practice exam score is **an estimate**: correct answers ÷ 40 × 1000. Microsoft uses its own scaled scoring (pass is 700), which is not simply proportional to correct answers.
+- **Readiness** is the average of the domain percentages, weighted by each domain's exam weight (middle of the range: 27.5%, 37.5% and 32.5%). If you have taken any practice exam, it uses the average of the last (up to) 3 exams. Otherwise it uses the best module quiz scores (modules not attempted count as 0). The page always says which source was used.
+- History is stored in the browser (`localStorage`), separate from module progress.
 
-## Antes de publicar, confira
+## Before publishing, check
 
-- Os **pesos dos domínios** em `data/modulos.json` e o conteúdo, comparando com o guia oficial de habilidades medidas da AZ-900, que a Microsoft atualiza de tempos em tempos.
-- Os **links do Microsoft Learn** em `data/modulos.json`, já que a Microsoft às vezes move ou renomeia os módulos.
+- The **domain weights** in `data/modulos.json` and the content against the official AZ-900 skills-measured guide, which Microsoft updates from time to time.
+- The **Microsoft Learn links** in `data/modulos.json` and `data/en/modulos.json`, since Microsoft sometimes moves or renames modules.
 
-## Próximos passos
+## Roadmap
 
-- [x] Publicar no Azure Static Web Apps com GitHub Actions
-- [x] Módulos cobrindo os três domínios da prova
-- [ ] Ampliar o banco de perguntas
-- [x] Simulado com perguntas de todos os módulos
-- [ ] Revisão espaçada das perguntas erradas
-- [ ] Meta de data da prova e cronograma
-- [ ] Login e progresso na nuvem (Functions + Cosmos DB)
+- [x] Publish on Azure Static Web Apps with GitHub Actions
+- [x] Modules covering all three exam domains
+- [x] Practice exam with questions from every module
+- [x] Portuguese and English versions
+- [ ] Grow the question bank
+- [ ] Spaced review of missed questions
+- [ ] Exam date goal and study schedule
+- [ ] Sign-in and cloud-synced progress (Functions + Cosmos DB)
 
-## Hospedagem
+## Hosting
 
-O site é estático e fica no **Azure Static Web Apps** (plano Free). Cada push na branch `main` publica automaticamente pelo GitHub Actions (`.github/workflows/`).
+The site is static and hosted on **Azure Static Web Apps** (Free plan). Every push to the `main` branch deploys automatically through GitHub Actions (`.github/workflows/`).
 
-## Contribuindo
+## Contributing
 
-Sugestões de perguntas e correções são bem-vindas via issue ou pull request. Escreva as perguntas com suas próprias palavras, sem copiar de simulados de terceiros nem de material de prova real.
+Question suggestions and corrections are welcome through issues or pull requests. Write questions in your own words, without copying from third-party practice tests or real exam material.
 
-## Autor
+## Author
 
-Feito por **Alex "Rokay" Costa** · [rokay.dev](https://rokay.dev) · [LinkedIn](https://www.linkedin.com/in/alex-costa-2232b434b/)
+Built by **Alex "Rokay" Costa** · [rokay.dev](https://rokay.dev) · [LinkedIn](https://www.linkedin.com/in/alex-costa-2232b434b/)
 
-## About (English)
+## Sobre (Português)
 
-**AZ-900 Study** is a free, open study tool for the **Microsoft Azure Fundamentals (AZ-900)** certification: 12 modules covering the three exam domains, 105 original quiz questions with explanations, and a 40-question, 45-minute practice exam with an estimated score, results by domain, and a question review. Progress is saved in your browser, with no sign-in.
+O **Estudo AZ-900** é uma ferramenta gratuita e aberta para estudar para a certificação **Microsoft Azure Fundamentals (AZ-900)**: 12 módulos cobrindo os três domínios da prova, 105 perguntas originais com explicação e um simulado de 40 questões em 45 minutos, com nota estimada, resultado por domínio e revisão das questões. O progresso fica salvo no navegador, sem login.
 
-The site is available in Portuguese and English. Use the PT | EN switch in the header, or open the English version directly: https://polite-coast-0d1f46c0f.6.azurestaticapps.net/?lang=en
+O site está disponível em português e inglês. Use o seletor PT | EN no topo ou abra direto a versão em português: https://polite-coast-0d1f46c0f.6.azurestaticapps.net/?lang=pt
 
-It's an independent community project, not affiliated with Microsoft. Built by **Alex "Rokay" Costa** and hosted on Azure Static Web Apps.
+Projeto independente da comunidade, sem vínculo com a Microsoft. Feito por **Alex "Rokay" Costa** e hospedado no Azure Static Web Apps.

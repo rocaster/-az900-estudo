@@ -80,6 +80,37 @@ h3 {
   margin: 6px 0;
 }
 
+h4 {
+  font-size: 1.1rem;
+  margin: 6px 0;
+}
+
+/* Grupo de módulos de um domínio, na página inicial */
+.grupo {
+  margin-top: 20px;
+}
+
+.grupo-titulo {
+  margin: 0 0 8px;
+  color: var(--texto-suave);
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+/* Listas dentro dos cartões de módulo */
+.lista {
+  margin: 8px 0 0;
+  padding-left: 1.25em;
+}
+
+.lista li {
+  margin: 6px 0;
+}
+
+.cartao.objetivos {
+  border-left: 4px solid var(--destaque);
+}
+
 .abertura p {
   color: var(--texto-suave);
   max-width: 60ch;

@@ -6,28 +6,172 @@
   ],
   "modulos": [
     {
-      "id": "conceitos-nuvem",
+      "id": "computacao-em-nuvem",
       "dominio": "conceitos",
-      "titulo": "O que é computação em nuvem",
-      "resumo": "Modelo de consumo, benefícios da nuvem, IaaS, PaaS, SaaS e responsabilidade compartilhada.",
-      "minutos": 20,
-      "learn": "https://learn.microsoft.com/training/paths/microsoft-azure-fundamentals-describe-cloud-concepts",
+      "titulo": "Computação em nuvem",
+      "resumo": "O que é a nuvem, responsabilidade compartilhada, modelos de nuvem, modelo de consumo e serverless.",
+      "minutos": 25,
+      "learn": "https://learn.microsoft.com/training/modules/describe-cloud-compute",
+      "objetivos": [
+        "Definir computação em nuvem",
+        "Descrever o modelo de responsabilidade compartilhada",
+        "Definir os modelos de nuvem: pública, privada e híbrida",
+        "Identificar casos de uso adequados para cada modelo de nuvem",
+        "Descrever o modelo baseado em consumo",
+        "Comparar modelos de preço da nuvem",
+        "Descrever serverless"
+      ],
       "conteudo": [
         {
-          "titulo": "Pague pelo que usar",
-          "texto": "Num datacenter próprio, a empresa compra servidores antes de precisar deles. Esse gasto inicial é chamado de CapEx (despesa de capital). Na nuvem, você aluga recursos e paga pelo consumo, mês a mês. Isso é o OpEx (despesa operacional). Quem testa uma ideia nova não precisa investir em hardware antes de saber se vai funcionar."
+          "titulo": "O que é computação em nuvem",
+          "texto": "Computação em nuvem é usar recursos de TI pela internet, sob demanda: máquinas virtuais, armazenamento, bancos de dados, rede e também serviços mais novos, como IoT, machine learning e inteligência artificial. Em vez de comprar e montar hardware, você cria o recurso em minutos e o descarta quando não precisar mais. Como não depende de um datacenter só seu, a capacidade pode crescer rápido, sem esperar a construção de novas instalações."
         },
         {
-          "titulo": "Benefícios da nuvem",
-          "texto": "Alta disponibilidade: o serviço continua no ar mesmo quando algo falha. Escalabilidade: dá para aumentar ou diminuir os recursos conforme a necessidade. Elasticidade: o ajuste acontece automaticamente, acompanhando a demanda (por exemplo, o pico de acessos na Black Friday). Agilidade: criar um recurso leva minutos, não semanas. Recuperação de desastres: dados e serviços podem ser replicados em outro local."
+          "titulo": "Modelo de responsabilidade compartilhada",
+          "texto": "A segurança na nuvem é dividida entre o provedor e o cliente.",
+          "itens": [
+            "Sempre do provedor: o datacenter físico, a rede física e os servidores físicos (hosts).",
+            "Sempre do cliente: os dados e as informações guardados na nuvem, os dispositivos que se conectam ao ambiente e as contas e identidades de pessoas, serviços e dispositivos.",
+            "Varia conforme o tipo de serviço: sistema operacional, controles de rede, aplicações e infraestrutura.",
+            "No ambiente próprio (on-premises), tudo é seu. No IaaS você assume a maior parte, no PaaS a responsabilidade é dividida, e no SaaS o provedor assume a maior parte."
+          ]
         },
         {
-          "titulo": "IaaS, PaaS e SaaS",
-          "texto": "IaaS (infraestrutura como serviço): você recebe a máquina virtual e cuida do sistema operacional e de tudo que roda nela. Exemplo: Azure Virtual Machines. PaaS (plataforma como serviço): o provedor cuida da infraestrutura e do sistema, e você cuida só do código e dos dados. Exemplo: Azure App Service. SaaS (software como serviço): você usa o software pronto. Exemplo: Microsoft 365."
+          "titulo": "Modelos de nuvem: pública, privada e híbrida",
+          "texto": "Existem três modelos principais, e cada um serve a um tipo de necessidade.",
+          "itens": [
+            "Nuvem pública: infraestrutura criada e mantida por um provedor externo, disponível para quem quiser contratar. Vantagens: não há gasto de capital para crescer, os recursos são criados e removidos rapidamente e você paga só pelo que usa. Limitação: você não tem controle total sobre os recursos e a segurança.",
+            "Nuvem privada: usada por uma única organização, em um datacenter próprio ou em um datacenter dedicado, que pode ser operado por terceiros. Vantagens: controle total sobre recursos e segurança, e seus dados não dividem espaço com os de outros clientes. Limitações: custo maior, compra e manutenção do hardware por sua conta e menos dos benefícios da nuvem pública.",
+            "Nuvem híbrida: combina nuvem pública e privada, conectadas entre si. Serve, por exemplo, para manter dados sensíveis no ambiente privado e usar a nuvem pública nos picos de demanda, ou para decidir quais serviços ficam em cada lado por exigência de segurança, conformidade ou legislação.",
+            "Multicloud: usar dois ou mais provedores de nuvem pública, por exemplo para aproveitar recursos diferentes ou durante uma migração. Vale conhecer o termo, porque é um cenário cada vez mais comum."
+          ]
         },
         {
-          "titulo": "Responsabilidade compartilhada",
-          "texto": "A segurança na nuvem é dividida entre o provedor e o cliente. A Microsoft sempre cuida da parte física (datacenters, hardware, rede física). Os dados, as contas e os acessos são sempre responsabilidade do cliente. O que fica no meio muda conforme o modelo: no IaaS o cliente cuida de mais coisas, e no SaaS, de menos."
+          "titulo": "Modelo de consumo e modelos de preço",
+          "texto": "Na nuvem você paga apenas pelos recursos que usa, em vez de comprar servidores antes de precisar deles. O Domínio 3 mostra como estimar e reduzir custos no Azure.",
+          "itens": [
+            "CapEx (despesa de capital): gasto inicial com infraestrutura física, como servidores, equipamentos de rede e espaço de datacenter.",
+            "OpEx (despesa operacional): gasto contínuo com serviços ao longo do tempo. Como a nuvem é paga conforme o consumo, ela é classificada como OpEx.",
+            "Planejamento de capacidade: no datacenter próprio, prever demais desperdiça dinheiro com equipamento parado, e prever de menos prejudica o desempenho. Na nuvem, você ajusta os recursos à demanda real.",
+            "Pay-as-you-go (pague conforme o uso): você paga só pelo que consome, o que ajuda a planejar os custos operacionais e a crescer ou encolher conforme a carga muda."
+          ]
+        },
+        {
+          "titulo": "Serverless",
+          "texto": "Serverless é um modelo em que você se concentra no código e não gerencia os servidores. Os servidores continuam existindo, mas quem cuida deles é o provedor.",
+          "itens": [
+            "Orientado a eventos: o código roda quando algo o dispara, como uma requisição HTTP, um temporizador ou uma mensagem de outro serviço.",
+            "Escala sozinho: acompanha a demanda, o que combina com cargas variáveis ou imprevisíveis.",
+            "Paga só pelo uso: os recursos são alocados quando o código dispara e liberados quando termina, e você paga pelo tempo de processamento usado.",
+            "Exemplo no Azure: Azure Functions."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "beneficios-da-nuvem",
+      "dominio": "conceitos",
+      "titulo": "Benefícios da nuvem",
+      "resumo": "Alta disponibilidade, escalabilidade, confiabilidade, previsibilidade, segurança, governança e gerenciabilidade.",
+      "minutos": 20,
+      "learn": "https://learn.microsoft.com/training/modules/describe-benefits-use-cloud-services",
+      "objetivos": [
+        "Descrever os benefícios de alta disponibilidade e escalabilidade na nuvem",
+        "Descrever os benefícios de confiabilidade e previsibilidade na nuvem",
+        "Descrever os benefícios de segurança e governança na nuvem",
+        "Descrever os benefícios de gerenciabilidade na nuvem"
+      ],
+      "conteudo": [
+        {
+          "titulo": "Alta disponibilidade e escalabilidade",
+          "texto": "Alta disponibilidade é manter os recursos acessíveis quando você precisa deles, apesar de falhas ou interrupções. Cada serviço tem um SLA (acordo de nível de serviço), que é o compromisso de disponibilidade assumido pelo provedor.",
+          "itens": [
+            "Escalabilidade: ajustar os recursos à demanda. Ajuda a atender picos e a não pagar por capacidade parada, já que a cobrança é por consumo.",
+            "Escalabilidade vertical (scale up e scale down): muda a capacidade de um recurso que já existe, por exemplo mais CPU e memória em uma máquina virtual.",
+            "Escalabilidade horizontal (scale out e scale in): muda a quantidade de recursos, por exemplo adicionar ou remover máquinas virtuais ou contêineres, de forma manual ou automática.",
+            "Elasticidade: é o ajuste automático dos recursos, para mais e para menos, conforme a demanda sobe e desce."
+          ]
+        },
+        {
+          "titulo": "Confiabilidade e previsibilidade",
+          "texto": "Confiabilidade é a capacidade de um sistema se recuperar de falhas e continuar funcionando. Como a nuvem é descentralizada, os recursos podem ficar em regiões do mundo inteiro: se uma região sofre um evento grave, as outras continuam no ar.",
+          "itens": [
+            "Previsibilidade de desempenho: ter os recursos necessários para uma boa experiência. Ajudam o autoscaling (adiciona e remove recursos conforme a demanda), o balanceamento de carga (redireciona o tráfego de áreas sobrecarregadas para as mais livres) e a alta disponibilidade.",
+            "Previsibilidade de custo: conseguir estimar os gastos. Você acompanha o uso em tempo real, analisa tendências e usa ferramentas como a calculadora de preços do Azure.",
+            "O Azure Well-Architected Framework reúne boas práticas que deixam custo e desempenho mais previsíveis."
+          ]
+        },
+        {
+          "titulo": "Segurança e governança",
+          "texto": "A nuvem ajuda a manter os recursos seguros e dentro dos padrões da empresa, em IaaS, PaaS e SaaS.",
+          "itens": [
+            "Modelos de governança (templates): fazem os recursos implantados seguirem padrões técnicos e exigências regulatórias, e permitem atualizar tudo em escala quando os padrões mudam.",
+            "Auditoria de conformidade: aponta recursos que saíram do padrão e sugere correções.",
+            "Atualizações automáticas: dependendo do modelo, o provedor aplica patches e atualizações por você.",
+            "Segurança por tipo de serviço: no IaaS você cuida do sistema operacional, dos programas instalados e dos patches. No PaaS e no SaaS, o provedor assume mais dessa manutenção.",
+            "Proteção de rede: provedores de nuvem costumam estar bem preparados para ataques de negação de serviço distribuída (DDoS)."
+          ]
+        },
+        {
+          "titulo": "Gerenciabilidade",
+          "texto": "Gerenciabilidade tem dois lados: gerenciar a nuvem (os recursos em si) e gerenciar na nuvem (como você acessa e controla o ambiente).",
+          "itens": [
+            "Gerenciamento da nuvem: autoscaling, templates com configurações predefinidas, monitoramento de saúde que detecta e substitui recursos com falha e alertas quase em tempo real quando uma métrica passa do limite.",
+            "Gerenciamento na nuvem: portal web (interface gráfica), CLI (linha de comando), APIs (integração com outros softwares) e PowerShell (scripts e automação)."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "tipos-de-servico",
+      "dominio": "conceitos",
+      "titulo": "Tipos de serviço: IaaS, PaaS e SaaS",
+      "resumo": "As três camadas de serviço, quem cuida de quê em cada uma e quando escolher cada uma.",
+      "minutos": 20,
+      "learn": "https://learn.microsoft.com/training/modules/describe-cloud-service-types",
+      "objetivos": [
+        "Descrever infraestrutura como serviço (IaaS)",
+        "Descrever plataforma como serviço (PaaS)",
+        "Descrever software como serviço (SaaS)",
+        "Identificar casos de uso adequados para cada tipo de serviço (IaaS, PaaS e SaaS)"
+      ],
+      "conteudo": [
+        {
+          "titulo": "IaaS: infraestrutura como serviço",
+          "texto": "É o modelo mais flexível: você aluga a infraestrutura do provedor e decide como usá-la. O provedor mantém o hardware físico, a conectividade e a segurança física. Tudo acima disso é seu: instalar, configurar e atualizar o sistema operacional, configurar rede, banco de dados e armazenamento, e muitos controles de segurança. Exemplo no Azure: Azure Virtual Machines.",
+          "itens": [
+            "Lift-and-shift: migrar para a nuvem recriando um ambiente parecido com o do seu datacenter, com poucas mudanças.",
+            "Teste e desenvolvimento: replicar rápido configurações conhecidas e ligar e desligar o ambiente quando quiser, mantendo o controle total.",
+            "Contrapartida: é o modelo em que você carrega a maior parte da responsabilidade operacional."
+          ]
+        },
+        {
+          "titulo": "PaaS: plataforma como serviço",
+          "texto": "O provedor cuida da infraestrutura e da plataforma, e você se concentra em criar e rodar suas aplicações. O provedor gerencia o sistema operacional, o middleware e as ferramentas, e você cuida do código da aplicação, dos dados e dos controles de acesso. Algumas configurações de rede e de segurança da aplicação são compartilhadas, conforme o serviço. Exemplos no Azure: Azure App Service e bancos de dados gerenciados.",
+          "itens": [
+            "Vantagens: você não cuida de patches nem de licenças de sistema operacional e de banco de dados, e já recebe recursos como escalabilidade e alta disponibilidade embutidos.",
+            "Desenvolvimento de aplicações: construir e personalizar aplicações em nuvem sobre componentes prontos.",
+            "Análise de dados e business intelligence: usar ferramentas gerenciadas para analisar dados, achar padrões e prever resultados."
+          ]
+        },
+        {
+          "titulo": "SaaS: software como serviço",
+          "texto": "É o modelo mais completo do ponto de vista do produto: em vez de construir ou hospedar um software, você usa uma aplicação pronta. O provedor gerencia quase toda a pilha: infraestrutura, plataforma, manutenção da aplicação, atualizações e disponibilidade. Você cuida dos seus dados, das configurações de identidade e acesso e da segurança dos dispositivos que se conectam. Exemplo: Microsoft 365.",
+          "itens": [
+            "Casos de uso comuns: e-mail e mensagens, aplicações de produtividade, finanças e controle de despesas.",
+            "Vantagens: menor esforço operacional e início rápido, exigindo menos conhecimento técnico.",
+            "Contrapartida: é o modelo menos flexível, porque você usa o software do jeito que o provedor o construiu."
+          ]
+        },
+        {
+          "titulo": "Como escolher",
+          "texto": "Pense em um equilíbrio entre controle e esforço. Quanto mais controle você quer, mais responsabilidade assume.",
+          "itens": [
+            "IaaS: mais controle e mais responsabilidade do cliente.",
+            "PaaS: meio-termo, com o provedor cuidando da plataforma e você, do código e dos dados.",
+            "SaaS: menos controle e menos esforço, com o provedor cuidando de quase tudo.",
+            "Em qualquer um deles vale o modelo de responsabilidade compartilhada: dados, identidades e dispositivos continuam sendo do cliente."
+          ]
         }
       ]
     },

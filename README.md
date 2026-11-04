@@ -7,7 +7,7 @@ Ferramenta gratuita e aberta para estudar para a certificação **Microsoft Azur
 ## O que já funciona (MVP)
 
 - Página inicial com o **progresso por domínio** da prova
-- **Módulos** de conteúdo com link para o Microsoft Learn
+- **Módulos** separados por domínio (com o peso de cada um na prova), cada um com uma lista "O que você precisa saber" baseada no guia oficial e link para o Microsoft Learn
 - **Quiz** por módulo, com explicação após cada resposta
 - Progresso salvo no navegador (sem login, sem banco de dados)
 
@@ -39,7 +39,7 @@ data/perguntas.json Perguntas do quiz, por módulo
 
 ## Como adicionar conteúdo
 
-1. **Novo módulo:** adicione um item em `data/modulos.json`, com um `id` único e o `dominio` correspondente.
+1. **Novo módulo:** adicione um item em `data/modulos.json`, com um `id` único e o `dominio` correspondente. Os campos opcionais `objetivos` (lista "O que você precisa saber") e `itens` (marcadores dentro de uma seção do conteúdo) ajudam a organizar o texto.
 2. **Perguntas:** em `data/perguntas.json`, crie uma lista com o mesmo `id` do módulo. Cada pergunta tem `pergunta`, `opcoes`, `correta` (posição da resposta certa, começando em 0) e `explicacao`.
 
 ## Como o percentual é calculado

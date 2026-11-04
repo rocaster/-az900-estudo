@@ -1,59 +1,283 @@
 {
-  "conceitos-nuvem": [
+  "computacao-em-nuvem": [
     {
-      "pergunta": "Uma empresa troca seus servidores próprios por recursos na nuvem e passa a pagar apenas pelo que consome. Como se chama esse modelo de gasto?",
+      "pergunta": "Qual descrição define melhor computação em nuvem?",
       "opcoes": [
-        "OpEx (despesa operacional)",
-        "CapEx (despesa de capital)",
-        "Licenciamento perpétuo",
-        "Hospedagem dedicada com valor fixo"
+        "Entrega de serviços de computação, como servidores, armazenamento e bancos de dados, pela internet e sob demanda",
+        "Compra e instalação de servidores no datacenter da própria empresa",
+        "Um software instalado no computador de cada funcionário",
+        "Uma rede física privada entre duas filiais"
       ],
       "correta": 0,
-      "explicacao": "Pagar pelo consumo, de forma contínua, é OpEx. CapEx é o investimento inicial em hardware, típico do datacenter próprio."
+      "explicacao": "Na nuvem você usa recursos de TI pela internet, quando precisa, sem comprar e manter o hardware. Comprar servidores para o próprio datacenter é o modelo tradicional, o on-premises."
     },
     {
-      "pergunta": "Uma loja virtual recebe muito mais acessos na Black Friday. Os recursos aumentam sozinhos durante o pico e diminuem depois. Que característica da nuvem isso descreve?",
+      "pergunta": "Em qualquer tipo de serviço de nuvem, qual item é sempre responsabilidade do cliente?",
       "opcoes": [
-        "Elasticidade",
-        "Soberania de dados",
-        "Governança",
-        "Recuperação de desastres"
+        "O datacenter físico",
+        "A rede física do provedor",
+        "Os dados e as informações guardados na nuvem",
+        "Os servidores físicos (hosts)"
       ],
-      "correta": 0,
-      "explicacao": "Elasticidade é ajustar os recursos automaticamente conforme a demanda, para mais e para menos. Escalabilidade é a capacidade de crescer ou diminuir, mas não diz que isso acontece sozinho."
+      "correta": 2,
+      "explicacao": "O provedor sempre cuida da parte física: datacenter, rede física e hosts. O cliente sempre cuida dos dados, dos dispositivos que se conectam e das contas e identidades."
     },
     {
-      "pergunta": "Você criou uma máquina virtual no Azure (IaaS). Quem é responsável por instalar as atualizações de segurança do sistema operacional dela?",
+      "pergunta": "Uma startup precisa de recursos que cresçam rápido, sem comprar hardware e pagando só pelo que usa. Qual modelo de nuvem combina mais com isso?",
       "opcoes": [
-        "Você, o cliente",
-        "A Microsoft, sempre",
-        "Ninguém, o Azure atualiza tudo sozinho",
-        "O provedor de internet"
-      ],
-      "correta": 0,
-      "explicacao": "No IaaS, a Microsoft cuida da infraestrutura física, mas o sistema operacional e o que roda nele ficam com o cliente."
-    },
-    {
-      "pergunta": "Qual destes é um exemplo de SaaS?",
-      "opcoes": [
-        "Microsoft 365",
-        "Azure Virtual Machines",
-        "Azure Virtual Network",
-        "Azure Managed Disks"
-      ],
-      "correta": 0,
-      "explicacao": "No SaaS você usa o software pronto, sem se preocupar com servidor ou sistema. Máquinas virtuais, redes e discos são blocos de infraestrutura."
-    },
-    {
-      "pergunta": "Você quer publicar uma aplicação web sem se preocupar com servidor e sistema operacional, cuidando só do código e dos dados. Qual modelo de serviço combina com isso?",
-      "opcoes": [
-        "PaaS",
-        "IaaS",
-        "SaaS",
+        "Nuvem privada",
+        "Nuvem pública",
+        "Nuvem híbrida",
         "On-premises"
       ],
+      "correta": 1,
+      "explicacao": "Na nuvem pública não há gasto de capital para crescer, os recursos são criados e removidos rapidamente e o pagamento é pelo uso."
+    },
+    {
+      "pergunta": "Qual característica descreve uma nuvem privada?",
+      "opcoes": [
+        "É compartilhada por qualquer pessoa que contrate o serviço, sem controle sobre o hardware",
+        "É uma combinação obrigatória de duas nuvens públicas",
+        "A organização não tem custo nenhum com hardware",
+        "É usada por uma única organização, que tem controle total sobre recursos e segurança"
+      ],
+      "correta": 3,
+      "explicacao": "A nuvem privada atende uma só organização e dá controle total, mas costuma custar mais, porque exige comprar e manter o hardware."
+    },
+    {
+      "pergunta": "Uma empresa mantém dados sensíveis no seu próprio datacenter, mas quer usar recursos da nuvem pública quando a demanda dispara. Que modelo ela está usando?",
+      "opcoes": [
+        "Nuvem pública",
+        "Nuvem privada",
+        "Nuvem híbrida",
+        "Multicloud"
+      ],
+      "correta": 2,
+      "explicacao": "A nuvem híbrida combina ambiente privado e nuvem pública. Multicloud seria usar dois ou mais provedores de nuvem pública."
+    },
+    {
+      "pergunta": "Sobre o modelo baseado em consumo, qual afirmação está correta?",
+      "opcoes": [
+        "Você paga um valor fixo por mês, independentemente do uso",
+        "Você paga apenas pelos recursos que usa, sem comprar hardware antecipadamente",
+        "Você precisa estimar a capacidade máxima e comprá-la antes de usar",
+        "O pagamento é feito integralmente no início do contrato"
+      ],
+      "correta": 1,
+      "explicacao": "No modelo de consumo você aluga os recursos, paga pelo uso e libera o que não precisa mais. Isso evita pagar por capacidade parada."
+    },
+    {
+      "pergunta": "Qual é a diferença entre CapEx e OpEx?",
+      "opcoes": [
+        "CapEx é o gasto inicial com infraestrutura física, e OpEx é o gasto contínuo com serviços ao longo do tempo",
+        "CapEx é o gasto contínuo com serviços, e OpEx é o gasto inicial com infraestrutura física",
+        "CapEx se aplica a software, e OpEx se aplica a hardware",
+        "Não há diferença, os dois termos significam a mesma coisa"
+      ],
       "correta": 0,
-      "explicacao": "No PaaS o provedor gerencia a infraestrutura e a plataforma, e você entrega o código. O Azure App Service é um exemplo."
+      "explicacao": "Servidores e datacenter próprio são CapEx. Serviços de nuvem pagos conforme o consumo são OpEx."
+    },
+    {
+      "pergunta": "O que caracteriza a computação serverless?",
+      "opcoes": [
+        "Não existe nenhum servidor físico envolvido em nenhum momento",
+        "Você precisa provisionar e manter máquinas virtuais para rodar o código",
+        "O código fica rodando 24 horas por dia, com custo fixo",
+        "Você foca no código, que roda em resposta a eventos, e paga pelo tempo de execução, sem gerenciar servidores"
+      ],
+      "correta": 3,
+      "explicacao": "Os servidores existem, mas são gerenciados pelo provedor. O código é disparado por eventos, escala sozinho e você paga pelo que usa. Azure Functions é um exemplo."
+    }
+  ],
+  "beneficios-da-nuvem": [
+    {
+      "pergunta": "O que significa alta disponibilidade?",
+      "opcoes": [
+        "Manter os recursos acessíveis quando necessários, apesar de falhas ou interrupções",
+        "Ter sempre o dobro da capacidade que você precisa",
+        "Pagar menos quando o uso cai",
+        "Rodar o sistema inteiro em um único datacenter muito potente"
+      ],
+      "correta": 0,
+      "explicacao": "Alta disponibilidade é manter o serviço acessível mesmo com falhas. Por isso cada serviço tem um SLA que indica a disponibilidade prometida."
+    },
+    {
+      "pergunta": "O que é um SLA (acordo de nível de serviço) de um provedor de nuvem?",
+      "opcoes": [
+        "Uma lista com os preços de cada recurso",
+        "O compromisso de disponibilidade que o provedor assume para cada serviço",
+        "Uma licença para usar um software",
+        "Um relatório de incidentes do último mês"
+      ],
+      "correta": 1,
+      "explicacao": "O SLA é a garantia de tempo no ar que o provedor assume para um serviço. Ao projetar uma solução, você precisa considerar o SLA de cada serviço usado."
+    },
+    {
+      "pergunta": "Você aumentou a quantidade de CPU e de memória de uma máquina virtual que já existia, para suportar mais carga. Que tipo de escalabilidade é essa?",
+      "opcoes": [
+        "Escalabilidade horizontal (scale out)",
+        "Balanceamento de carga",
+        "Escalabilidade vertical (scale up)",
+        "Redundância geográfica"
+      ],
+      "correta": 2,
+      "explicacao": "Mudar a capacidade de um recurso que já existe é escalabilidade vertical. Adicionar mais recursos, como novas VMs, é escalabilidade horizontal."
+    },
+    {
+      "pergunta": "Para atender mais acessos, você adiciona mais instâncias da aplicação, por exemplo mais máquinas virtuais ou contêineres. Que tipo de escalabilidade é essa?",
+      "opcoes": [
+        "Escalabilidade horizontal (scale out)",
+        "Escalabilidade vertical (scale up)",
+        "Recuperação de desastres",
+        "Governança"
+      ],
+      "correta": 0,
+      "explicacao": "Escalabilidade horizontal muda a quantidade de recursos, e pode ser feita manualmente ou de forma automática."
+    },
+    {
+      "pergunta": "Um aplicativo de ingressos tem picos às sextas-feiras e quase nenhum uso nos outros dias. A plataforma aumenta e reduz as instâncias automaticamente. Qual benefício isso ilustra?",
+      "opcoes": [
+        "Governança",
+        "Elasticidade",
+        "Soberania de dados",
+        "Gerenciamento por CLI"
+      ],
+      "correta": 1,
+      "explicacao": "Elasticidade é o ajuste automático dos recursos para mais e para menos, acompanhando a demanda."
+    },
+    {
+      "pergunta": "Uma região inteira sofre um evento grave, mas a aplicação continua funcionando em outra região. Qual benefício da nuvem isso ilustra?",
+      "opcoes": [
+        "Previsibilidade de custo",
+        "Governança",
+        "Confiabilidade",
+        "Gerenciabilidade"
+      ],
+      "correta": 2,
+      "explicacao": "Confiabilidade é a capacidade de se recuperar de falhas e continuar funcionando. Como a nuvem é descentralizada, outras regiões seguem no ar."
+    },
+    {
+      "pergunta": "Qual recurso ajuda a prever e planejar os gastos na nuvem (previsibilidade de custo)?",
+      "opcoes": [
+        "Balanceador de carga",
+        "Zonas de disponibilidade",
+        "Calculadora de preços do Azure",
+        "Gerenciamento por CLI"
+      ],
+      "correta": 2,
+      "explicacao": "A calculadora de preços estima gastos futuros. Balanceamento de carga e autoscaling ajudam na previsibilidade de desempenho, não de custo."
+    },
+    {
+      "pergunta": "Sua empresa precisa garantir que os recursos implantados sigam padrões técnicos e regulatórios, e quer identificar os que saíram do padrão. Qual benefício da nuvem apoia isso?",
+      "opcoes": [
+        "Elasticidade",
+        "Governança, com modelos de governança e auditoria de conformidade",
+        "Escalabilidade vertical",
+        "Previsibilidade de custo"
+      ],
+      "correta": 1,
+      "explicacao": "Modelos de governança aplicam os padrões aos recursos, e a auditoria de conformidade aponta o que saiu do padrão e sugere correções."
+    },
+    {
+      "pergunta": "Qual item é exemplo de gerenciamento NA nuvem, ou seja, de como você acessa e controla o ambiente?",
+      "opcoes": [
+        "Autoscaling que adiciona recursos conforme a demanda",
+        "Templates que implantam configurações predefinidas",
+        "Usar o portal web, a CLI, o PowerShell ou APIs para administrar os recursos",
+        "Monitoramento de saúde que substitui recursos com falha automaticamente"
+      ],
+      "correta": 2,
+      "explicacao": "Gerenciamento na nuvem é a forma de acesso: portal, CLI, APIs e PowerShell. Autoscaling, templates, monitoramento de saúde e alertas são gerenciamento da nuvem, ou seja, dos recursos em si."
+    }
+  ],
+  "tipos-de-servico": [
+    {
+      "pergunta": "Qual tipo de serviço dá mais controle sobre o ambiente e, em troca, deixa mais responsabilidade com o cliente?",
+      "opcoes": [
+        "SaaS",
+        "PaaS",
+        "IaaS",
+        "Todos dão o mesmo nível de controle"
+      ],
+      "correta": 2,
+      "explicacao": "No IaaS você controla tudo acima do hardware físico, como sistema operacional, rede e banco de dados, e por isso carrega a maior parte da responsabilidade operacional."
+    },
+    {
+      "pergunta": "Uma empresa quer migrar suas aplicações para a nuvem recriando um ambiente parecido com o do seu datacenter, com o mínimo de mudanças (lift-and-shift). Qual tipo de serviço combina melhor?",
+      "opcoes": [
+        "IaaS",
+        "PaaS",
+        "SaaS",
+        "Nenhum, é obrigatório reescrever tudo"
+      ],
+      "correta": 0,
+      "explicacao": "O IaaS permite recriar um ambiente semelhante ao on-premises e mover as cargas de trabalho com poucas alterações."
+    },
+    {
+      "pergunta": "Em um serviço IaaS, o que o provedor mantém?",
+      "opcoes": [
+        "O sistema operacional e suas atualizações",
+        "A configuração do banco de dados",
+        "Os dados do cliente",
+        "O hardware físico, a conectividade e a segurança física"
+      ],
+      "correta": 3,
+      "explicacao": "No IaaS o provedor cuida da camada física. O sistema operacional, os patches, a rede e os dados ficam com o cliente."
+    },
+    {
+      "pergunta": "No PaaS, o que costuma ficar sob responsabilidade do cliente?",
+      "opcoes": [
+        "O hardware físico",
+        "O sistema operacional e o middleware",
+        "O código da aplicação, os dados e o controle de acesso",
+        "A segurança física do datacenter"
+      ],
+      "correta": 2,
+      "explicacao": "No PaaS o provedor gerencia infraestrutura, sistema operacional e plataforma. O cliente cuida do código, dos dados e dos acessos."
+    },
+    {
+      "pergunta": "Qual destes serviços é um exemplo de PaaS?",
+      "opcoes": [
+        "Azure Virtual Machines",
+        "Azure App Service",
+        "Microsoft 365",
+        "Um servidor físico no escritório"
+      ],
+      "correta": 1,
+      "explicacao": "O Azure App Service hospeda aplicações web sem você gerenciar o sistema operacional. Virtual Machines é IaaS e Microsoft 365 é SaaS."
+    },
+    {
+      "pergunta": "Qual é uma vantagem do SaaS?",
+      "opcoes": [
+        "Menor esforço operacional, porque o provedor cuida da maior parte da manutenção",
+        "Maior flexibilidade para configurar o sistema operacional",
+        "Maior controle sobre o hardware",
+        "Permite instalar qualquer software no servidor"
+      ],
+      "correta": 0,
+      "explicacao": "No SaaS o provedor gerencia quase toda a pilha. A contrapartida é a menor flexibilidade: você usa o software do jeito que ele foi construído."
+    },
+    {
+      "pergunta": "Mesmo usando um SaaS como o Microsoft 365, o que continua sendo responsabilidade do cliente?",
+      "opcoes": [
+        "A instalação das atualizações do aplicativo",
+        "Os dados, as configurações de identidade e acesso e a segurança dos dispositivos que se conectam",
+        "A manutenção dos servidores",
+        "O datacenter físico"
+      ],
+      "correta": 1,
+      "explicacao": "No SaaS o provedor gerencia a aplicação e a infraestrutura, mas dados, identidades e dispositivos continuam sendo do cliente."
+    },
+    {
+      "pergunta": "Qual sequência ordena os tipos de serviço do MENOR para o MAIOR esforço de gerenciamento do cliente?",
+      "opcoes": [
+        "IaaS, PaaS, SaaS",
+        "PaaS, SaaS, IaaS",
+        "SaaS, PaaS, IaaS",
+        "IaaS, SaaS, PaaS"
+      ],
+      "correta": 2,
+      "explicacao": "No SaaS o provedor assume quase tudo, no PaaS a responsabilidade é dividida e no IaaS o cliente assume a maior parte."
     }
   ],
   "regioes-e-grupos": [

@@ -49,7 +49,7 @@ O percentual de cada domínio é a média das **melhores notas** dos quizzes dos
 ## Antes de publicar, confira
 
 - Os **pesos dos domínios** em `data/modulos.json` e o conteúdo, comparando com o guia oficial de habilidades medidas da AZ-900, que a Microsoft atualiza de tempos em tempos.
-- Os **links do Microsoft Learn** em `data/modulos.json`. O módulo de governança aponta por enquanto para o guia de estudo oficial da AZ-900; troque pelo link do módulo certo quando você o escolher.
+- Os **links do Microsoft Learn** em `data/modulos.json`, já que a Microsoft às vezes move ou renomeia os módulos.
 
 ## Próximos passos
 

@@ -785,6 +785,107 @@
       "explicacao": "O Microsoft Defender for Cloud gerencia a postura de segurança e protege contra ameaças no Azure, no on-premises e em outras nuvens, como AWS e GCP, com secure score, recomendações e alertas."
     }
   ],
+  "gerenciamento-de-custos": [
+    {
+      "pergunta": "Uma equipe quer estimar quanto vai custar por mês uma aplicação com App Service, banco de dados e armazenamento, antes de criar qualquer recurso. Qual ferramenta deve usar?",
+      "opcoes": [
+        "Azure Service Health",
+        "Calculadora de preços do Azure",
+        "Azure Advisor",
+        "Análise de custos do Cost Management"
+      ],
+      "correta": 1,
+      "explicacao": "A calculadora de preços estima o custo antes da implantação, sem provisionar nem cobrar nada. A análise de custos mostra o que já foi gasto."
+    },
+    {
+      "pergunta": "Depois de alguns meses no Azure, um gestor quer ver os gastos reais agrupados por grupo de recursos e por serviço, para descobrir para onde o dinheiro está indo. Qual recurso deve usar?",
+      "opcoes": [
+        "Análise de custos (cost analysis) do Microsoft Cost Management",
+        "Calculadora de preços",
+        "Bloqueio de recurso",
+        "Azure Policy"
+      ],
+      "correta": 0,
+      "explicacao": "A análise de custos mostra os custos reais de forma visual, agrupados por assinatura, grupo de recursos, serviço, região e outros critérios."
+    },
+    {
+      "pergunta": "Uma empresa quer ser avisada por e-mail quando o gasto mensal da assinatura de desenvolvimento atingir 80% do valor planejado. O que ela deve configurar?",
+      "opcoes": [
+        "Uma tag CostCenter em cada recurso",
+        "Uma recomendação do Azure Advisor",
+        "Um bloqueio ReadOnly na assinatura",
+        "Um orçamento (budget) com alerta no Cost Management"
+      ],
+      "correta": 3,
+      "explicacao": "O orçamento define o limite de gasto, e o alerta de orçamento avisa no portal e por e-mail quando o percentual configurado é atingido. Para parar recursos automaticamente, é preciso configurar uma automação."
+    },
+    {
+      "pergunta": "A mesma VM, com exatamente a mesma configuração, aparece com preços diferentes em duas regiões do Azure. Por que isso acontece?",
+      "opcoes": [
+        "O preço depende do nome do grupo de recursos",
+        "Custos como energia, mão de obra, impostos e taxas variam conforme o local",
+        "Regiões mais antigas são sempre mais caras",
+        "É um erro, porque o preço do Azure é igual no mundo todo"
+      ],
+      "correta": 1,
+      "explicacao": "A geografia é um dos fatores de custo: as diferenças locais de energia, mão de obra, impostos e taxas fazem o mesmo recurso custar diferente em regiões diferentes."
+    },
+    {
+      "pergunta": "Uma equipe excluiu várias VMs de teste, mas a cobrança continuou. Qual é a causa mais provável?",
+      "opcoes": [
+        "Discos, IPs públicos e outros recursos criados junto com as VMs continuaram existindo",
+        "As tags das VMs continuam gerando cobrança",
+        "A exclusão de uma VM só vale depois de 30 dias",
+        "O Azure cobra as VMs excluídas até o fim do ano"
+      ],
+      "correta": 0,
+      "explicacao": "Ao criar uma VM, outros recursos, como discos e rede, também são criados, e eles podem não ser removidos junto com ela. Manter o ambiente limpo faz parte do controle de custos."
+    },
+    {
+      "pergunta": "Sobre o tráfego de rede no Azure, qual afirmação está correta?",
+      "opcoes": [
+        "Zonas de cobrança e zonas de disponibilidade são a mesma coisa",
+        "Parte da entrada de dados nos datacenters é gratuita, e a saída é cobrada conforme zonas de cobrança",
+        "Toda transferência de dados, de entrada e de saída, é sempre gratuita",
+        "Só a transferência dentro da mesma região é cobrada"
+      ],
+      "correta": 1,
+      "explicacao": "A saída de dados (egress) é cobrada conforme zonas de cobrança, que são grupos de regiões usados para preço. Elas não têm relação com as zonas de disponibilidade."
+    },
+    {
+      "pergunta": "Uma empresa quer saber quanto cada centro de custo gasta no Azure, mas recursos de vários centros ficam na mesma assinatura e no mesmo grupo de recursos. O que mais ajuda?",
+      "opcoes": [
+        "Usar a calculadora de preços",
+        "Aplicar tags como CostCenter nos recursos e filtrar os custos por elas",
+        "Aplicar bloqueios de recurso",
+        "Criar uma região para cada centro de custo"
+      ],
+      "correta": 1,
+      "explicacao": "Tags são metadados de nome e valor que permitem agrupar recursos em relatórios de custo e fazer o rateio por centro de custo, independentemente da assinatura ou do grupo."
+    },
+    {
+      "pergunta": "Uma tag Environment = Prod foi aplicada a um grupo de recursos. O que acontece com os recursos que estão dentro dele?",
+      "opcoes": [
+        "Todos recebem a tag automaticamente",
+        "Nada automaticamente: os recursos não herdam as tags do grupo de recursos",
+        "Os recursos sem essa tag são excluídos",
+        "A tag passa a funcionar como um bloqueio de exclusão"
+      ],
+      "correta": 1,
+      "explicacao": "Recursos não herdam tags da assinatura nem do grupo de recursos. Para exigir ou copiar tags, dá para usar o Azure Policy."
+    },
+    {
+      "pergunta": "Uma empresa compra no Azure Marketplace uma VM com um software de terceiros já instalado. Como fica a cobrança?",
+      "opcoes": [
+        "É sempre gratuita, porque o Marketplace é da Microsoft",
+        "Ela paga só ao fornecedor, nunca pelo uso do Azure",
+        "A cobrança acontece uma única vez, na compra, sem custo de uso",
+        "Ela pode pagar os serviços do Azure usados e também o produto do fornecedor, com preço definido por ele"
+      ],
+      "correta": 3,
+      "explicacao": "No Marketplace, a conta pode incluir os serviços do Azure consumidos e o produto ou serviço do fornecedor. A forma de cobrança é definida pelo fornecedor."
+    }
+  ],
   "governanca-basica": [
     {
       "pergunta": "Sua empresa quer garantir que ninguém crie máquinas virtuais fora da região Brazil South. Qual serviço aplica essa regra?",
@@ -798,6 +899,17 @@
       "explicacao": "O Azure Policy define regras sobre como os recursos podem ser criados, como limitar as regiões permitidas."
     },
     {
+      "pergunta": "Uma empresa quer descobrir e classificar automaticamente dados sensíveis espalhados entre o Azure, bancos de dados on-premises e o Amazon S3, com um mapa único e a linhagem dos dados. Qual solução atende?",
+      "opcoes": [
+        "Microsoft Purview",
+        "Azure Policy",
+        "Azure Advisor",
+        "Bloqueios de recurso"
+      ],
+      "correta": 0,
+      "explicacao": "O Microsoft Purview é a família de soluções de governança de dados, risco e conformidade, com descoberta automática, classificação de dados sensíveis e linhagem, inclusive fora do Azure."
+    },
+    {
       "pergunta": "Qual recurso impede que um recurso importante seja excluído por acidente, mesmo por alguém com permissão total?",
       "opcoes": [
         "Bloqueio de recurso (lock) do tipo CanNotDelete",
@@ -807,6 +919,263 @@
       ],
       "correta": 0,
       "explicacao": "Um bloqueio vale até para quem tem permissão de proprietário. A exclusão só é possível depois que o bloqueio for removido."
+    },
+    {
+      "pergunta": "Uma equipe quer que um banco de dados de produção continue recebendo mudanças de configuração, mas que ninguém consiga excluí-lo. Qual bloqueio deve usar?",
+      "opcoes": [
+        "Delete (CanNotDelete)",
+        "Nenhum: basta dar a função Leitor para todos",
+        "ReadOnly",
+        "Uma iniciativa do Azure Policy"
+      ],
+      "correta": 0,
+      "explicacao": "O bloqueio Delete permite ler e alterar, mas impede a exclusão. O ReadOnly impediria também as alterações."
+    },
+    {
+      "pergunta": "Um bloqueio ReadOnly é aplicado a um grupo de recursos. O que acontece com os recursos dentro dele?",
+      "opcoes": [
+        "Eles podem ser alterados, mas não excluídos",
+        "Eles herdam o bloqueio e não podem ser alterados nem excluídos",
+        "Eles são movidos para outro grupo de recursos",
+        "Nada, porque o bloqueio vale só para o próprio grupo"
+      ],
+      "correta": 1,
+      "explicacao": "Bloqueios são herdados pelos recursos abaixo do escopo onde foram aplicados. O ReadOnly permite apenas leitura."
+    },
+    {
+      "pergunta": "No Azure Policy, como se chama um grupo de definições de política relacionadas, usado para acompanhar um objetivo maior de conformidade?",
+      "opcoes": [
+        "Iniciativa (initiative)",
+        "Tag",
+        "Bloqueio (lock)",
+        "Grupo de gerenciamento"
+      ],
+      "correta": 0,
+      "explicacao": "Uma iniciativa agrupa várias definições de política para acompanhar a conformidade com um objetivo maior, como um conjunto de recomendações de segurança."
+    },
+    {
+      "pergunta": "Uma política que permite apenas certos tamanhos de VM é atribuída a uma assinatura que já tem VMs. O que o Azure Policy faz com as VMs criadas antes da política?",
+      "opcoes": [
+        "Exclui automaticamente as VMs fora do padrão",
+        "Avalia essas VMs e aponta as que estão fora do padrão",
+        "Ignora as VMs antigas e avalia só as novas",
+        "Redimensiona as VMs antigas sem aviso"
+      ],
+      "correta": 1,
+      "explicacao": "O Azure Policy avalia também os recursos que já existem e mostra quais estão fora do padrão. A política também é aplicada quando alguém cria ou redimensiona uma VM."
+    },
+    {
+      "pergunta": "Qual é a diferença entre o Azure Policy e o Azure RBAC?",
+      "opcoes": [
+        "O Azure Policy controla o que as pessoas podem fazer, e o RBAC controla como os recursos devem ser configurados",
+        "O Azure Policy só funciona em recursos on-premises",
+        "Os dois fazem a mesma coisa, só com nomes diferentes",
+        "O RBAC controla o que as pessoas podem fazer, e o Azure Policy controla como os recursos devem ser configurados"
+      ],
+      "correta": 3,
+      "explicacao": "O RBAC trata de permissões de usuários, grupos e aplicações. O Azure Policy trata das regras que os recursos precisam seguir, como regiões permitidas ou tags obrigatórias."
+    }
+  ],
+  "ferramentas-de-gerenciamento": [
+    {
+      "pergunta": "Um administrador iniciante prefere gerenciar os recursos do Azure por uma interface gráfica no navegador, com dashboards personalizados. Qual ferramenta deve usar?",
+      "opcoes": [
+        "Portal do Azure",
+        "Azure CLI",
+        "Azure Arc",
+        "Templates ARM"
+      ],
+      "correta": 0,
+      "explicacao": "O portal do Azure é o console web com interface gráfica para criar, gerenciar e monitorar recursos, com dashboards personalizáveis."
+    },
+    {
+      "pergunta": "Um administrador está em um computador emprestado, onde não pode instalar nada, e precisa rodar comandos da Azure CLI já autenticado na conta dele. Qual é a melhor opção?",
+      "opcoes": [
+        "Azure Arc",
+        "Azure Service Health",
+        "Instalar o Azure PowerShell no computador",
+        "Azure Cloud Shell"
+      ],
+      "correta": 3,
+      "explicacao": "O Cloud Shell roda no navegador, não exige instalação e já vem autenticado com as credenciais do Azure, com Bash (Azure CLI) ou PowerShell."
+    },
+    {
+      "pergunta": "Qual afirmação compara corretamente o Azure PowerShell e a Azure CLI?",
+      "opcoes": [
+        "Só a Azure CLI permite automatizar tarefas com scripts",
+        "O Azure PowerShell só funciona no Windows",
+        "A Azure CLI só funciona dentro do portal do Azure",
+        "Os dois fazem praticamente as mesmas tarefas, e a principal diferença é a sintaxe dos comandos"
+      ],
+      "correta": 3,
+      "explicacao": "As duas ferramentas gerenciam o Azure pela API REST, servem para tarefas pontuais e scripts e rodam no Windows, Linux, macOS e Cloud Shell. A escolha costuma depender da linguagem que você conhece."
+    },
+    {
+      "pergunta": "Uma empresa tem servidores no próprio datacenter e clusters Kubernetes em outra nuvem, e quer gerenciá-los e aplicar políticas a partir do Azure, junto com os recursos do Azure. Qual serviço atende?",
+      "opcoes": [
+        "Microsoft Purview",
+        "Azure Arc",
+        "Templates ARM",
+        "Azure Cloud Shell"
+      ],
+      "correta": 1,
+      "explicacao": "O Azure Arc projeta recursos de fora do Azure no Azure Resource Manager, para gerenciá-los e governá-los como se estivessem no Azure."
+    },
+    {
+      "pergunta": "Qual afirmação descreve o Azure Resource Manager?",
+      "opcoes": [
+        "É uma ferramenta de linha de comando instalada no computador do administrador",
+        "É a camada de implantação e gerenciamento que recebe, autentica e autoriza as solicitações feitas aos recursos do Azure",
+        "É um serviço que só monitora o desempenho das aplicações",
+        "É usado apenas pelo portal, enquanto a CLI e o PowerShell falam direto com os serviços"
+      ],
+      "correta": 1,
+      "explicacao": "Toda solicitação, venha do portal, da CLI, do PowerShell, das APIs ou dos SDKs, passa pelo Azure Resource Manager, que a autentica, autoriza e repassa ao serviço."
+    },
+    {
+      "pergunta": "Uma equipe quer recriar o mesmo ambiente de forma idêntica em desenvolvimento, teste e produção, guardando a definição da infraestrutura em arquivos versionados. Qual abordagem atende?",
+      "opcoes": [
+        "Pedir ao Azure Advisor que gere os ambientes",
+        "Aplicar bloqueios de recurso em cada ambiente",
+        "Infraestrutura como código, com templates ARM ou Bicep",
+        "Criar tudo manualmente no portal, seguindo um checklist"
+      ],
+      "correta": 2,
+      "explicacao": "Com infraestrutura como código, a definição do ambiente fica em arquivos, e a mesma definição gera ambientes iguais sempre que for implantada."
+    },
+    {
+      "pergunta": "O que significa dizer que os templates ARM são declarativos?",
+      "opcoes": [
+        "Os templates só podem ser usados para excluir recursos",
+        "Você descreve o estado final desejado, e o Azure Resource Manager cuida da ordem e da execução",
+        "Você escreve cada comando na ordem exata em que deve ser executado",
+        "Os templates precisam ser escritos em PowerShell"
+      ],
+      "correta": 1,
+      "explicacao": "Em um template declarativo você diz o que quer, e não como fazer. O ARM valida o template, resolve as dependências e cria os recursos, em paralelo quando possível."
+    },
+    {
+      "pergunta": "Qual é a relação entre o Bicep e os templates ARM?",
+      "opcoes": [
+        "Bicep é um tipo de bloqueio de recurso",
+        "Bicep substitui o Azure Resource Manager e implanta recursos sem passar por ele",
+        "Bicep é uma linguagem declarativa, mais simples e concisa que o JSON, para implantar recursos pelo Azure Resource Manager",
+        "Bicep é uma ferramenta gráfica para montar dashboards no portal"
+      ],
+      "correta": 2,
+      "explicacao": "O Bicep tem o mesmo objetivo dos templates ARM em JSON, com uma sintaxe mais fácil de ler e escrever. As implantações continuam passando pelo Azure Resource Manager."
+    },
+    {
+      "pergunta": "Por que ferramentas diferentes, como o portal, o Azure PowerShell e a Azure CLI, produzem resultados consistentes no Azure?",
+      "opcoes": [
+        "Porque todas enviam as solicitações pela mesma API do Azure Resource Manager",
+        "Porque cada uma mantém a própria cópia dos recursos",
+        "Porque todas só funcionam dentro do Cloud Shell",
+        "Porque todas precisam ser instaladas no mesmo computador"
+      ],
+      "correta": 0,
+      "explicacao": "Como todas as solicitações passam pela mesma API do Azure Resource Manager, as capacidades e os resultados são os mesmos em qualquer ferramenta."
+    }
+  ],
+  "monitoramento": [
+    {
+      "pergunta": "Uma empresa quer recomendações personalizadas para reduzir custos e melhorar a segurança e a confiabilidade dos seus recursos no Azure. Qual serviço atende?",
+      "opcoes": [
+        "Azure Arc",
+        "Azure Service Health",
+        "Azure Advisor",
+        "Log Analytics"
+      ],
+      "correta": 2,
+      "explicacao": "O Azure Advisor avalia os seus recursos e faz recomendações, cada uma com uma ação sugerida, que você pode aplicar, adiar ou dispensar."
+    },
+    {
+      "pergunta": "Qual destas é uma das cinco categorias de recomendação do Azure Advisor?",
+      "opcoes": [
+        "Capacidade de rede (Network Capacity)",
+        "Migração (Migration)",
+        "Licenciamento (Licensing)",
+        "Excelência operacional (Operational Excellence)"
+      ],
+      "correta": 3,
+      "explicacao": "As categorias do Advisor são Confiabilidade, Segurança, Desempenho, Excelência operacional e Custo."
+    },
+    {
+      "pergunta": "Uma empresa quer ser avisada sobre manutenções planejadas e interrupções que afetem especificamente os serviços e as regiões que ela usa. Qual visão do Azure Service Health é a mais indicada?",
+      "opcoes": [
+        "Azure Status",
+        "Service Health",
+        "Azure Advisor",
+        "Resource Health"
+      ],
+      "correta": 1,
+      "explicacao": "O Service Health foca nos serviços e regiões que você usa, mostra interrupções, manutenções planejadas e avisos, e permite configurar alertas. O Azure Status é a visão global."
+    },
+    {
+      "pergunta": "Uma VM específica parou de responder, e o administrador quer saber se o problema é da plataforma Azure ou de alguma configuração dele. Qual visão ajuda mais?",
+      "opcoes": [
+        "Azure Advisor",
+        "Calculadora de preços",
+        "Resource Health",
+        "Azure Status"
+      ],
+      "correta": 2,
+      "explicacao": "O Resource Health mostra a saúde de um recurso individual e indica se o problema é do lado do Azure ou do seu."
+    },
+    {
+      "pergunta": "Qual visão do Azure Service Health mostra a saúde global de todos os serviços e regiões do Azure, inclusive os que você não usa?",
+      "opcoes": [
+        "Service Health",
+        "Azure Status",
+        "Resource Health",
+        "Application Insights"
+      ],
+      "correta": 1,
+      "explicacao": "O Azure Status dá a visão geral do Azure no mundo todo. O Service Health se limita ao que você usa, e o Resource Health olha um recurso específico."
+    },
+    {
+      "pergunta": "Um engenheiro quer escrever uma consulta para listar todos os erros registrados pelas VMs na última hora, a partir dos dados coletados pelo Azure Monitor. Qual ferramenta deve usar?",
+      "opcoes": [
+        "Azure Status",
+        "Calculadora de preços",
+        "Log Analytics",
+        "Azure Advisor"
+      ],
+      "correta": 2,
+      "explicacao": "O Log Analytics é a ferramenta do portal para escrever e executar consultas sobre os dados que o Azure Monitor coleta, das mais simples às análises avançadas."
+    },
+    {
+      "pergunta": "Uma equipe quer receber um e-mail sempre que a CPU de uma VM ficar acima de 80%. O que deve configurar no Azure Monitor?",
+      "opcoes": [
+        "Um orçamento no Cost Management",
+        "Uma recomendação do Azure Advisor",
+        "Um bloqueio ReadOnly na VM",
+        "Uma regra de alerta de métrica com um grupo de ações que envia o e-mail"
+      ],
+      "correta": 3,
+      "explicacao": "A regra de alerta define a condição (CPU acima de 80%), e o grupo de ações define quem é notificado e como."
+    },
+    {
+      "pergunta": "Uma equipe quer acompanhar o tempo de resposta, a taxa de falhas e as chamadas a dependências de uma aplicação web, com testes de disponibilidade. Qual recurso deve usar?",
+      "opcoes": [
+        "Microsoft Purview",
+        "Application Insights",
+        "Azure Arc",
+        "Resource Health"
+      ],
+      "correta": 1,
+      "explicacao": "O Application Insights, parte do Azure Monitor, acompanha o desempenho e o uso de aplicações web, inclusive fora do Azure, e oferece testes de disponibilidade."
+    },
+    {
+      "pergunta": "Qual afirmação sobre o Azure Monitor está correta?",
+      "opcoes": [
+        "Ele só monitora recursos do Azure, nunca do on-premises",
+        "Ele serve para estimar custos antes da implantação",
+        "Ele coleta métricas e logs de recursos e aplicações no Azure, no on-premises e em outras nuvens",
+        "Ele substitui o Azure Policy na aplicação de regras"
+      ],
+      "correta": 2,
+      "explicacao": "O Azure Monitor coleta, guarda e analisa métricas e logs de vários ambientes e os disponibiliza em dashboards, consultas e alertas."
     }
   ]
 }

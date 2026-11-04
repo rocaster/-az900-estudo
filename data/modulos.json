@@ -670,20 +670,291 @@
       ]
     },
     {
-      "id": "governanca-basica",
+      "id": "gerenciamento-de-custos",
       "dominio": "governanca",
-      "titulo": "Governança: Policy e bloqueios",
-      "resumo": "Quais regras valem para os recursos e como evitar exclusões e mudanças acidentais.",
-      "minutos": 15,
-      "learn": "https://learn.microsoft.com/credentials/certifications/resources/study-guides/az-900",
+      "titulo": "Gerenciamento de custos no Azure",
+      "resumo": "O que influencia a conta do Azure, a calculadora de preços, o Microsoft Cost Management (análise de custos, orçamentos e alertas) e as tags.",
+      "minutos": 30,
+      "learn": "https://learn.microsoft.com/pt-br/training/modules/describe-cost-management-azure/",
+      "objetivos": [
+        "Descrever os fatores que podem afetar os custos no Azure",
+        "Explorar a calculadora de preços (Pricing calculator)",
+        "Descrever os recursos de gerenciamento de custos no Azure",
+        "Descrever a finalidade das tags"
+      ],
       "conteudo": [
         {
+          "titulo": "Fatores que afetam os custos",
+          "texto": "No Azure você paga pelos recursos conforme usa, em vez de comprar e manter infraestrutura própria. O custo acompanha o uso real, mas vários fatores mudam o valor da conta.",
+          "itens": [
+            "Tipo de recurso e configurações: o serviço, as opções escolhidas e a região mudam o preço. Em uma conta de armazenamento pesam o tipo de dado, a camada de acesso, a redundância e a região. Em uma VM, as licenças de sistema operacional e de software, o processador e o número de núcleos, os discos e a interface de rede.",
+            "Consumo: no pay-as-you-go, quem usa mais no ciclo de cobrança paga mais, e quem usa menos paga menos.",
+            "Manutenção: ao excluir uma VM, recursos criados junto com ela, como discos e rede, podem continuar existindo e gerando cobrança. Acompanhar o ambiente e remover o que sobrou evita gasto desnecessário.",
+            "Geografia: energia, mão de obra, impostos e taxas variam de um lugar para outro, então o mesmo recurso pode custar diferente em regiões diferentes.",
+            "Tráfego de rede: parte da entrada de dados nos datacenters do Azure é gratuita, e a saída é cobrada conforme zonas de cobrança, que são grupos de regiões usados só para o preço da transferência de dados (não confunda com zonas de disponibilidade). Mover dados dentro da Europa, por exemplo, custa menos do que da Europa para a Ásia ou para a América do Sul.",
+            "Tipo de assinatura: algumas assinaturas incluem franquias de uso, como a conta gratuita, com produtos grátis por 12 meses e um crédito para os primeiros 30 dias.",
+            "Azure Marketplace: ao comprar uma solução de terceiros no Marketplace, você pode pagar os serviços do Azure usados e também o produto ou serviço do fornecedor, com preço definido por ele."
+          ]
+        },
+        {
+          "titulo": "Formas de pagar menos",
+          "texto": "Além do pay-as-you-go, o Azure tem opções de desconto para perfis de uso diferentes. Esse tópico não aparece no guia da prova, mas está no Microsoft Learn e ajuda a entender o fator consumo.",
+          "itens": [
+            "Reservations: compromisso com uma capacidade específica por um ou três anos, com desconto. Bom para cargas estáveis e previsíveis, como um banco de dados que roda 24 horas por dia.",
+            "Azure savings plan for compute: compromisso com um valor de gasto por hora em serviços de computação elegíveis, por um ou três anos. Dá mais flexibilidade do que as reservas.",
+            "Spot Virtual Machines: usam a capacidade ociosa do Azure por um preço bem menor, mas podem ser removidas quando o Azure precisar dessa capacidade de volta. Boas para cargas que toleram interrupção, como processamento em lote."
+          ]
+        },
+        {
+          "titulo": "Calculadora de preços",
+          "texto": "A calculadora de preços (Pricing calculator) estima quanto você vai gastar no Azure antes de criar qualquer coisa. Você monta uma configuração com recursos individuais, uma solução completa ou um cenário de exemplo e vê a estimativa.",
+          "itens": [
+            "Estima computação, armazenamento e rede, e considera opções como tipo de armazenamento, camada de acesso e redundância.",
+            "Permite comparar regiões, camadas de serviço e opções de redundância antes de implantar, e a estimativa costuma servir de base para aprovar o orçamento.",
+            "É só informativa: nada é provisionado e nada é cobrado. Os preços são estimativas.",
+            "E a calculadora de TCO? A calculadora de custo total de propriedade (Total Cost of Ownership), que comparava o custo do ambiente on-premises com o do Azure, foi aposentada, segundo o Microsoft Learn, e não aparece no guia atual da prova."
+          ]
+        },
+        {
+          "titulo": "Microsoft Cost Management",
+          "texto": "O Cost Management é um conjunto de ferramentas para analisar, monitorar e controlar os custos do Azure. Ele ajuda a evitar surpresas na fatura, como um recurso criado por engano que ficou cobrando o mês inteiro.",
+          "itens": [
+            "Análise de custos (cost analysis): mostra os custos de forma visual, agrupados por assinatura, grupo de recursos, serviço, região, ciclo de cobrança e outros critérios, e o acumulado ao longo do tempo para comparar com o orçamento.",
+            "Orçamentos (budgets): definem um limite de gasto por assinatura, grupo de recursos, tipo de serviço ou outros critérios. Podem disparar automações, como desligar recursos de teste quando um limite é atingido.",
+            "Alertas de orçamento: avisam, no portal e por e-mail, quando o gasto atinge ou passa de um percentual definido do orçamento, por exemplo 80%.",
+            "Alertas de crédito: avisam quando o crédito pré-pago (Azure Prepayment) de um Enterprise Agreement chega a 90% e a 100%.",
+            "Alertas de cota de gasto por departamento: também para clientes Enterprise Agreement, avisam quando um departamento atinge um percentual fixo da sua cota, como 50% ou 75%.",
+            "Atenção: orçamento e alerta avisam, mas não param o gasto sozinhos. Para agir automaticamente, é preciso configurar uma automação."
+          ]
+        },
+        {
+          "titulo": "Tags",
+          "texto": "Tags são metadados que você adiciona aos recursos, em pares de nome e valor, como Environment = Prod ou CostCenter = 1234. Elas complementam as assinaturas e os grupos de recursos na organização do ambiente.",
+          "itens": [
+            "Gerenciamento de recursos: encontrar e agir sobre os recursos de uma carga de trabalho, ambiente, equipe ou responsável.",
+            "Custos: agrupar recursos para relatórios de custo, rateio por centro de custo, acompanhamento de orçamento e previsão de gastos.",
+            "Operações, segurança e conformidade: marcar a criticidade do recurso, a classificação dos dados (por exemplo, público ou confidencial) e os requisitos de conformidade, como ISO 27001.",
+            "Automação: identificar os recursos de uma aplicação para que ferramentas como o Azure DevOps executem tarefas sobre eles.",
+            "Como gerenciar: pelo portal, PowerShell, Azure CLI, templates ARM ou API REST. O Azure Policy pode exigir tags nos recursos novos ou reaplicar tags removidas.",
+            "Atenção: recursos não herdam as tags da assinatura nem do grupo de recursos.",
+            "Um conjunto inicial comum: Environment, Owner, CostCenter e Workload (ou AppName)."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "governanca-basica",
+      "dominio": "governanca",
+      "titulo": "Governança e conformidade",
+      "resumo": "Microsoft Purview, Azure Policy e bloqueios de recurso: como manter dados e recursos dentro das regras.",
+      "minutos": 25,
+      "learn": "https://learn.microsoft.com/pt-br/training/modules/describe-features-tools-azure-for-governance-compliance/",
+      "objetivos": [
+        "Descrever a finalidade do Microsoft Purview",
+        "Descrever a finalidade do Azure Policy",
+        "Descrever a finalidade dos bloqueios de recurso"
+      ],
+      "conteudo": [
+        {
+          "titulo": "Microsoft Purview",
+          "texto": "O Microsoft Purview é uma família de soluções de governança de dados, risco e conformidade. Ele dá uma visão única e unificada dos seus dados, estejam eles no on-premises, em várias nuvens ou em aplicações SaaS.",
+          "itens": [
+            "Mantém você atualizado sobre os seus dados com descoberta automática, classificação de dados sensíveis e linhagem de ponta a ponta (de onde o dado veio e por onde passou).",
+            "Risco e conformidade: usa serviços do Microsoft 365, como Teams, OneDrive e Exchange, para proteger dados sensíveis em nuvens, aplicativos e dispositivos, identificar riscos e gerenciar requisitos regulatórios.",
+            "Governança de dados unificada: cria um mapa atualizado de todo o patrimônio de dados (Azure, bancos SQL e Hive, ambiente local e até Amazon S3), mostra onde estão os dados sensíveis e ajuda a controlar o acesso a eles em escala."
+          ]
+        },
+        {
           "titulo": "Azure Policy: quais regras valem",
-          "texto": "O Azure Policy define regras sobre como os recursos podem ser criados e configurados. Exemplo: permitir criar recursos só em determinadas regiões. Não confunda com o Azure RBAC, visto no módulo de identidade do Domínio 2: o RBAC define o que as pessoas podem fazer, e a Policy define como os recursos devem ser."
+          "texto": "O Azure Policy permite criar, atribuir e gerenciar políticas que controlam ou auditam seus recursos, para que as configurações sigam os padrões da empresa. Ele aponta os recursos fora do padrão e pode impedir que recursos fora do padrão sejam criados.",
+          "itens": [
+            "Exemplos: permitir criar recursos só em determinadas regiões, liberar só certos tamanhos de VM ou exigir uma tag em todo recurso novo.",
+            "Escopo e herança: as políticas podem ser aplicadas a um grupo de gerenciamento, assinatura, grupo de recursos ou recurso, e valem para tudo que está abaixo.",
+            "Avalia também o que já existe: uma política de tamanhos de VM vale ao criar ou redimensionar uma VM e também aponta as VMs antigas que estão fora do padrão.",
+            "Correção: em alguns casos, a política corrige sozinha, por exemplo adicionando uma tag que está faltando. Recursos também podem ser marcados como exceção.",
+            "Iniciativas (initiatives): grupos de políticas relacionadas, usados para acompanhar um objetivo maior de conformidade. Há definições internas prontas para armazenamento, rede, computação, segurança e monitoramento.",
+            "As regras valem qualquer que seja a origem da mudança: portal, script, pipeline de DevOps ou automação assistida por IA.",
+            "Azure Policy x Azure RBAC: o RBAC, visto no módulo de identidade do Domínio 2, define o que as pessoas podem fazer. A Policy define como os recursos devem ser."
+          ]
         },
         {
           "titulo": "Bloqueios de recurso",
-          "texto": "Um bloqueio (lock) impede mudanças ou exclusões acidentais. O tipo CanNotDelete permite alterar o recurso, mas não excluí-lo. O tipo ReadOnly permite apenas leitura. O bloqueio vale até para quem tem permissão total, até que ele seja removido."
+          "texto": "Um bloqueio de recurso (resource lock) impede que recursos importantes sejam excluídos ou alterados por acidente. Mesmo com o Azure RBAC bem configurado, quem tem permissão ainda pode apagar algo crítico sem querer, e o bloqueio é a camada extra de proteção.",
+          "itens": [
+            "Delete (CanNotDelete nos templates e na API): permite ler e alterar o recurso, mas não excluí-lo.",
+            "ReadOnly: permite só ler, sem alterar nem excluir. O efeito é parecido com restringir todo mundo às permissões da função Leitor.",
+            "Escopo e herança: o bloqueio pode ser aplicado a um recurso, a um grupo de recursos ou a uma assinatura inteira, e tudo que está abaixo o herda.",
+            "Vale para todos, independentemente do RBAC: até o Proprietário precisa remover o bloqueio antes de fazer a ação bloqueada. Mudar um recurso bloqueado tem duas etapas: remover o bloqueio e depois agir.",
+            "Como gerenciar: pelo portal (seção Bloqueios, ou Locks, nas configurações do recurso), PowerShell, Azure CLI ou template ARM."
+          ]
+        },
+        {
+          "titulo": "Extra: Service Trust Portal",
+          "texto": "O Microsoft Service Trust Portal reúne conteúdo, ferramentas e documentos sobre as práticas de segurança, privacidade e conformidade da Microsoft, como relatórios de auditoria dos serviços de nuvem. Ele saiu do guia da prova de julho de 2026, mas continua no módulo do Microsoft Learn.",
+          "itens": [
+            "Endereço: servicetrust.microsoft.com. Parte do conteúdo exige entrar com uma conta corporativa ou de estudante (Microsoft Entra) e aceitar um termo de confidencialidade.",
+            "My Library guarda os documentos que você fixar e avisa quando eles forem atualizados. All Documents reúne todos os documentos do portal."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ferramentas-de-gerenciamento",
+      "dominio": "governanca",
+      "titulo": "Ferramentas de gerenciamento e implantação",
+      "resumo": "Portal do Azure, Cloud Shell, Azure CLI, Azure PowerShell, Azure Arc, infraestrutura como código, Azure Resource Manager, templates ARM e Bicep.",
+      "minutos": 30,
+      "learn": "https://learn.microsoft.com/pt-br/training/modules/describe-features-tools-manage-deploy-azure-resources/",
+      "objetivos": [
+        "Descrever o portal do Azure",
+        "Descrever o Azure Cloud Shell, a Azure CLI e o Azure PowerShell",
+        "Descrever a finalidade do Azure Arc",
+        "Descrever infraestrutura como código (IaC)",
+        "Descrever o Azure Resource Manager (ARM) e os templates ARM"
+      ],
+      "conteudo": [
+        {
+          "titulo": "Portal do Azure",
+          "texto": "O portal do Azure é um console web unificado para gerenciar suas assinaturas por uma interface gráfica, como alternativa às ferramentas de linha de comando.",
+          "itens": [
+            "Permite criar, gerenciar e monitorar desde um web app simples até implantações complexas.",
+            "Você pode montar dashboards personalizados para organizar a visão dos recursos e ajustar opções de acessibilidade.",
+            "É resiliente: está presente em todos os datacenters do Azure, o que o protege contra a falha de um datacenter e o deixa perto dos usuários. Recebe atualizações contínuas, sem parar para manutenção.",
+            "Copilot no Azure: um assistente de IA que ajuda a explorar serviços, entender configurações e rascunhar comandos ou scripts. As sugestões devem ser revisadas antes de chegar à produção (este item está no Learn, mas não no guia da prova)."
+          ]
+        },
+        {
+          "titulo": "Azure Cloud Shell",
+          "texto": "O Azure Cloud Shell é um shell que roda no navegador para criar, configurar e gerenciar recursos do Azure. Você o abre pelo ícone do Cloud Shell no portal.",
+          "itens": [
+            "Não precisa instalar nem configurar nada no seu computador.",
+            "Já vem autenticado com as suas credenciais do Azure: ele sabe quem você é e quais permissões você tem.",
+            "Você escolhe o ambiente: Azure PowerShell ou Bash com a Azure CLI."
+          ]
+        },
+        {
+          "titulo": "Azure PowerShell e Azure CLI",
+          "texto": "As duas ferramentas de linha de comando fazem praticamente as mesmas coisas: gerenciam recursos chamando a API REST do Azure, seja para uma mudança pontual, seja para automatizar tarefas complexas com scripts. A diferença principal é a sintaxe, e a escolha costuma depender da linguagem que você conhece melhor.",
+          "itens": [
+            "Azure PowerShell: usa comandos chamados cmdlets, como New-AzVM, dentro do PowerShell.",
+            "Azure CLI: usa o comando az, como em az vm create, e costuma ser usada no Bash, embora também funcione em outros shells.",
+            "As duas podem ser instaladas no Windows, no Linux e no macOS, e já estão disponíveis no Cloud Shell.",
+            "Scripts tornam as tarefas repetíveis e automatizáveis: montar e desmontar ambientes, fazer manutenção de rotina ou implantar uma infraestrutura inteira."
+          ]
+        },
+        {
+          "titulo": "Azure Arc",
+          "texto": "Gerenciar ambientes híbridos e multicloud com ferramentas separadas complica rápido. O Azure Arc trabalha com o Azure Resource Manager para levar a governança e o gerenciamento do Azure a recursos que estão fora dele, no seu datacenter ou em outras nuvens.",
+          "itens": [
+            "Projeta os recursos de fora do Azure no Azure Resource Manager, para que você os veja e gerencie junto com os recursos do Azure.",
+            "Permite gerenciar VMs, clusters Kubernetes e bancos de dados híbridos e multicloud como se estivessem no Azure, com os serviços e recursos de gerenciamento que você já conhece.",
+            "Recursos que ele gerencia fora do Azure: servidores, clusters Kubernetes, serviços de dados do Azure, SQL Server e máquinas virtuais (em versão prévia).",
+            "Exemplo: uma empresa com cargas no Azure, em um datacenter próprio e em outra nuvem pública aplica as mesmas políticas e o mesmo inventário a tudo, a partir do Azure."
+          ]
+        },
+        {
+          "titulo": "Azure Resource Manager (ARM)",
+          "texto": "O Azure Resource Manager é o serviço de implantação e gerenciamento do Azure: a camada que cria, atualiza e exclui os recursos da sua conta. Toda solicitação, venha do portal, do PowerShell, da CLI, das APIs ou dos SDKs, passa por ele. O ARM autentica e autoriza o pedido e o repassa ao serviço do Azure responsável. Como todas as ferramentas usam a mesma API, os resultados são consistentes.",
+          "itens": [
+            "Gerenciar a infraestrutura com templates declarativos, em vez de scripts.",
+            "Implantar, gerenciar e monitorar todos os recursos de uma solução como um grupo, e não um por um.",
+            "Reimplantar a solução ao longo do ciclo de desenvolvimento com a confiança de que os recursos ficam em um estado consistente.",
+            "Definir dependências entre recursos, para que sejam implantados na ordem certa.",
+            "Aplicar controle de acesso com o Azure RBAC, que é integrado nativamente, e tags para organizar e gerar relatórios de custo."
+          ]
+        },
+        {
+          "titulo": "Infraestrutura como código, templates ARM e Bicep",
+          "texto": "Infraestrutura como código (IaC) é gerenciar a infraestrutura com código e templates, em vez de configurar tudo à mão. Pode começar com scripts de Azure CLI ou Azure PowerShell e evoluir para implantações repetíveis de ambientes inteiros com templates ARM e Bicep.",
+          "itens": [
+            "Templates ARM: arquivos JSON que descrevem de forma declarativa os recursos desejados. Você diz o que quer, e não o passo a passo de como criar.",
+            "Declarativo x imperativo: um script de comandos diz como fazer, passo a passo (imperativo). Um template diz como o ambiente deve ficar (declarativo), e o ARM cuida do resto.",
+            "Orquestração: o Azure valida o template antes de implantar e cria os recursos na ordem certa, em paralelo quando possível.",
+            "Resultados repetíveis: o mesmo template gera ambientes iguais em desenvolvimento, teste e produção.",
+            "Modularidade e extensibilidade: os templates podem ser divididos em partes reutilizáveis e aninhadas, e podem chamar scripts de PowerShell ou Bash quando há passos extras.",
+            "Bicep: linguagem declarativa para implantar recursos do Azure pelo ARM, mais simples e concisa que o JSON. Acompanha os tipos de recurso e versões de API atuais, é idempotente (reimplantar o mesmo arquivo leva ao mesmo resultado) e organiza a implantação em módulos."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "monitoramento",
+      "dominio": "governanca",
+      "titulo": "Monitoramento no Azure",
+      "resumo": "Azure Advisor, Azure Service Health e Azure Monitor, com Log Analytics, alertas e Application Insights.",
+      "minutos": 25,
+      "learn": "https://learn.microsoft.com/pt-br/training/modules/describe-monitoring-tools-azure/",
+      "objetivos": [
+        "Descrever a finalidade do Azure Advisor",
+        "Descrever o Azure Service Health",
+        "Descrever o Azure Monitor, incluindo o Log Analytics, os alertas do Azure Monitor e o Application Insights"
+      ],
+      "conteudo": [
+        {
+          "titulo": "Azure Advisor",
+          "texto": "O Azure Advisor avalia seus recursos e faz recomendações para melhorar a confiabilidade, a segurança, o desempenho e o custo. É como um guia de boas práticas embutido no portal, feito sob medida para o seu ambiente.",
+          "itens": [
+            "Cada recomendação traz uma ação sugerida, que você pode aplicar na hora, adiar ou dispensar.",
+            "O painel mostra as recomendações de todas as suas assinaturas, com filtros por assinatura, grupo de recursos ou serviço, e você pode receber notificações quando surgirem recomendações novas.",
+            "Cinco categorias: Confiabilidade (Reliability), Segurança (Security), Desempenho (Performance), Excelência operacional (Operational Excellence) e Custo (Cost)."
+          ]
+        },
+        {
+          "titulo": "Azure Service Health",
+          "texto": "O Azure Service Health mantém você informado sobre a saúde do próprio Azure e dos recursos que você usa, em três visões que vão do global ao individual.",
+          "itens": [
+            "Azure Status: visão global da saúde de todos os serviços e regiões do Azure. Útil quando surge a notícia de uma grande interrupção.",
+            "Service Health: foca nos serviços e regiões que você usa e mostra interrupções, manutenções planejadas e avisos de saúde que afetam o seu ambiente. Permite configurar alertas.",
+            "Resource Health: olha um recurso específico, como uma VM, e diz se ele está funcionando normalmente e se o problema é do lado do Azure ou do seu.",
+            "O histórico de alertas fica guardado para identificar tendências, e há links para o suporte quando um evento afeta as suas cargas de trabalho."
+          ]
+        },
+        {
+          "titulo": "Azure Monitor",
+          "texto": "O Azure Monitor é a plataforma para coletar, analisar e agir sobre dados de recursos e aplicações, no Azure, no on-premises e em outras nuvens. Ele reúne logs e métricas das aplicações, dos sistemas operacionais e da rede, guarda tudo de forma centralizada e disponibiliza esses dados em dashboards, consultas e alertas.",
+          "itens": [
+            "Métricas: valores numéricos medidos ao longo do tempo, como o uso de CPU de uma VM.",
+            "Logs: registros detalhados de eventos, como mensagens de erro, que podem ser consultados e cruzados."
+          ]
+        },
+        {
+          "titulo": "Log Analytics",
+          "texto": "O Log Analytics é a ferramenta do portal do Azure para escrever e executar consultas nos dados coletados pelo Azure Monitor.",
+          "itens": [
+            "Serve para consultas simples, como encontrar todos os erros da última hora, e para análises avançadas, com gráficos de tendência ao longo do tempo.",
+            "As consultas são escritas em KQL (Kusto Query Language)."
+          ]
+        },
+        {
+          "titulo": "Alertas do Azure Monitor",
+          "texto": "Os alertas avisam quando o Azure Monitor detecta que uma condição definida por você foi atingida.",
+          "itens": [
+            "Regra de alerta: define a condição a ser vigiada.",
+            "Grupo de ações (action group): define quem é notificado e o que acontece em seguida. Os grupos de ações podem ser reutilizados no Azure Monitor, no Service Health e no Azure Advisor.",
+            "Alertas de métrica: por exemplo, enviar um e-mail quando a CPU de uma VM ficar acima de 80%.",
+            "Alertas de log: por exemplo, vigiar um padrão de erro específico em vários recursos."
+          ]
+        },
+        {
+          "titulo": "Application Insights",
+          "texto": "O Application Insights é um recurso do Azure Monitor que acompanha o desempenho e o uso de aplicações web, estejam elas no Azure, no on-premises ou em outra nuvem. Pode ser ativado com um SDK no código da aplicação ou com um agente, sem mudar o código.",
+          "itens": [
+            "Taxa de requisições, tempo de resposta e taxa de falhas.",
+            "Chamadas a dependências, como bancos de dados e APIs externas, e o desempenho delas.",
+            "Tempo de carregamento das páginas, número de usuários e sessões.",
+            "Contadores de desempenho do servidor, como CPU, memória e rede.",
+            "Testes de disponibilidade: enviam requisições sintéticas periódicas para confirmar que a aplicação responde, mesmo quando há pouco tráfego."
+          ]
+        },
+        {
+          "titulo": "Qual ferramenta usar?",
+          "texto": "As ferramentas se complementam. Uma forma rápida de lembrar:",
+          "itens": [
+            "Quero recomendações para melhorar o meu ambiente: Azure Advisor.",
+            "Quero saber se o problema é do Azure: Azure Service Health.",
+            "Quero coletar métricas e logs, consultá-los e criar alertas: Azure Monitor, com Log Analytics e alertas.",
+            "Quero acompanhar o desempenho e os erros da minha aplicação web: Application Insights."
+          ]
         }
       ]
     }

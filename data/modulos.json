@@ -378,20 +378,308 @@
       ]
     },
     {
+      "id": "servicos-de-rede",
+      "dominio": "arquitetura",
+      "titulo": "Serviços de rede do Azure",
+      "resumo": "Redes virtuais, sub-redes, peering, Azure DNS, VPN Gateway, ExpressRoute e endpoints públicos e privados.",
+      "minutos": 30,
+      "learn": "https://learn.microsoft.com/pt-br/training/modules/describe-azure-networking-services/",
+      "objetivos": [
+        "Descrever a finalidade das redes virtuais do Azure",
+        "Descrever sub-redes e o emparelhamento (peering) de redes virtuais",
+        "Descrever o Azure DNS",
+        "Descrever o Azure VPN Gateway",
+        "Descrever o Azure ExpressRoute",
+        "Definir endpoints públicos e privados"
+      ],
+      "conteudo": [
+        {
+          "titulo": "Redes virtuais (VNets)",
+          "texto": "Uma rede virtual do Azure (Azure Virtual Network, ou VNet) permite que recursos como VMs, web apps e bancos de dados se comuniquem entre si, com usuários na internet e com computadores do seu ambiente on-premises. Pense nela como uma extensão da sua rede local dentro do Azure.",
+          "itens": [
+            "Isolamento e segmentação: você cria várias redes virtuais isoladas e define para cada uma um espaço de endereços IP, que só existe dentro dela e não é roteável pela internet.",
+            "Comunicação com a internet: um recurso recebe conexões de entrada quando ganha um endereço IP público ou fica atrás de um balanceador de carga público.",
+            "Comunicação entre recursos do Azure: além de VMs, a rede virtual conecta serviços como AKS e Virtual Machine Scale Sets. Os service endpoints ligam a rede a serviços como o Azure SQL Database e as contas de armazenamento.",
+            "Comunicação com o on-premises: por VPN ponto a site, VPN site a site ou ExpressRoute, explicados mais abaixo.",
+            "Roteamento: por padrão, o Azure roteia o tráfego entre sub-redes, redes conectadas, on-premises e internet. Tabelas de rotas e rotas definidas pelo usuário (UDR) mudam esse comportamento, e o BGP propaga as rotas do on-premises.",
+            "Filtragem: grupos de segurança de rede (NSGs) têm regras de entrada e saída que permitem ou bloqueiam o tráfego por IP de origem e destino, porta e protocolo. Network virtual appliances são VMs especializadas em uma função de rede, como um firewall.",
+            "Resolução de nomes: dá para usar o DNS embutido do Azure ou configurar um servidor DNS próprio, interno ou externo."
+          ]
+        },
+        {
+          "titulo": "Sub-redes e emparelhamento (peering)",
+          "texto": "O espaço de endereços de uma rede virtual pode ser dividido em sub-redes. Cada sub-rede recebe uma parte dos endereços e ajuda a separar as camadas da aplicação, como front end e banco de dados, com regras de segurança diferentes para cada uma.",
+          "itens": [
+            "Sub-rede: segmento lógico de uma VNet, com a própria faixa de endereços dentro do espaço da rede. Um NSG pode ser associado à sub-rede para filtrar o tráfego dela.",
+            "Algumas funções exigem uma sub-rede dedicada, como o VPN Gateway, que fica em uma sub-rede própria da rede virtual.",
+            "Emparelhamento de redes virtuais (virtual network peering): conecta duas VNets diretamente, para que os recursos de uma conversem com os da outra.",
+            "O tráfego entre redes emparelhadas é privado e passa pela rede backbone da Microsoft, sem entrar na internet pública.",
+            "As redes emparelhadas podem estar em regiões diferentes, o que permite montar uma rede interligada pelo mundo todo."
+          ]
+        },
+        {
+          "titulo": "Azure VPN Gateway",
+          "texto": "Uma VPN cria um túnel criptografado através de uma rede não confiável, normalmente a internet, para ligar redes privadas confiáveis. O Azure VPN Gateway é um tipo de gateway de rede virtual, implantado em uma sub-rede dedicada da VNet. Todo o tráfego que ele leva pela internet vai criptografado.",
+          "itens": [
+            "Site a site (site-to-site): liga o dispositivo VPN do seu datacenter ou escritório à rede virtual, e os recursos do Azure parecem fazer parte da rede local.",
+            "Ponto a site (point-to-site): liga um computador individual, como o notebook de quem trabalha de casa, à rede virtual.",
+            "Rede a rede (network-to-network): liga uma rede virtual a outra.",
+            "Só pode existir um VPN gateway por rede virtual, mas ele pode se conectar a vários locais, como outras VNets e datacenters.",
+            "Tipos: baseado em política (policy-based), que define de forma estática quais endereços IP passam por cada túnel, e baseado em rota (route-based), que usa o roteamento IP para escolher o túnel. O baseado em rota é o preferido e é o exigido para conexões entre VNets, ponto a site e multissite.",
+            "Alta disponibilidade: por padrão, o gateway roda em duas instâncias no modo ativo/em espera (active/standby). Também existem o modo ativo/ativo (active/active), os gateways com redundância de zona e o uso da VPN como caminho reserva para o ExpressRoute."
+          ]
+        },
+        {
+          "titulo": "Azure ExpressRoute",
+          "texto": "O ExpressRoute estende a rede on-premises até a nuvem da Microsoft por uma conexão privada, feita com a ajuda de um provedor de conectividade. Essa conexão se chama circuito ExpressRoute, e cada local (escritório ou datacenter) tem o seu. Como não passa pela internet pública, ela é mais confiável, mais rápida, tem latência mais constante e é mais segura do que uma conexão comum pela internet.",
+          "itens": [
+            "Acesso a serviços da nuvem da Microsoft, como Azure, Microsoft 365 e Dynamics 365.",
+            "ExpressRoute Global Reach: conecta circuitos de locais diferentes entre si, por exemplo um escritório na Ásia e um datacenter na Europa, que passam a trocar dados sem usar a internet.",
+            "Roteamento dinâmico com BGP entre a sua rede e a Microsoft, e redundância embutida em cada local de peering.",
+            "Quando escolher: conectividade privada e previsível com o Azure, requisitos rígidos de conformidade, alto volume de dados com latência estável ou tráfego crítico que não pode passar pela internet.",
+            "Atenção: mesmo com ExpressRoute, consultas DNS, verificações de lista de revogação de certificados e requisições do Azure Content Delivery Network continuam passando pela internet pública."
+          ]
+        },
+        {
+          "titulo": "Azure DNS",
+          "texto": "O Azure DNS hospeda domínios DNS e faz a resolução de nomes usando a infraestrutura do Azure. Com os domínios no Azure, você gerencia os registros com as mesmas credenciais, APIs, ferramentas e cobrança dos seus outros serviços.",
+          "itens": [
+            "Confiabilidade e desempenho: os domínios ficam na rede global de servidores DNS do Azure e, com anycast, o servidor disponível mais próximo responde a cada consulta.",
+            "Segurança: por ser baseado no Azure Resource Manager, aceita Azure RBAC, logs de atividade e bloqueios de recurso para proteger zonas e registros.",
+            "Domínios privados: você pode usar nomes de domínio personalizados dentro das suas redes virtuais, em vez dos nomes fornecidos pelo Azure.",
+            "Registros de alias: apontam para um recurso do Azure, como um IP público ou um endpoint de CDN, e se atualizam sozinhos se o IP desse recurso mudar.",
+            "Importante: o Azure DNS não vende domínios. Você compra o domínio em um registrador (ou pelos App Service domains) e depois hospeda os registros no Azure DNS."
+          ]
+        },
+        {
+          "titulo": "Endpoints públicos e privados",
+          "texto": "Um endpoint é o ponto de acesso pelo qual um serviço é alcançado na rede. A diferença entre público e privado está em quem consegue chegar até ele.",
+          "itens": [
+            "Endpoint público: tem um endereço IP público e pode ser acessado pela internet, de qualquer lugar do mundo (respeitando as regras de firewall e de autenticação que você configurar).",
+            "Endpoint privado (private endpoint): fica dentro de uma rede virtual e usa um endereço IP privado do espaço de endereços dessa rede. É assim que um serviço, como uma conta de armazenamento ou um banco de dados, pode ser acessado de forma privada, sem exposição na internet (essa tecnologia se chama Azure Private Link).",
+            "Regra prática: precisa ser acessível por qualquer pessoa na internet? Endpoint público. Só os recursos da sua rede, ou do seu on-premises conectado por VPN ou ExpressRoute, devem acessar? Endpoint privado."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "servicos-de-armazenamento",
+      "dominio": "arquitetura",
+      "titulo": "Serviços de armazenamento do Azure",
+      "resumo": "Contas de armazenamento, redundância (LRS a RA-GZRS), Blob, Files, Queue, Table e Disks, camadas de acesso e ferramentas de transferência e migração.",
+      "minutos": 35,
+      "learn": "https://learn.microsoft.com/pt-br/training/modules/describe-azure-storage-services/",
+      "objetivos": [
+        "Comparar os serviços do Armazenamento do Azure",
+        "Descrever as camadas de acesso (tiers) do armazenamento",
+        "Descrever as opções de redundância",
+        "Descrever as opções de conta de armazenamento e os tipos de armazenamento",
+        "Identificar opções para mover arquivos: AzCopy, Azure Storage Explorer e Azure File Sync",
+        "Descrever opções de migração: Azure Migrate e Azure Data Box"
+      ],
+      "conteudo": [
+        {
+          "titulo": "Conta de armazenamento",
+          "texto": "A conta de armazenamento (storage account) é o ponto de partida: ela dá um namespace único para os seus dados, acessível de qualquer lugar do mundo por HTTP ou HTTPS. O tipo de conta escolhido define quais serviços e quais opções de redundância você pode usar.",
+          "itens": [
+            "Standard general-purpose v2: o tipo padrão, recomendado para a maioria dos cenários. Aceita Blob (inclusive Data Lake Storage), Queue, Table e Azure Files, com todas as opções de redundância (LRS, ZRS, GRS, RA-GRS, GZRS e RA-GZRS).",
+            "Premium block blobs: para blobs de bloco e de acréscimo com muitas transações, objetos pequenos ou latência baixa e constante. Aceita LRS e ZRS.",
+            "Premium file shares: só para Azure Files, em aplicações de alta escala ou alto desempenho, com compartilhamentos SMB e NFS. Aceita LRS e ZRS.",
+            "Premium page blobs: só para page blobs. Aceita apenas LRS.",
+            "Nome da conta: de 3 a 24 caracteres, só números e letras minúsculas, e único em todo o Azure, porque faz parte do endereço. Exemplo: https://minhaconta.blob.core.windows.net para o Blob. Os outros serviços trocam blob por file, queue, table ou dfs (Data Lake Storage Gen2)."
+          ]
+        },
+        {
+          "titulo": "Redundância na região primária: LRS e ZRS",
+          "texto": "O Armazenamento do Azure sempre guarda três cópias dos dados na região primária. A escolha da redundância equilibra custo, disponibilidade e durabilidade, e depende de três perguntas: como os dados são copiados na região primária, se também são copiados para uma segunda região distante e se você precisa ler essa segunda cópia sem esperar um failover.",
+          "itens": [
+            "LRS (armazenamento com redundância local): três cópias dentro de um único datacenter da região primária. É a opção mais barata e protege contra falhas de disco e de rack, mas um desastre no datacenter pode causar perda de dados. Durabilidade de pelo menos 11 noves por ano.",
+            "ZRS (armazenamento com redundância de zona): três cópias síncronas em três zonas de disponibilidade da região primária. Os dados continuam disponíveis para leitura e escrita mesmo se uma zona cair. Durabilidade de pelo menos 12 noves.",
+            "A Microsoft recomenda o ZRS para alta disponibilidade dentro da região e quando os dados precisam ficar dentro de um país ou região."
+          ]
+        },
+        {
+          "titulo": "Redundância em uma região secundária: GRS, GZRS e acesso de leitura",
+          "texto": "Para se proteger de um desastre regional, os dados podem ser copiados para uma região secundária, geograficamente distante. A região secundária é definida pelo par da região primária, e a cópia para lá é assíncrona.",
+          "itens": [
+            "GRS (armazenamento com redundância geográfica): LRS na região primária e mais três cópias (também LRS) na região secundária. Durabilidade de pelo menos 16 noves.",
+            "GZRS (armazenamento com redundância geográfica e de zona): ZRS na região primária e LRS na secundária. Protege contra a falha de uma zona e contra um desastre regional, também com pelo menos 16 noves. É a opção recomendada para o máximo de consistência, disponibilidade e resiliência a desastres.",
+            "Por padrão, a cópia na região secundária não pode ser lida: ela só fica acessível depois de um failover, que transforma a secundária na nova primária.",
+            "RA-GRS e RA-GZRS (read-access): as mesmas opções, mas com leitura liberada na região secundária a qualquer momento, sem esperar o failover.",
+            "Como a cópia é assíncrona, a secundária pode estar um pouco atrasada. O RPO (objetivo de ponto de recuperação) costuma ficar abaixo de 15 minutos, mas não há SLA para o tempo de replicação."
+          ]
+        },
+        {
+          "titulo": "Os serviços de armazenamento",
+          "texto": "O Armazenamento do Azure tem cinco serviços principais de dados. Todos são duráveis, seguros (os dados gravados são criptografados pelo próprio serviço), escaláveis e gerenciados pelo Azure, que cuida do hardware e das atualizações.",
+          "itens": [
+            "Azure Blobs: armazenamento de objetos para grandes volumes de dados não estruturados, de texto ou binários. Bom para servir imagens e documentos ao navegador, streaming de vídeo e áudio, backup, recuperação de desastres, arquivamento e dados para análise, inclusive big data com o Data Lake Storage Gen2.",
+            "Azure Files: compartilhamentos de arquivos totalmente gerenciados, acessados por SMB ou NFS, que podem ser montados ao mesmo tempo por máquinas na nuvem e no on-premises. SMB funciona em Windows, Linux e macOS, e NFS em Linux e macOS.",
+            "Azure Queues: guarda grandes quantidades de mensagens (milhões, com até 64 KB cada) para processamento assíncrono entre partes de uma aplicação. Combina bem com o Azure Functions.",
+            "Azure Tables: armazenamento NoSQL para grandes quantidades de dados estruturados e não relacionais.",
+            "Azure Disks: volumes de armazenamento em bloco (managed disks) usados pelas VMs do Azure, virtualizados e gerenciados pelo Azure."
+          ]
+        },
+        {
+          "titulo": "Camadas de acesso (tiers) do Blob Storage",
+          "texto": "Os dados não são acessados sempre com a mesma frequência. As camadas de acesso do Blob Storage equilibram o custo de guardar com o custo e a velocidade de ler.",
+          "itens": [
+            "Hot (acesso frequente): para dados usados com frequência, como as imagens de um site.",
+            "Cool (acesso esporádico): para dados acessados com pouca frequência e guardados por pelo menos 30 dias, como faturas de clientes.",
+            "Cold (acesso raro): para dados acessados raramente e guardados por pelo menos 90 dias.",
+            "Archive (arquivo): para dados quase nunca acessados, guardados por pelo menos 180 dias, que aceitam uma espera longa na leitura, como backups de longo prazo.",
+            "Hot, Cool e Cold podem ser definidas no nível da conta, como padrão. Archive não. As quatro podem ser definidas em cada blob, no upload ou depois.",
+            "Quanto mais fria a camada, menor o custo para guardar e maior o custo para acessar. Cool e Cold também têm SLA de disponibilidade menor. Archive tem o menor custo de armazenamento, mas o blob precisa ser reidratado, o que pode levar horas, antes de ser lido."
+          ]
+        },
+        {
+          "titulo": "Mover arquivos: AzCopy, Storage Explorer e File Sync",
+          "texto": "Para mover ou trabalhar com arquivos individuais ou pequenos grupos de arquivos, o Azure oferece três ferramentas.",
+          "itens": [
+            "AzCopy: utilitário de linha de comando para copiar blobs ou arquivos de e para uma conta de armazenamento: upload, download, cópia entre contas e sincronização. Também pode trabalhar com outros provedores de nuvem. A sincronização é de mão única: você define a origem e o destino.",
+            "Azure Storage Explorer: aplicativo com interface gráfica para gerenciar arquivos e blobs, para Windows, macOS e Linux. Usa o AzCopy por baixo dos panos.",
+            "Azure File Sync: centraliza os compartilhamentos no Azure Files e mantém um servidor Windows local sincronizado com eles nos dois sentidos, automaticamente. O servidor local funciona como um cache: você acessa por SMB, NFS ou FTPS, pode ter vários caches pelo mundo, substitui um servidor com defeito instalando o File Sync em outro e usa o cloud tiering para manter localmente só os arquivos mais acessados."
+          ]
+        },
+        {
+          "titulo": "Migração: Azure Migrate e Azure Data Box",
+          "texto": "Para levar ambientes inteiros ou volumes enormes de dados para o Azure, existem duas opções principais: o Azure Migrate, que migra infraestrutura, aplicações e dados pela rede, e o Azure Data Box, que transfere os dados fisicamente quando a rede não dá conta.",
+          "itens": [
+            "Azure Migrate: um hub que reúne em um só lugar a avaliação e a migração do datacenter on-premises para o Azure. Tem ferramentas integradas de descoberta e avaliação, migração de servidores, de bancos de dados e de web apps, e também se integra a ferramentas de outros fornecedores (ISVs).",
+            "Azure Data Box: a Microsoft envia um dispositivo físico e resistente de armazenamento, com até 80 TB utilizáveis. Você copia os dados, devolve o dispositivo por transportadora e os dados são carregados no Azure. Também serve para exportar dados do Azure.",
+            "Quando usar o Data Box: volumes muito grandes (dezenas de terabytes ou mais) com pouca largura de banda, migração em massa única, cargas periódicas grandes demais para a rede e exportação de dados para recuperação ou exigências regulatórias.",
+            "Depois do upload, os discos do Data Box são apagados seguindo o padrão NIST 800-88r1."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "identidade-acesso-seguranca",
+      "dominio": "arquitetura",
+      "titulo": "Identidade, acesso e segurança no Azure",
+      "resumo": "Microsoft Entra ID e Domain Services, SSO, MFA e passwordless, identidades externas, Acesso Condicional, Azure RBAC, Zero Trust, defesa em profundidade e Defender for Cloud.",
+      "minutos": 40,
+      "learn": "https://learn.microsoft.com/pt-br/training/modules/describe-azure-identity-access-security/",
+      "objetivos": [
+        "Descrever os serviços de diretório do Azure: Microsoft Entra ID e Microsoft Entra Domain Services",
+        "Descrever métodos de autenticação: single sign-on (SSO), autenticação multifator (MFA) e passwordless",
+        "Descrever identidades externas no Azure",
+        "Descrever o Acesso Condicional do Microsoft Entra",
+        "Descrever o controle de acesso baseado em função do Azure (Azure RBAC)",
+        "Descrever o conceito de Zero Trust",
+        "Descrever a finalidade do modelo de defesa em profundidade",
+        "Descrever a finalidade do Microsoft Defender for Cloud"
+      ],
+      "conteudo": [
+        {
+          "titulo": "Microsoft Entra ID",
+          "texto": "O Microsoft Entra ID (antigo Azure Active Directory) é o serviço de gerenciamento de identidade e acesso da Microsoft na nuvem. Com ele, as pessoas entram em aplicações da Microsoft, como o Microsoft 365 e o portal do Azure, e também em aplicações que a própria empresa desenvolve. Quem já usou o Active Directory on-premises vai achar familiar: você controla as contas, e a Microsoft garante que o serviço esteja disponível no mundo todo.",
+          "itens": [
+            "Autenticação: verifica a identidade antes de liberar o acesso, com recursos como redefinição de senha self-service, MFA, lista de senhas proibidas e bloqueio inteligente (smart lockout).",
+            "Também oferece single sign-on (SSO), gerenciamento de aplicações (como o Application Proxy, a integração com apps SaaS e o portal My Apps) e gerenciamento de dispositivos (registro de dispositivos e integração com ferramentas como o Microsoft Intune).",
+            "Quem usa: administradores de TI (controlam o acesso), desenvolvedores (adicionam login e SSO às suas aplicações), usuários (por exemplo, para redefinir a própria senha) e assinantes de serviços como Microsoft 365 e Azure, que já entram pelo Entra ID.",
+            "Microsoft Entra Connect: sincroniza as identidades do Active Directory on-premises com o Entra ID, para que cada pessoa tenha a mesma conta, com SSO, MFA e redefinição de senha, no on-premises e na nuvem.",
+            "Com o ambiente conectado ao Entra ID, a Microsoft consegue detectar logins suspeitos, como tentativas vindas de locais ou dispositivos incomuns."
+          ]
+        },
+        {
+          "titulo": "Microsoft Entra Domain Services",
+          "texto": "O Microsoft Entra Domain Services oferece serviços de domínio gerenciados, como ingresso no domínio (domain join), group policy, LDAP e autenticação Kerberos/NTLM, sem que você precise implantar e manter controladores de domínio na nuvem. É especialmente útil para aplicações legadas que não usam métodos modernos de autenticação: dá para levá-las do on-premises para um domínio gerenciado (lift-and-shift).",
+          "itens": [
+            "Ao criar o domínio gerenciado, você define um namespace (o nome do domínio), e o Azure implanta dois controladores de domínio Windows Server na região escolhida, formando um replica set. Configuração, atualizações e backups deles ficam por conta da plataforma.",
+            "Os usuários entram com as credenciais que já têm, e os grupos e contas existentes são aproveitados.",
+            "A sincronização é de mão única, do Entra ID para o Domain Services. O que for criado direto no domínio gerenciado não volta para o Entra ID. Em um ambiente híbrido, o Entra Connect leva as identidades do AD on-premises para o Entra ID, e de lá elas chegam ao domínio gerenciado.",
+            "Entra ID x Entra Domain Services: o primeiro é a identidade moderna na nuvem (login em apps, SSO, MFA). O segundo entrega recursos clássicos de domínio do Windows Server para as cargas que ainda dependem deles."
+          ]
+        },
+        {
+          "titulo": "Métodos de autenticação: SSO, MFA e passwordless",
+          "texto": "Autenticação é comprovar a identidade de uma pessoa, serviço ou dispositivo por meio de credenciais. Os métodos modernos buscam aumentar a segurança e a conveniência ao mesmo tempo: a senha sozinha é conveniente, mas pouco segura, enquanto o passwordless é seguro e conveniente.",
+          "itens": [
+            "Single sign-on (SSO): a pessoa entra uma vez e acessa várias aplicações confiáveis. Menos senhas significa menos incidentes com credenciais e menos pedidos de redefinição, e fica mais fácil remover acessos quando alguém muda de função ou sai da empresa. Atenção: o SSO é tão seguro quanto a primeira autenticação.",
+            "Autenticação multifator (MFA): pede um fator extra no login, para que uma senha vazada não baste. Os fatores são algo que você sabe (senha ou pergunta de segurança), algo que você tem (o celular que recebe um código) e algo que você é (biometria, como digital ou rosto).",
+            "Microsoft Entra multifactor authentication: o serviço da Microsoft que oferece MFA, com opções como ligação telefônica ou notificação no aplicativo do celular.",
+            "Passwordless: elimina a senha e a troca por um dispositivo confiável junto com biometria ou PIN. O Entra ID aceita três opções: Windows Hello for Business (biometria e PIN ligados ao PC da pessoa), o app Microsoft Authenticator (notificação no celular confirmada com biometria ou PIN) e chaves de segurança FIDO2 (dispositivos físicos, geralmente USB, resistentes a phishing)."
+          ]
+        },
+        {
+          "titulo": "Identidades externas",
+          "texto": "Uma identidade externa é uma pessoa, dispositivo ou serviço que está fora do seu tenant. Com o Microsoft Entra External ID, parceiros, fornecedores, prestadores de serviço e clientes usam as próprias credenciais (conta corporativa, conta de rede social como Google ou Facebook, entre outras) para acessar o que você liberar. O provedor externo cuida da autenticação, e você controla a autorização.",
+          "itens": [
+            "B2B collaboration: convida usuários externos para entrar com a identidade que preferirem nas suas aplicações da Microsoft ou internas. Eles aparecem no seu diretório, normalmente como usuários convidados (guest users).",
+            "B2B direct connect: uma relação de confiança mútua com outro tenant do Microsoft Entra. Hoje é usado nos canais compartilhados do Teams, e esses usuários não aparecem no seu diretório.",
+            "Microsoft Entra External ID para clientes (antes Azure AD B2C): para publicar aplicações SaaS ou próprias para consumidores e clientes, com o Entra cuidando da identidade e do acesso.",
+            "Revisões de acesso (access reviews): os próprios convidados ou um responsável confirmam de tempos em tempos se o acesso ainda é necessário, e quem não precisa mais perde o acesso."
+          ]
+        },
+        {
+          "titulo": "Acesso Condicional",
+          "texto": "O Acesso Condicional (Conditional Access) é a ferramenta do Microsoft Entra ID que permite ou nega o acesso com base em sinais de identidade: quem é a pessoa, de onde ela está acessando, de qual dispositivo e a qual aplicação. Funciona em três etapas: coleta os sinais, toma uma decisão e aplica essa decisão.",
+          "itens": [
+            "Sinais: o usuário, a localização, o dispositivo, a aplicação que está sendo acessada e o risco do login.",
+            "Decisão e aplicação: liberar o acesso, bloquear ou exigir um passo extra, como MFA.",
+            "MFA mais inteligente: quem entra de um local conhecido pode não ser desafiado, enquanto um login de local incomum ou arriscado pede o segundo fator ou é bloqueado.",
+            "Usos comuns: exigir MFA de administradores ou de quem está fora da rede confiável, permitir o acesso só por aplicativos aprovados, exigir dispositivos gerenciados (que seguem os padrões de segurança da empresa) e bloquear acessos de locais desconhecidos."
+          ]
+        },
+        {
+          "titulo": "Azure RBAC: quem pode fazer o quê",
+          "texto": "O controle de acesso baseado em função do Azure (Azure RBAC) ajuda a aplicar o princípio do privilégio mínimo: cada pessoa recebe só o acesso necessário para a sua tarefa. Em vez de definir permissões pessoa por pessoa, você atribui funções (roles) a usuários, grupos ou aplicações em um escopo, e eles recebem as permissões daquela função.",
+          "itens": [
+            "Funções: o Azure tem funções internas (built-in), como Proprietário (Owner), Colaborador (Contributor) e Leitor (Reader), e você também pode criar funções personalizadas.",
+            "Escopos: grupo de gerenciamento, assinatura, grupo de recursos ou um recurso específico.",
+            "Herança: a permissão dada em um escopo pai vale para todos os escopos filhos, inclusive para recursos criados depois. Quem é Leitor na assinatura enxerga todos os grupos de recursos e recursos dela, e quem é Proprietário em um grupo de gerenciamento gerencia tudo nas assinaturas abaixo dele.",
+            "Modelo de permissão (allow): as permissões das funções se somam. Se uma atribuição permite ler e outra permite escrever no mesmo escopo, a pessoa pode ler e escrever.",
+            "Onde vale: o RBAC é aplicado às ações feitas sobre os recursos do Azure por meio do Azure Resource Manager (portal, Cloud Shell, PowerShell e CLI). As permissões dentro da sua aplicação continuam sendo responsabilidade da própria aplicação.",
+            "RBAC x Azure Policy: o RBAC controla o que as pessoas podem fazer. O Azure Policy, visto no Domínio 3, controla como os recursos podem ser criados e configurados."
+          ]
+        },
+        {
+          "titulo": "Zero Trust",
+          "texto": "Zero Trust é um modelo de segurança que parte do pior cenário: supõe que uma invasão já pode ter acontecido e verifica cada solicitação como se ela viesse de uma rede não controlada. O modelo tradicional confiava em quem estava dentro da rede da empresa. No Zero Trust, estar na rede interna não basta: o acesso depende da autenticação, e não da localização.",
+          "itens": [
+            "Verificar explicitamente: sempre autenticar e autorizar com base em todos os dados disponíveis, como identidade, local, dispositivo e risco.",
+            "Usar acesso com privilégio mínimo: limitar o acesso com Just-In-Time e Just-Enough-Access (JIT/JEA), políticas adaptativas baseadas em risco e proteção de dados.",
+            "Supor a violação (assume breach): limitar o impacto segmentando o acesso, garantir criptografia de ponta a ponta e usar análises para detectar ameaças e melhorar as defesas.",
+            "Exemplo: um login de um dispositivo não gerenciado em uma rede pública pode ganhar acesso a apps de baixo risco, ter MFA exigida para sistemas sensíveis ou ser bloqueado se o risco for alto."
+          ]
+        },
+        {
+          "titulo": "Defesa em profundidade",
+          "texto": "A defesa em profundidade usa várias camadas de proteção, com os dados no centro, para retardar um ataque que tenta chegar até eles. Se uma camada for rompida, a próxima já está lá. Assim você não depende de uma proteção só, e o atraso dá tempo para a equipe de segurança ser alertada e reagir.",
+          "itens": [
+            "Segurança física: proteger o acesso aos prédios e ao hardware do datacenter. É a primeira linha de defesa.",
+            "Identidade e acesso: controlar o acesso à infraestrutura e às mudanças, usar SSO e MFA e auditar eventos.",
+            "Perímetro: usar proteção contra DDoS para filtrar ataques em grande escala e firewalls de perímetro para identificar ataques e gerar alertas.",
+            "Rede: limitar a comunicação entre recursos com segmentação e controles de acesso, negar por padrão e restringir o acesso de entrada pela internet.",
+            "Computação: proteger o acesso às VMs, usar proteção de endpoint e manter os sistemas atualizados.",
+            "Aplicação: manter as aplicações seguras e sem vulnerabilidades, guardando os segredos em um local seguro, como o Azure Key Vault.",
+            "Dados: controlar quem acessa os dados e protegê-los com criptografia em repouso e em trânsito."
+          ]
+        },
+        {
+          "titulo": "Microsoft Defender for Cloud",
+          "texto": "O Microsoft Defender for Cloud é um serviço de gerenciamento da postura de segurança e de proteção contra ameaças. Ele monitora recursos no Azure, no on-premises, em ambientes híbridos e em outras nuvens, e traz recomendações e alertas para melhorar a segurança. No Azure ele é nativo, então muitos serviços são monitorados sem instalar nada.",
+          "itens": [
+            "Avaliar continuamente: conhecer a postura de segurança e encontrar vulnerabilidades, por exemplo em VMs, registros de contêiner e servidores SQL.",
+            "Proteger: compara os recursos com o Microsoft cloud security benchmark (MCSB), gera recomendações priorizadas e calcula uma pontuação de segurança (secure score). É construído sobre o Azure Policy.",
+            "Defender: gera alertas de segurança quando detecta uma ameaça, com os detalhes e os passos para corrigir, e oferece proteção avançada, como o acesso just-in-time às VMs.",
+            "Além do Azure: protege servidores on-premises (com o Azure Arc) e recursos em outras nuvens, como AWS e GCP."
+          ]
+        }
+      ]
+    },
+    {
       "id": "governanca-basica",
       "dominio": "governanca",
-      "titulo": "Governança: RBAC, Policy e bloqueios",
-      "resumo": "Como controlar quem pode fazer o quê, quais regras valem e como evitar exclusões acidentais.",
+      "titulo": "Governança: Policy e bloqueios",
+      "resumo": "Quais regras valem para os recursos e como evitar exclusões e mudanças acidentais.",
       "minutos": 15,
       "learn": "https://learn.microsoft.com/credentials/certifications/resources/study-guides/az-900",
       "conteudo": [
         {
-          "titulo": "Azure RBAC: quem pode fazer o quê",
-          "texto": "O controle de acesso baseado em função (RBAC) atribui permissões a usuários, grupos ou aplicações em um determinado escopo (assinatura, grupo de recursos ou recurso). Exemplo: dar a alguém o papel de Leitor em um grupo de recursos."
-        },
-        {
           "titulo": "Azure Policy: quais regras valem",
-          "texto": "O Azure Policy define regras sobre como os recursos podem ser criados e configurados. Exemplo: permitir criar recursos só em determinadas regiões. Enquanto o RBAC fala de pessoas e permissões, a Policy fala dos recursos e de seus padrões."
+          "texto": "O Azure Policy define regras sobre como os recursos podem ser criados e configurados. Exemplo: permitir criar recursos só em determinadas regiões. Não confunda com o Azure RBAC, visto no módulo de identidade do Domínio 2: o RBAC define o que as pessoas podem fazer, e a Policy define como os recursos devem ser."
         },
         {
           "titulo": "Bloqueios de recurso",

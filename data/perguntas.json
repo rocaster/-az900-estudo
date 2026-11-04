@@ -482,6 +482,309 @@
       "explicacao": "O AKS é um serviço de orquestração que gerencia o ciclo de vida de muitos contêineres. O Azure Container Instances é o jeito mais simples de rodar contêineres avulsos, sem orquestração."
     }
   ],
+  "servicos-de-rede": [
+    {
+      "pergunta": "Uma equipe quer separar, dentro da mesma rede virtual, os servidores web e os servidores de banco de dados, aplicando regras de segurança diferentes para cada grupo. O que ela deve criar?",
+      "opcoes": [
+        "Uma assinatura para cada grupo de servidores",
+        "Sub-redes dentro da rede virtual",
+        "Um circuito ExpressRoute",
+        "Uma zona DNS pública"
+      ],
+      "correta": 1,
+      "explicacao": "Sub-redes dividem o espaço de endereços da VNet em segmentos. Cada sub-rede pode ter as próprias regras, por exemplo com um grupo de segurança de rede (NSG) associado."
+    },
+    {
+      "pergunta": "Duas redes virtuais, em regiões diferentes do Azure, precisam se comunicar de forma privada, sem que o tráfego passe pela internet pública. Qual recurso atende de forma mais direta?",
+      "opcoes": [
+        "Um endereço IP público em cada VM",
+        "Azure DNS",
+        "Emparelhamento de redes virtuais (virtual network peering)",
+        "Um registro de alias"
+      ],
+      "correta": 2,
+      "explicacao": "O peering conecta duas VNets diretamente, inclusive em regiões diferentes. O tráfego é privado e passa pela rede backbone da Microsoft, nunca pela internet pública."
+    },
+    {
+      "pergunta": "Uma desenvolvedora trabalha de casa e precisa conectar o próprio notebook, com criptografia, a uma rede virtual do Azure. Qual tipo de conexão do VPN Gateway é o indicado?",
+      "opcoes": [
+        "Ponto a site (point-to-site)",
+        "Site a site (site-to-site)",
+        "ExpressRoute Global Reach",
+        "Emparelhamento de redes virtuais"
+      ],
+      "correta": 0,
+      "explicacao": "A conexão ponto a site liga um computador individual à rede virtual por um túnel criptografado. A site a site liga um dispositivo VPN de um escritório ou datacenter inteiro."
+    },
+    {
+      "pergunta": "Uma empresa quer conectar o dispositivo VPN do seu escritório a uma rede virtual do Azure pela internet, com criptografia, para que os servidores do escritório e do Azure se comuniquem como se estivessem na mesma rede. Qual opção atende?",
+      "opcoes": [
+        "VPN ponto a site",
+        "Emparelhamento de redes virtuais",
+        "Zona privada no Azure DNS",
+        "VPN site a site com o Azure VPN Gateway"
+      ],
+      "correta": 3,
+      "explicacao": "A VPN site a site liga o dispositivo VPN do local ao VPN Gateway da VNet. O tráfego viaja criptografado pela internet, e os recursos do Azure parecem fazer parte da rede local."
+    },
+    {
+      "pergunta": "Um banco precisa ligar seu datacenter ao Azure com latência previsível, alta largura de banda e sem que o tráfego passe pela internet pública. Qual serviço é o mais indicado?",
+      "opcoes": [
+        "VPN Gateway site a site",
+        "Azure ExpressRoute",
+        "Azure DNS",
+        "Um endpoint público com IP fixo"
+      ],
+      "correta": 1,
+      "explicacao": "O ExpressRoute usa uma conexão privada, feita com um provedor de conectividade, que não passa pela internet. A VPN também é criptografada, mas usa a internet como caminho."
+    },
+    {
+      "pergunta": "Qual afirmação sobre o Azure VPN Gateway está correta?",
+      "opcoes": [
+        "Cada rede virtual pode ter vários VPN gateways, um para cada local",
+        "Ele cria uma conexão privada que nunca passa pela internet",
+        "O tráfego viaja criptografado pela internet pública",
+        "Ele só conecta computadores individuais, nunca datacenters inteiros"
+      ],
+      "correta": 2,
+      "explicacao": "O VPN Gateway cria túneis criptografados sobre a internet. Cada VNet aceita um único VPN gateway, que pode se conectar a vários locais, por conexões site a site, ponto a site ou entre redes."
+    },
+    {
+      "pergunta": "Qual afirmação sobre o Azure DNS está correta?",
+      "opcoes": [
+        "Ele hospeda domínios DNS e permite gerenciar os registros com as mesmas credenciais e ferramentas dos outros serviços do Azure",
+        "Ele é usado para comprar e registrar novos nomes de domínio",
+        "Ele dispensa o uso de grupos de segurança de rede",
+        "Ele só funciona para nomes públicos, nunca dentro de redes virtuais"
+      ],
+      "correta": 0,
+      "explicacao": "O Azure DNS hospeda os registros dos seus domínios na infraestrutura do Azure e também aceita domínios privados dentro das VNets. Ele não vende domínios: a compra é feita em um registrador."
+    },
+    {
+      "pergunta": "Uma empresa quer que sua conta de armazenamento seja acessada apenas por recursos de uma rede virtual, por meio de um endereço IP privado dessa rede. O que ela deve usar?",
+      "opcoes": [
+        "Um endpoint público",
+        "Um registro de alias no Azure DNS",
+        "Um conjunto de disponibilidade",
+        "Um endpoint privado (private endpoint)"
+      ],
+      "correta": 3,
+      "explicacao": "O endpoint privado fica dentro da VNet e usa um IP privado do espaço de endereços dela, permitindo acessar o serviço sem exposição na internet."
+    },
+    {
+      "pergunta": "O que caracteriza um endpoint público?",
+      "opcoes": [
+        "Ter um IP privado da rede virtual e só ser alcançado de dentro dela",
+        "Ter um endereço IP público e poder ser alcançado pela internet, de qualquer lugar",
+        "Existir apenas em regiões soberanas",
+        "Só aceitar conexões vindas do ExpressRoute"
+      ],
+      "correta": 1,
+      "explicacao": "Um endpoint público tem um IP público e é acessível pela internet, respeitando as regras de firewall e de autenticação configuradas. O endpoint privado usa um IP privado da VNet."
+    }
+  ],
+  "servicos-de-armazenamento": [
+    {
+      "pergunta": "Qual opção de redundância é a mais barata e mantém três cópias dos dados dentro de um único datacenter da região primária?",
+      "opcoes": [
+        "ZRS",
+        "GRS",
+        "LRS",
+        "RA-GZRS"
+      ],
+      "correta": 2,
+      "explicacao": "O LRS guarda três cópias em um só datacenter. Protege contra falhas de disco e de rack, mas não contra um desastre que atinja o datacenter inteiro."
+    },
+    {
+      "pergunta": "Uma empresa precisa que seus dados continuem disponíveis para leitura e escrita mesmo se uma zona de disponibilidade cair, mas os dados não podem sair da região. Qual opção de redundância atende?",
+      "opcoes": [
+        "ZRS",
+        "LRS",
+        "GRS",
+        "RA-GRS"
+      ],
+      "correta": 0,
+      "explicacao": "O ZRS copia os dados de forma síncrona em três zonas de disponibilidade da região primária. As opções geográficas (GRS, RA-GRS) mandam uma cópia para outra região."
+    },
+    {
+      "pergunta": "Uma aplicação precisa de proteção contra a falha de uma zona e contra um desastre regional, e também precisa ler os dados na região secundária a qualquer momento, sem esperar um failover. Qual opção atende?",
+      "opcoes": [
+        "GZRS",
+        "RA-GRS",
+        "ZRS",
+        "RA-GZRS"
+      ],
+      "correta": 3,
+      "explicacao": "O RA-GZRS usa ZRS na região primária, copia para a região secundária e libera a leitura lá a qualquer momento. O GZRS só permite ler a secundária depois de um failover, e o RA-GRS usa LRS na primária, sem proteção de zona."
+    },
+    {
+      "pergunta": "Uma empresa precisa guardar backups por sete anos, por exigência legal. Os dados quase nunca serão lidos e, quando forem, uma espera de algumas horas é aceitável. Qual camada de acesso tem o menor custo de armazenamento para esse caso?",
+      "opcoes": [
+        "Hot",
+        "Cool",
+        "Archive",
+        "Cold"
+      ],
+      "correta": 2,
+      "explicacao": "A camada Archive tem o menor custo para guardar, para dados mantidos por pelo menos 180 dias. Em troca, o acesso custa mais e o blob precisa ser reidratado antes da leitura, o que pode levar horas."
+    },
+    {
+      "pergunta": "Uma empresa quer compartilhamentos de arquivos na nuvem que servidores Windows on-premises possam montar via SMB, como uma pasta de rede comum. Qual serviço atende?",
+      "opcoes": [
+        "Azure Blobs",
+        "Azure Files",
+        "Azure Queues",
+        "Azure Tables"
+      ],
+      "correta": 1,
+      "explicacao": "O Azure Files oferece compartilhamentos gerenciados por SMB ou NFS, que podem ser montados ao mesmo tempo por máquinas na nuvem e no on-premises."
+    },
+    {
+      "pergunta": "Duas partes de uma aplicação precisam trocar mensagens de forma assíncrona: uma coloca pedidos para processar e a outra os consome no seu próprio ritmo. Qual serviço do Armazenamento do Azure foi feito para isso?",
+      "opcoes": [
+        "Azure Disks",
+        "Azure Tables",
+        "Azure Files",
+        "Azure Queues"
+      ],
+      "correta": 3,
+      "explicacao": "O Azure Queues guarda grandes quantidades de mensagens para processamento assíncrono entre componentes de uma aplicação, e combina bem com o Azure Functions."
+    },
+    {
+      "pergunta": "Uma empresa quer manter o servidor de arquivos Windows do escritório, mas com os arquivos centralizados no Azure Files e sincronizados automaticamente nos dois sentidos. Qual ferramenta atende?",
+      "opcoes": [
+        "Azure File Sync",
+        "AzCopy",
+        "Azure Storage Explorer",
+        "Azure Data Box"
+      ],
+      "correta": 0,
+      "explicacao": "O Azure File Sync mantém um servidor Windows local sincronizado nos dois sentidos com o Azure Files, funcionando como um cache. O AzCopy sincroniza em uma só direção, e o Storage Explorer é uma interface gráfica para gerenciar os dados."
+    },
+    {
+      "pergunta": "Uma empresa precisa levar 60 TB de dados para o Azure, mas sua conexão com a internet é lenta e a transferência levaria meses. Qual opção é a mais indicada?",
+      "opcoes": [
+        "Azure Migrate",
+        "Azure File Sync",
+        "Azure Data Box",
+        "AzCopy pela internet"
+      ],
+      "correta": 2,
+      "explicacao": "O Azure Data Box é um dispositivo físico, com até 80 TB utilizáveis, que a Microsoft envia, você preenche e devolve. É ideal para grandes volumes com pouca largura de banda. O Azure Migrate e o AzCopy dependem da rede."
+    },
+    {
+      "pergunta": "Qual tipo de conta de armazenamento é recomendado para a maioria dos cenários e aceita Blob, Files, Queue e Table com todas as opções de redundância?",
+      "opcoes": [
+        "Premium block blobs",
+        "Standard general-purpose v2",
+        "Premium file shares",
+        "Premium page blobs"
+      ],
+      "correta": 1,
+      "explicacao": "A Standard general-purpose v2 é a conta padrão: aceita todos esses serviços e todas as opções de redundância, de LRS a RA-GZRS. As contas Premium são específicas para um serviço e têm menos opções de redundância."
+    }
+  ],
+  "identidade-acesso-seguranca": [
+    {
+      "pergunta": "Uma empresa quer levar para o Azure uma aplicação legada que depende de domain join, group policy e autenticação Kerberos, sem precisar implantar nem manter controladores de domínio. Qual serviço atende?",
+      "opcoes": [
+        "Microsoft Entra Connect",
+        "Microsoft Entra Domain Services",
+        "Acesso Condicional do Microsoft Entra",
+        "Azure RBAC"
+      ],
+      "correta": 1,
+      "explicacao": "O Microsoft Entra Domain Services oferece domain join, group policy, LDAP e Kerberos/NTLM como serviço gerenciado. O Entra Connect apenas sincroniza identidades entre o AD on-premises e o Entra ID."
+    },
+    {
+      "pergunta": "Um usuário digita a senha e, em seguida, confirma o login com uma notificação no celular. Qual método de autenticação está sendo usado?",
+      "opcoes": [
+        "Single sign-on (SSO)",
+        "Autenticação multifator (MFA)",
+        "B2B collaboration",
+        "Microsoft Entra Domain Services"
+      ],
+      "correta": 1,
+      "explicacao": "A MFA combina fatores de categorias diferentes: algo que você sabe (a senha) e algo que você tem (o celular). Assim, uma senha vazada não basta para entrar."
+    },
+    {
+      "pergunta": "Qual destas opções é um método passwordless (sem senha) aceito pelo Microsoft Entra ID?",
+      "opcoes": [
+        "Senha longa com caracteres especiais",
+        "Pergunta de segurança",
+        "Chave de segurança FIDO2",
+        "Redefinição de senha self-service"
+      ],
+      "correta": 2,
+      "explicacao": "O Entra ID aceita três opções passwordless: Windows Hello for Business, o app Microsoft Authenticator e chaves de segurança FIDO2. As outras opções ainda dependem de senha ou de algo que você sabe."
+    },
+    {
+      "pergunta": "Uma empresa quer que funcionários de um fornecedor acessem alguns aplicativos internos usando as próprias contas corporativas, sem criar credenciais novas para eles. Qual recurso atende?",
+      "opcoes": [
+        "B2B collaboration, das identidades externas do Microsoft Entra",
+        "Microsoft Entra Domain Services",
+        "Uma função personalizada do Azure RBAC",
+        "Uma zona privada do Azure DNS"
+      ],
+      "correta": 0,
+      "explicacao": "Com o B2B collaboration, os usuários externos entram com a identidade que já têm e aparecem no seu diretório como convidados. O provedor deles cuida da autenticação, e você controla o que eles podem acessar."
+    },
+    {
+      "pergunta": "Uma empresa quer exigir MFA apenas quando o login vier de fora da rede do escritório ou de um dispositivo não gerenciado. Qual recurso faz isso?",
+      "opcoes": [
+        "Azure RBAC",
+        "Microsoft Defender for Cloud",
+        "Microsoft Entra Domain Services",
+        "Acesso Condicional do Microsoft Entra"
+      ],
+      "correta": 3,
+      "explicacao": "O Acesso Condicional avalia sinais como local, dispositivo e aplicação e decide se libera, bloqueia ou exige um passo extra, como a MFA."
+    },
+    {
+      "pergunta": "Um analista precisa apenas visualizar todos os recursos de uma assinatura, sem poder alterar nada. Qual é a melhor forma de conceder esse acesso?",
+      "opcoes": [
+        "Atribuir a função Proprietário (Owner) em cada grupo de recursos",
+        "Atribuir a função Leitor (Reader) no escopo da assinatura",
+        "Criar uma definição no Azure Policy",
+        "Aplicar um bloqueio ReadOnly na assinatura"
+      ],
+      "correta": 1,
+      "explicacao": "O Azure RBAC atribui funções em um escopo, e a permissão é herdada pelos escopos abaixo. Leitor na assinatura permite ver todos os grupos de recursos e recursos dela, seguindo o privilégio mínimo. Um bloqueio ReadOnly travaria a assinatura para todo mundo."
+    },
+    {
+      "pergunta": "Qual ideia resume o modelo Zero Trust?",
+      "opcoes": [
+        "Confiar em todos os dispositivos que estão na rede interna da empresa",
+        "Proteger apenas o perímetro da rede com um firewall",
+        "Verificar explicitamente cada solicitação, supondo que uma violação pode já ter acontecido",
+        "Dar acesso amplo a todos para reduzir os pedidos de permissão"
+      ],
+      "correta": 2,
+      "explicacao": "O Zero Trust se baseia em três princípios: verificar explicitamente, usar acesso com privilégio mínimo e supor a violação. Estar dentro da rede da empresa não garante acesso."
+    },
+    {
+      "pergunta": "No modelo de defesa em profundidade, qual é a principal vantagem de usar várias camadas de proteção?",
+      "opcoes": [
+        "Se uma camada for rompida, a próxima continua protegendo os dados, e o ataque fica mais lento",
+        "Toda a proteção fica concentrada em um único firewall de perímetro",
+        "Os usuários deixam de precisar se autenticar",
+        "Só a camada de segurança física precisa ser monitorada"
+      ],
+      "correta": 0,
+      "explicacao": "As camadas (física, identidade e acesso, perímetro, rede, computação, aplicação e dados) protegem os dados no centro. Não depender de uma camada só retarda o ataque e dá tempo de reagir."
+    },
+    {
+      "pergunta": "Uma equipe quer acompanhar a postura de segurança dos seus recursos no Azure, com recomendações priorizadas, uma pontuação de segurança e alertas de ameaças, incluindo servidores on-premises e recursos na AWS. Qual serviço atende?",
+      "opcoes": [
+        "Microsoft Entra ID",
+        "Azure Migrate",
+        "Azure DNS",
+        "Microsoft Defender for Cloud"
+      ],
+      "correta": 3,
+      "explicacao": "O Microsoft Defender for Cloud gerencia a postura de segurança e protege contra ameaças no Azure, no on-premises e em outras nuvens, como AWS e GCP, com secure score, recomendações e alertas."
+    }
+  ],
   "governanca-basica": [
     {
       "pergunta": "Sua empresa quer garantir que ninguém crie máquinas virtuais fora da região Brazil South. Qual serviço aplica essa regra?",
@@ -493,17 +796,6 @@
       ],
       "correta": 0,
       "explicacao": "O Azure Policy define regras sobre como os recursos podem ser criados, como limitar as regiões permitidas."
-    },
-    {
-      "pergunta": "Para que serve principalmente o Azure RBAC?",
-      "opcoes": [
-        "Definir quem pode fazer o quê em quais recursos",
-        "Impor padrões de configuração aos recursos",
-        "Monitorar o desempenho das aplicações",
-        "Criptografar dados armazenados"
-      ],
-      "correta": 0,
-      "explicacao": "O RBAC trata de permissões: atribui papéis a pessoas, grupos ou aplicações em um escopo. Regras sobre os recursos são papel do Azure Policy."
     },
     {
       "pergunta": "Qual recurso impede que um recurso importante seja excluído por acidente, mesmo por alguém com permissão total?",

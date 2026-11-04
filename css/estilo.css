@@ -1,11 +1,15 @@
 /* Cores e tamanhos ficam todos aqui, em variáveis. Para mudar o visual, mexa só neste bloco. */
 :root {
-  --fundo: #f6f8fb;
+  --fundo: #e3f0ff;
   --superficie: #ffffff;
+  --superficie-cartao: rgba(255, 255, 255, 0.92);
+  --vidro: rgba(255, 255, 255, 0.72);
+  --sombra: 0 1px 2px rgba(16, 48, 96, 0.06), 0 6px 18px rgba(16, 48, 96, 0.07);
+  --sombra-elevada: 0 2px 4px rgba(16, 48, 96, 0.08), 0 12px 28px rgba(16, 48, 96, 0.12);
   --texto: #1b2430;
-  --texto-suave: #5b6675;
+  --texto-suave: #4c5767;
   --borda: #dde3ec;
-  --destaque: #0b6fd6;
+  --destaque: #0a64c2;
   --destaque-texto: #ffffff;
   --certo: #1b7f4b;
   --certo-fundo: #e3f4ea;
@@ -14,14 +18,26 @@
   --destaque-fundo: #e6f0fc;
   --alerta: #9a5b00;
   --alerta-fundo: #fff4e0;
-  --raio: 12px;
+  --raio: 16px;
+
+  /* Céu animado (camada de fundo criada por js/comum.js) */
+  --ceu: linear-gradient(180deg, #d6eaff 0%, #e4f1ff 55%, #f1f7ff 100%);
+  --nuvem-a: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 132 62'%3E%3Cg fill='%23fff'%3E%3Ccircle cx='38' cy='40' r='20'/%3E%3Ccircle cx='66' cy='30' r='26'/%3E%3Ccircle cx='96' cy='40' r='20'/%3E%3Crect x='18' y='40' width='98' height='20' rx='10'/%3E%3C/g%3E%3C/svg%3E");
+  --nuvem-b: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 160 56'%3E%3Cg fill='%23fff'%3E%3Ccircle cx='40' cy='36' r='18'/%3E%3Ccircle cx='70' cy='26' r='22'/%3E%3Ccircle cx='101' cy='30' r='18'/%3E%3Ccircle cx='125' cy='38' r='14'/%3E%3Crect x='22' y='36' width='117' height='18' rx='9'/%3E%3C/g%3E%3C/svg%3E");
+  --brilho-nuvens: 1; /* multiplica a opacidade de cada nuvem */
+  --intensidade: 1; /* menor nas páginas de quiz/simulado */
+  --icone-nuvem: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 132 62'%3E%3Cg fill='%230a64c2'%3E%3Ccircle cx='38' cy='40' r='20'/%3E%3Ccircle cx='66' cy='30' r='26'/%3E%3Ccircle cx='96' cy='40' r='20'/%3E%3Crect x='18' y='40' width='98' height='20' rx='10'/%3E%3C/g%3E%3C/svg%3E");
 }
 
 /* Modo escuro automático, conforme a configuração do aparelho. */
 @media (prefers-color-scheme: dark) {
   :root {
-    --fundo: #0f1620;
+    --fundo: #0a152c;
     --superficie: #17212e;
+    --superficie-cartao: rgba(23, 33, 46, 0.92);
+    --vidro: rgba(15, 24, 38, 0.72);
+    --sombra: 0 1px 2px rgba(0, 0, 0, 0.3), 0 6px 18px rgba(0, 0, 0, 0.25);
+    --sombra-elevada: 0 2px 4px rgba(0, 0, 0, 0.35), 0 12px 28px rgba(0, 0, 0, 0.35);
     --texto: #e6ebf2;
     --texto-suave: #9aa6b6;
     --borda: #2a3748;
@@ -34,6 +50,12 @@
     --destaque-fundo: #12263d;
     --alerta: #ffc266;
     --alerta-fundo: #3a2a10;
+
+    --ceu: linear-gradient(180deg, #081329 0%, #0c1a33 60%, #0f1d38 100%);
+    --nuvem-a: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 132 62'%3E%3Cg fill='%239bbcff'%3E%3Ccircle cx='38' cy='40' r='20'/%3E%3Ccircle cx='66' cy='30' r='26'/%3E%3Ccircle cx='96' cy='40' r='20'/%3E%3Crect x='18' y='40' width='98' height='20' rx='10'/%3E%3C/g%3E%3C/svg%3E");
+    --nuvem-b: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 160 56'%3E%3Cg fill='%239bbcff'%3E%3Ccircle cx='40' cy='36' r='18'/%3E%3Ccircle cx='70' cy='26' r='22'/%3E%3Ccircle cx='101' cy='30' r='18'/%3E%3Ccircle cx='125' cy='38' r='14'/%3E%3Crect x='22' y='36' width='117' height='18' rx='9'/%3E%3C/g%3E%3C/svg%3E");
+    --brilho-nuvens: 0.16; /* nuvens noturnas bem discretas */
+    --icone-nuvem: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 132 62'%3E%3Cg fill='%234da3ff'%3E%3Ccircle cx='38' cy='40' r='20'/%3E%3Ccircle cx='66' cy='30' r='26'/%3E%3Ccircle cx='96' cy='40' r='20'/%3E%3Crect x='18' y='40' width='98' height='20' rx='10'/%3E%3C/g%3E%3C/svg%3E");
   }
 }
 
@@ -59,14 +81,153 @@ a {
   background: var(--superficie);
 }
 
+/* Conteúdo sempre acima do céu */
+.topo,
+.pagina,
+.rodape {
+  position: relative;
+  z-index: 1;
+}
+
+/* Cabeçalho levemente fosco quando o navegador suporta; senão, sólido. */
+@supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .topo {
+    background: var(--vidro);
+    -webkit-backdrop-filter: blur(10px) saturate(1.2);
+    backdrop-filter: blur(10px) saturate(1.2);
+  }
+}
+
+/* ---------- Céu com nuvens flutuando ---------- */
+.ceu {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+  background: var(--ceu);
+}
+
+.nuvem {
+  position: absolute;
+  left: 0;
+  top: var(--y);
+  width: var(--w);
+  aspect-ratio: 132 / 62;
+  background: var(--nuvem-a) center / contain no-repeat;
+  opacity: calc(var(--o) * var(--brilho-nuvens) * var(--intensidade));
+  /* Posição parada (usada quando a animação está desligada) */
+  transform: translateX(var(--x));
+  animation: deriva var(--t) linear var(--atraso) infinite;
+}
+
+.nuvem.b {
+  aspect-ratio: 160 / 56;
+  background-image: var(--nuvem-b);
+}
+
+/* Entra totalmente pela esquerda e sai totalmente pela direita: o laço não "pula". */
+@keyframes deriva {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(100vw);
+  }
+}
+
+/* Camadas: longe = pequenas, claras e lentas; perto = grandes e mais rápidas.
+   O atraso negativo já começa cada nuvem no meio do caminho. */
+.n1 { --y: 5%;  --w: clamp(140px, 18vw, 260px); --o: 0.9;  --t: 95s;  --atraso: -20s;  --x: 8vw; }
+.n2 { --y: 15%; --w: clamp(90px, 10vw, 150px);  --o: 0.6;  --t: 170s; --atraso: -115s; --x: 70vw; }
+.n3 { --y: 27%; --w: clamp(180px, 26vw, 360px); --o: 0.85; --t: 70s;  --atraso: -40s;  --x: 38vw; }
+.n4 { --y: 41%; --w: clamp(100px, 12vw, 170px); --o: 0.55; --t: 150s; --atraso: -125s; --x: 84vw; }
+.n5 { --y: 54%; --w: clamp(150px, 20vw, 280px); --o: 0.75; --t: 110s; --atraso: -30s;  --x: 14vw; }
+.n6 { --y: 66%; --w: clamp(90px, 11vw, 160px);  --o: 0.5;  --t: 180s; --atraso: -95s;  --x: 55vw; }
+.n7 { --y: 77%; --w: clamp(200px, 28vw, 400px); --o: 0.7;  --t: 80s;  --atraso: -58s;  --x: 62vw; }
+.n8 { --y: 89%; --w: clamp(120px, 15vw, 220px); --o: 0.6;  --t: 130s; --atraso: -10s;  --x: 26vw; }
+
+/* Estrelas: só no modo escuro, piscando bem devagar (só opacidade). */
+.estrelas {
+  display: none;
+  position: absolute;
+  inset: 0 0 35% 0;
+}
+
+@media (prefers-color-scheme: dark) {
+  .estrelas {
+    display: block;
+    opacity: calc(0.6 * var(--intensidade));
+    animation: brilho 7s ease-in-out infinite alternate;
+  }
+
+  .estrelas.e1 {
+    background:
+      radial-gradient(circle 1.2px at 8% 12%, #dfe9ff 99%, transparent),
+      radial-gradient(circle 1px at 22% 38%, #dfe9ff 99%, transparent),
+      radial-gradient(circle 1.4px at 37% 8%, #dfe9ff 99%, transparent),
+      radial-gradient(circle 1px at 51% 30%, #dfe9ff 99%, transparent),
+      radial-gradient(circle 1.2px at 66% 16%, #dfe9ff 99%, transparent),
+      radial-gradient(circle 1px at 79% 44%, #dfe9ff 99%, transparent),
+      radial-gradient(circle 1.4px at 92% 10%, #dfe9ff 99%, transparent);
+  }
+
+  .estrelas.e2 {
+    animation-duration: 11s;
+    animation-delay: -5s;
+    background:
+      radial-gradient(circle 1px at 14% 26%, #c9dbff 99%, transparent),
+      radial-gradient(circle 1.3px at 30% 58%, #c9dbff 99%, transparent),
+      radial-gradient(circle 1px at 45% 20%, #c9dbff 99%, transparent),
+      radial-gradient(circle 1.2px at 59% 52%, #c9dbff 99%, transparent),
+      radial-gradient(circle 1px at 73% 6%, #c9dbff 99%, transparent),
+      radial-gradient(circle 1.2px at 86% 34%, #c9dbff 99%, transparent),
+      radial-gradient(circle 1px at 97% 62%, #c9dbff 99%, transparent);
+  }
+}
+
+@keyframes brilho {
+  from {
+    opacity: calc(0.25 * var(--intensidade));
+  }
+  to {
+    opacity: calc(0.8 * var(--intensidade));
+  }
+}
+
+/* Quiz e simulado: céu mais calmo e cartões sólidos para não distrair. */
+.pagina-foco {
+  --intensidade: 0.5;
+  --superficie-cartao: var(--superficie);
+}
+
+/* Movimento reduzido: nuvens e estrelas paradas. */
+@media (prefers-reduced-motion: reduce) {
+  .nuvem,
+  .estrelas {
+    animation: none;
+  }
+}
+
 .marca {
-  display: block;
+  display: flex;
+  align-items: center;
+  gap: 8px;
   max-width: 820px;
   margin: 0 auto;
   padding: 14px 16px;
   font-weight: 700;
   color: var(--texto);
   text-decoration: none;
+}
+
+/* Pequena nuvem ao lado do título */
+.marca::before {
+  content: "";
+  width: 30px;
+  aspect-ratio: 132 / 62;
+  background: var(--icone-nuvem) center / contain no-repeat;
+  flex: none;
 }
 
 .pagina {
@@ -128,9 +289,10 @@ h4 {
 }
 
 .cartao {
-  background: var(--superficie);
+  background: var(--superficie-cartao);
   border: 1px solid var(--borda);
   border-radius: var(--raio);
+  box-shadow: var(--sombra);
   padding: 16px 18px;
   margin: 12px 0;
 }
@@ -149,11 +311,25 @@ a.modulo {
   color: inherit;
   text-decoration: none;
   margin: 0;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
 }
 
 a.modulo:hover,
 a.modulo:focus-visible {
   border-color: var(--destaque);
+  box-shadow: var(--sombra-elevada);
+  transform: translateY(-3px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  a.modulo {
+    transition: none;
+  }
+
+  a.modulo:hover,
+  a.modulo:focus-visible {
+    transform: none;
+  }
 }
 
 a.modulo p {

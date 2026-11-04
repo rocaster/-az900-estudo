@@ -72,3 +72,20 @@ function desenharProntidao(alvo, prontidao) {
     )
   );
 }
+
+// Céu decorativo com nuvens flutuando (só visual; o CSS cuida da animação).
+// Fica atrás do conteúdo e não recebe cliques.
+function desenharCeu() {
+  if (!document.body || document.querySelector(".ceu")) return;
+  const ceu = criar("div", "ceu");
+  ceu.setAttribute("aria-hidden", "true");
+  ceu.appendChild(criar("span", "estrelas e1"));
+  ceu.appendChild(criar("span", "estrelas e2"));
+  const formatos = ["a", "b", "b", "a", "a", "b", "a", "b"];
+  formatos.forEach((formato, i) => {
+    ceu.appendChild(criar("span", "nuvem " + formato + " n" + (i + 1)));
+  });
+  document.body.prepend(ceu);
+}
+
+desenharCeu();

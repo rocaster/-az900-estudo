@@ -280,39 +280,206 @@
       "explicacao": "No SaaS o provedor assume quase tudo, no PaaS a responsabilidade é dividida e no IaaS o cliente assume a maior parte."
     }
   ],
-  "regioes-e-grupos": [
+  "componentes-da-arquitetura": [
     {
-      "pergunta": "Qual recurso do Azure protege a aplicação contra a falha de um único datacenter dentro de uma região?",
+      "pergunta": "O que é uma região do Azure?",
       "opcoes": [
-        "Zonas de disponibilidade",
-        "Grupos de recursos",
-        "Tags",
-        "Assinaturas"
+        "Um único datacenter com energia e refrigeração próprias",
+        "Uma área geográfica com um ou mais datacenters próximos, ligados por uma rede de baixa latência",
+        "Um contêiner lógico que reúne os recursos de uma aplicação",
+        "Uma assinatura dedicada aos clientes de um país"
       ],
-      "correta": 0,
-      "explicacao": "Zonas de disponibilidade são datacenters separados dentro da mesma região, com energia, refrigeração e rede independentes."
+      "correta": 1,
+      "explicacao": "Uma região é uma área geográfica que reúne pelo menos um datacenter, normalmente vários, próximos e ligados por uma rede de baixa latência. O contêiner lógico de recursos é o grupo de recursos."
     },
     {
-      "pergunta": "O que acontece com os recursos de um grupo de recursos quando você exclui o grupo?",
+      "pergunta": "Uma empresa quer que sua aplicação continue no ar mesmo se um datacenter inteiro falhar, sem precisar levá-la para outra região. O que ela deve fazer?",
       "opcoes": [
-        "Todos são excluídos junto com o grupo",
-        "Eles são movidos para um grupo padrão",
-        "Eles continuam existindo, sem grupo",
-        "Só os recursos vazios são excluídos"
+        "Colocar todos os recursos no mesmo grupo de recursos",
+        "Criar uma segunda assinatura",
+        "Distribuir os recursos entre as zonas de disponibilidade da região",
+        "Mover a aplicação para uma região soberana"
       ],
-      "correta": 0,
-      "explicacao": "Excluir o grupo exclui tudo que está dentro dele. Por isso é um bom jeito de limpar um laboratório, e um risco se você esquecer o que havia lá."
+      "correta": 2,
+      "explicacao": "Zonas de disponibilidade são datacenters fisicamente separados dentro da mesma região, com energia, refrigeração e rede independentes. Se uma zona cair, as outras continuam funcionando."
     },
     {
-      "pergunta": "O que é um par de regiões (region pair) no Azure?",
+      "pergunta": "Em uma região do Azure que oferece zonas de disponibilidade, qual é a quantidade mínima de zonas?",
       "opcoes": [
-        "Duas regiões na mesma área geográfica que ajudam na recuperação de desastres",
-        "Dois datacenters dentro da mesma zona de disponibilidade",
-        "Dois grupos de recursos ligados entre si",
-        "Duas assinaturas que compartilham a mesma fatura"
+        "Uma",
+        "Duas",
+        "Três",
+        "Seis"
+      ],
+      "correta": 2,
+      "explicacao": "Toda região com suporte a zonas tem no mínimo três zonas de disponibilidade. Mas atenção: nem toda região do Azure oferece zonas."
+    },
+    {
+      "pergunta": "Qual afirmação sobre pares de regiões (region pairs) está correta?",
+      "opcoes": [
+        "Todos os serviços replicam os dados para a região par automaticamente, sem nenhuma configuração",
+        "As atualizações planejadas do Azure são aplicadas em uma região do par de cada vez",
+        "As duas regiões de um par ficam no mesmo datacenter, para reduzir a latência",
+        "Toda região do Azure tem obrigatoriamente um par na mesma geografia"
+      ],
+      "correta": 1,
+      "explicacao": "O Azure atualiza uma região do par de cada vez para reduzir o risco de indisponibilidade. Nem todo serviço replica sozinho (muitas vezes o cliente configura a replicação), as regiões ficam a pelo menos 300 milhas uma da outra e há exceções, como Brazil South, cujo par fica em outra geografia, e regiões sem par tradicional."
+    },
+    {
+      "pergunta": "Uma agência do governo dos Estados Unidos precisa usar uma instância do Azure isolada da instância principal, operada por pessoal verificado e com certificações de conformidade adicionais. Qual opção atende a essa necessidade?",
+      "opcoes": [
+        "Uma região soberana, como US Gov Virginia",
+        "Um par de regiões nos Estados Unidos",
+        "Uma zona de disponibilidade exclusiva",
+        "Um grupo de gerenciamento dedicado"
       ],
       "correta": 0,
-      "explicacao": "Pares de regiões ficam na mesma geografia, mas separados o bastante para que um desastre não atinja os dois ao mesmo tempo."
+      "explicacao": "Regiões soberanas são instâncias do Azure isoladas da instância principal, usadas por exigências legais ou de conformidade. As regiões do governo dos EUA são um exemplo, e as regiões da China, operadas pela 21Vianet, são outro."
+    },
+    {
+      "pergunta": "Qual afirmação sobre grupos de recursos está correta?",
+      "opcoes": [
+        "Um grupo de recursos pode ficar dentro de outro grupo de recursos",
+        "Um recurso pode estar em vários grupos de recursos ao mesmo tempo",
+        "Um grupo de recursos pode ser renomeado a qualquer momento",
+        "Cada recurso pertence a exatamente um grupo de recursos por vez"
+      ],
+      "correta": 3,
+      "explicacao": "Todo recurso pertence a um único grupo de recursos de cada vez, embora muitos possam ser movidos para outro grupo. Grupos de recursos não podem ser aninhados nem renomeados depois de criados."
+    },
+    {
+      "pergunta": "Uma empresa quer faturas separadas para os ambientes de desenvolvimento e de produção, com regras de acesso diferentes em cada um. Qual é a forma mais adequada de organizar isso?",
+      "opcoes": [
+        "Criar uma assinatura para cada ambiente",
+        "Criar dois grupos de recursos na mesma assinatura",
+        "Colocar cada ambiente em uma zona de disponibilidade diferente",
+        "Usar as duas regiões de um mesmo par"
+      ],
+      "correta": 0,
+      "explicacao": "A assinatura é uma fronteira de cobrança (cada uma gera a própria fatura) e de controle de acesso. Grupos de recursos ajudam a organizar e a filtrar custos, mas a fatura é emitida por assinatura."
+    },
+    {
+      "pergunta": "Uma organização tem 40 assinaturas e quer impedir, configurando uma única vez, que qualquer uma delas crie recursos fora de determinadas regiões. Onde ela deve aplicar essa regra?",
+      "opcoes": [
+        "Em cada grupo de recursos, um por um",
+        "Em uma zona de disponibilidade de cada região",
+        "Em um grupo de gerenciamento que contenha as assinaturas",
+        "No recurso mais importante de cada assinatura"
+      ],
+      "correta": 2,
+      "explicacao": "Grupos de gerenciamento ficam acima das assinaturas. Uma política aplicada neles é herdada por todas as assinaturas, grupos de recursos e recursos abaixo, e o dono de uma assinatura não consegue passar por cima dela."
+    },
+    {
+      "pergunta": "Qual é a ordem correta da hierarquia de organização do Azure, do nível mais alto para o mais baixo?",
+      "opcoes": [
+        "Assinaturas → grupos de gerenciamento → recursos → grupos de recursos",
+        "Grupos de gerenciamento → assinaturas → grupos de recursos → recursos",
+        "Grupos de recursos → assinaturas → grupos de gerenciamento → recursos",
+        "Recursos → grupos de recursos → assinaturas → grupos de gerenciamento"
+      ],
+      "correta": 1,
+      "explicacao": "Grupos de gerenciamento organizam assinaturas, assinaturas organizam grupos de recursos e grupos de recursos organizam recursos. Configurações aplicadas em um nível são herdadas pelos níveis abaixo."
+    }
+  ],
+  "servicos-de-computacao": [
+    {
+      "pergunta": "Uma equipe precisa instalar um software legado que exige configurações específicas no sistema operacional. Qual opção de computação dá esse nível de controle?",
+      "opcoes": [
+        "Azure Functions",
+        "Azure Virtual Machines",
+        "Azure Container Instances",
+        "Azure App Service"
+      ],
+      "correta": 1,
+      "explicacao": "As VMs são IaaS: você controla o sistema operacional e o software instalado, como em um servidor físico. Em troca, patches e configuração dentro da VM ficam com você."
+    },
+    {
+      "pergunta": "Uma empresa quer rodar um trecho curto de código sempre que chegar uma mensagem de outro serviço do Azure, sem manter servidores ligados e pagando apenas pelo tempo em que o código executa. Qual serviço combina melhor?",
+      "opcoes": [
+        "Azure Virtual Machines",
+        "Virtual Machine Scale Sets",
+        "Azure Functions",
+        "Azure Virtual Desktop"
+      ],
+      "correta": 2,
+      "explicacao": "O Azure Functions é serverless e orientado a eventos: a função é acordada por um gatilho, escala sozinha e, no modelo de consumo, você paga só pelo tempo de execução."
+    },
+    {
+      "pergunta": "Qual afirmação descreve corretamente uma diferença entre contêineres e máquinas virtuais?",
+      "opcoes": [
+        "Cada contêiner precisa de um sistema operacional completo próprio, gerenciado por você",
+        "Máquinas virtuais são mais leves e iniciam mais rápido que contêineres",
+        "Contêineres só funcionam em servidores físicos, nunca dentro de uma VM",
+        "Em contêineres, você não gerencia o sistema operacional, e vários deles podem rodar no mesmo host"
+      ],
+      "correta": 3,
+      "explicacao": "Cada VM tem o próprio sistema operacional, que você gerencia. Contêineres são mais leves, rodam vários no mesmo host (físico ou virtual) e você não gerencia o sistema operacional deles."
+    },
+    {
+      "pergunta": "Uma loja virtual recebe muito mais acessos na Black Friday. Ela quer um grupo de VMs idênticas, com balanceamento de carga, que aumente e diminua a quantidade de instâncias automaticamente. Qual opção atende?",
+      "opcoes": [
+        "Virtual Machine Scale Sets",
+        "Conjuntos de disponibilidade",
+        "Azure Virtual Desktop",
+        "Grupos de gerenciamento"
+      ],
+      "correta": 0,
+      "explicacao": "Os Virtual Machine Scale Sets gerenciam um grupo de VMs idênticas com balanceamento de carga e escalam automaticamente conforme a demanda ou em horários definidos. Conjuntos de disponibilidade cuidam de resiliência, não de escala automática."
+    },
+    {
+      "pergunta": "Em um conjunto de disponibilidade (availability set), o que é um domínio de falha (fault domain)?",
+      "opcoes": [
+        "Um grupo de VMs que podem ser reiniciadas juntas durante a manutenção planejada",
+        "Um grupo de VMs que compartilham um mesmo ponto de falha, como a fonte de energia e o switch de rede",
+        "Uma região inteira reservada para recuperação de desastres",
+        "Um conjunto de VMs idênticas que escala automaticamente"
+      ],
+      "correta": 1,
+      "explicacao": "O domínio de falha agrupa VMs que podem cair juntas por uma falha física comum, como energia ou rede. O grupo de VMs reiniciadas juntas na manutenção planejada é o domínio de atualização (update domain)."
+    },
+    {
+      "pergunta": "Uma empresa quer que funcionários e terceirizados acessem desktops Windows padronizados a partir de qualquer dispositivo, mantendo aplicativos e dados na nuvem, e não nos aparelhos. Qual serviço atende?",
+      "opcoes": [
+        "Azure Container Instances",
+        "Azure Functions",
+        "Virtual Machine Scale Sets",
+        "Azure Virtual Desktop"
+      ],
+      "correta": 3,
+      "explicacao": "O Azure Virtual Desktop virtualiza desktops e aplicativos Windows no Azure, com acesso de vários dispositivos, gerenciamento centralizado e identidade pelo Microsoft Entra ID."
+    },
+    {
+      "pergunta": "Ao criar uma VM no Azure, quais recursos fazem parte da configuração dela?",
+      "opcoes": [
+        "Tamanho (vCPUs e memória), discos de armazenamento e rede (rede virtual, IP e portas)",
+        "Somente o código da aplicação e um gatilho de evento",
+        "Um grupo de gerenciamento e uma região soberana",
+        "Uma imagem de contêiner e um orquestrador Kubernetes"
+      ],
+      "correta": 0,
+      "explicacao": "Uma VM precisa de um tamanho (finalidade, vCPUs e RAM), de discos (pelo menos o do sistema operacional) e de rede (rede virtual, interface de rede e, se necessário, IP público e regras de portas). Todos esses recursos podem gerar custo."
+    },
+    {
+      "pergunta": "Uma equipe quer publicar um site e uma API REST em Python, com escala automática e deploy contínuo a partir do GitHub, sem gerenciar servidores. Qual opção de hospedagem é a mais indicada?",
+      "opcoes": [
+        "Azure Virtual Machines",
+        "Azure App Service",
+        "Azure Virtual Desktop",
+        "Conjuntos de disponibilidade"
+      ],
+      "correta": 1,
+      "explicacao": "O Azure App Service é PaaS para web apps, APIs e back ends móveis: o Azure cuida da infraestrutura, com escala automática, alta disponibilidade e deploy contínuo a partir de repositórios Git. Uma VM também funcionaria, mas exigiria gerenciar o sistema operacional."
+    },
+    {
+      "pergunta": "Uma empresa roda dezenas de microsserviços em contêineres e precisa de um serviço que orquestre essa frota, cuidando do ciclo de vida dos contêineres. Qual é o mais indicado?",
+      "opcoes": [
+        "Azure Container Instances",
+        "Azure Virtual Desktop",
+        "Azure Kubernetes Service (AKS)",
+        "Conjuntos de disponibilidade"
+      ],
+      "correta": 2,
+      "explicacao": "O AKS é um serviço de orquestração que gerencia o ciclo de vida de muitos contêineres. O Azure Container Instances é o jeito mais simples de rodar contêineres avulsos, sem orquestração."
     }
   ],
   "governanca-basica": [

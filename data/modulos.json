@@ -176,24 +176,204 @@
       ]
     },
     {
-      "id": "regioes-e-grupos",
+      "id": "componentes-da-arquitetura",
       "dominio": "arquitetura",
-      "titulo": "Regiões, zonas e grupos de recursos",
-      "resumo": "Como o Azure é organizado fisicamente e como você organiza seus recursos.",
-      "minutos": 15,
-      "learn": "https://learn.microsoft.com/training/paths/azure-fundamentals-describe-azure-architecture-services",
+      "titulo": "Componentes da arquitetura do Azure",
+      "resumo": "Datacenters, regiões, pares de regiões, regiões soberanas, zonas de disponibilidade e a hierarquia de recursos, grupos de recursos, assinaturas e grupos de gerenciamento.",
+      "minutos": 30,
+      "learn": "https://learn.microsoft.com/pt-br/training/modules/describe-core-architectural-components-of-azure/",
+      "objetivos": [
+        "Descrever regiões do Azure, pares de regiões e regiões soberanas",
+        "Descrever zonas de disponibilidade",
+        "Descrever os datacenters do Azure",
+        "Descrever recursos e grupos de recursos do Azure",
+        "Descrever assinaturas",
+        "Descrever grupos de gerenciamento",
+        "Descrever a hierarquia de grupos de recursos, assinaturas e grupos de gerenciamento"
+      ],
       "conteudo": [
         {
-          "titulo": "Regiões e pares de regiões",
-          "texto": "Uma região é um conjunto de datacenters próximos entre si, ligados por uma rede de baixa latência. Muitas regiões têm um par em outra localização da mesma área geográfica, o que ajuda na recuperação de desastres."
+          "titulo": "Datacenters e regiões",
+          "texto": "A arquitetura do Azure tem dois lados: a infraestrutura física, onde os serviços realmente rodam, e a infraestrutura de gerenciamento, que é como você organiza e controla o que cria. A parte física começa nos datacenters: prédios com servidores em racks e energia, refrigeração e rede dedicadas, como um datacenter próprio, só que em escala muito maior. Você não escolhe nem acessa um datacenter específico. Eles são agrupados em regiões e zonas de disponibilidade.",
+          "itens": [
+            "Região: uma área geográfica com pelo menos um datacenter, normalmente vários, próximos entre si e ligados por uma rede de baixa latência. Ao criar a maioria dos recursos, você escolhe a região onde ele vai ficar.",
+            "Na escolha da região pesam a proximidade dos usuários (latência), as exigências de residência de dados e conformidade e o preço, que pode variar de uma região para outra.",
+            "Nem tudo existe em todas as regiões: alguns serviços e recursos, como certos tamanhos de VM ou tipos de armazenamento, só estão disponíveis em algumas delas.",
+            "Serviços globais não pedem região, como o Microsoft Entra ID, o Azure Traffic Manager e o Azure DNS.",
+            "Exemplo perto de nós: a região Brazil South fica no estado de São Paulo."
+          ]
         },
         {
           "titulo": "Zonas de disponibilidade",
-          "texto": "Dentro de uma região, as zonas de disponibilidade são datacenters fisicamente separados, cada um com energia, refrigeração e rede próprias. Distribuir a aplicação entre zonas protege contra a falha de um datacenter."
+          "texto": "Zonas de disponibilidade são datacenters fisicamente separados dentro de uma mesma região. Cada zona tem um ou mais datacenters com energia, refrigeração e rede independentes e funciona como uma fronteira de isolamento: se uma zona cair, as outras continuam funcionando. As zonas são ligadas entre si por redes privadas de fibra óptica de alta velocidade.",
+          "itens": [
+            "Toda região que oferece zonas tem no mínimo três. Mas nem toda região oferece zonas de disponibilidade.",
+            "Para usar, você distribui VMs, armazenamento, bancos de dados e outros recursos entre as zonas da região. Duplicar recursos e transferir dados entre zonas pode gerar custo extra.",
+            "Serviços zonais: você fixa o recurso em uma zona específica, como VMs, discos gerenciados e endereços IP.",
+            "Serviços com redundância de zona: a própria plataforma replica entre as zonas automaticamente, como o armazenamento com redundância de zona e o Azure SQL Database.",
+            "Serviços não regionais: ficam sempre disponíveis a partir das geografias do Azure e resistem tanto à queda de uma zona quanto à de uma região inteira."
+          ]
         },
         {
-          "titulo": "Grupos de recursos",
-          "texto": "Um grupo de recursos é um contêiner lógico que reúne recursos relacionados, como a VM, o disco e a rede de uma mesma aplicação. Excluir o grupo exclui tudo que está dentro dele, o que é ótimo para limpar um laboratório e perigoso se você não prestar atenção."
+          "titulo": "Pares de regiões",
+          "texto": "Um evento muito grande pode atingir várias zonas da mesma região. Para ir além, a maioria das regiões tem um par: outra região na mesma geografia (como Estados Unidos, Europa ou Ásia), a pelo menos 300 milhas (cerca de 480 km) de distância. Assim, um desastre natural, uma queda de energia ou uma falha de rede que derrube uma região inteira dificilmente atinge as duas.",
+          "itens": [
+            "Exemplos: West US com East US, e Southeast Asia com East Asia.",
+            "Em uma interrupção ampla, uma região de cada par tem prioridade na recuperação.",
+            "As atualizações planejadas do Azure são aplicadas em uma região do par de cada vez, para reduzir o risco de indisponibilidade.",
+            "Os dados continuam na mesma geografia do par, por residência de dados e conformidade (a exceção é Brazil South).",
+            "Atenção: nem todo serviço replica os dados ou faz failover para o par sozinho. Em muitos casos, a replicação e a recuperação precisam ser configuradas pelo cliente.",
+            "Caso especial que vale saber: o par de Brazil South é South Central US, fora da sua geografia, e o par funciona em uma só direção (a região secundária de South Central US não é Brazil South). Algumas regiões nem têm par tradicional e dependem de zonas de disponibilidade e de armazenamento com redundância geográfica."
+          ]
+        },
+        {
+          "titulo": "Regiões soberanas",
+          "texto": "Além das regiões comuns, existem as regiões soberanas: instâncias do Azure isoladas da instância principal, usadas quando há exigências legais ou de conformidade.",
+          "itens": [
+            "Governo dos EUA (US Gov Virginia, US Gov Arizona, US DoD Central e outras): instâncias isoladas física e logicamente para agências do governo americano e seus parceiros, operadas por pessoal americano verificado e com certificações de conformidade adicionais.",
+            "China (China East, China North e outras): disponíveis por meio de uma parceria entre a Microsoft e a 21Vianet, em que a Microsoft não mantém os datacenters diretamente."
+          ]
+        },
+        {
+          "titulo": "Recursos e grupos de recursos",
+          "texto": "Um recurso é o bloco básico do Azure: tudo que você cria, provisiona ou implanta, como uma VM, uma rede virtual, um banco de dados ou um serviço de IA. Um grupo de recursos é um contêiner lógico que reúne recursos, normalmente os que têm o mesmo ciclo de vida, como a VM, o disco e a rede de uma aplicação.",
+          "itens": [
+            "Todo recurso pertence a exatamente um grupo de recursos. Dá para mover muitos recursos de um grupo para outro, mas cada um fica em um só grupo de cada vez.",
+            "Grupos de recursos não podem ser aninhados (não existe grupo dentro de grupo) e não podem ser renomeados depois de criados, então vale definir um padrão de nomes desde o início.",
+            "O que você aplica ao grupo vale para os recursos dentro dele: conceder ou negar acesso no grupo afeta todos os recursos, inclusive os que forem criados depois.",
+            "Excluir o grupo exclui tudo que está dentro dele: ótimo para limpar um ambiente temporário de testes, perigoso se você não prestar atenção.",
+            "Não há regra fixa para organizar os grupos. Separar por projeto, por ambiente ou por equipe são escolhas comuns."
+          ]
+        },
+        {
+          "titulo": "Assinaturas",
+          "texto": "A assinatura é uma unidade de gerenciamento, cobrança e escala. Sem assinatura não dá para usar o Azure: ela dá acesso aos produtos e serviços e agrupa os grupos de recursos. Cada assinatura está ligada a uma conta do Azure, que é uma identidade no Microsoft Entra ID (ou em um diretório em que ele confia). Uma conta pode ter várias assinaturas, mas precisa de pelo menos uma.",
+          "itens": [
+            "Fronteira de cobrança: cada assinatura tem seus próprios relatórios de cobrança e faturas. Assinaturas separadas ajudam a separar custos.",
+            "Fronteira de controle de acesso: as políticas de gerenciamento de acesso podem ser aplicadas no nível da assinatura, por exemplo, com regras e limites de gasto diferentes para desenvolvimento e produção.",
+            "Motivos comuns para criar mais assinaturas: separar ambientes (sandbox, desenvolvimento, teste e produção), separar equipes ou projetos e separar a cobrança.",
+            "Para praticar: a conta gratuita do Azure oferece um crédito para os primeiros 30 dias, alguns serviços populares grátis por 12 meses e mais de 65 serviços sempre gratuitos. Estudantes têm uma oferta própria, que dispensa cartão de crédito. Confira as condições atuais no site do Azure e apague o que não usar mais, para não ter custos inesperados."
+          ]
+        },
+        {
+          "titulo": "Grupos de gerenciamento",
+          "texto": "Quando existem muitas assinaturas, configurar acesso e regras em cada uma não escala. Os grupos de gerenciamento ficam acima das assinaturas: você coloca as assinaturas dentro deles e aplica condições de governança, como políticas do Azure Policy e atribuições de acesso do Azure RBAC, no próprio grupo. Tudo que está abaixo herda essas condições automaticamente.",
+          "itens": [
+            "Exemplo de política: limitar a criação de VMs à região West US em um grupo chamado Produção. Todas as assinaturas abaixo herdam a regra, e o dono de uma assinatura não consegue passar por cima dela.",
+            "Exemplo de acesso: uma única atribuição de Azure RBAC no grupo de gerenciamento vale para todos os grupos de gerenciamento, assinaturas, grupos de recursos e recursos abaixo dele.",
+            "Grupos de gerenciamento podem ser aninhados em até seis níveis de profundidade, sem contar o nível raiz nem o das assinaturas.",
+            "Cada diretório do Microsoft Entra tem um único grupo raiz (Tenant Root Group), e todos os outros grupos de gerenciamento e assinaturas ficam abaixo dele.",
+            "Cada grupo de gerenciamento e cada assinatura têm um único pai. Um diretório aceita até 10.000 grupos de gerenciamento."
+          ]
+        },
+        {
+          "titulo": "A hierarquia completa",
+          "texto": "Os quatro níveis se encaixam do maior para o menor, e as configurações descem pela hierarquia por herança.",
+          "itens": [
+            "Grupos de gerenciamento: organizam assinaturas e outros grupos de gerenciamento.",
+            "Assinaturas: organizam grupos de recursos e separam cobrança e acesso.",
+            "Grupos de recursos: organizam recursos que têm o mesmo ciclo de vida.",
+            "Recursos: as instâncias dos serviços que você cria, como VMs e bancos de dados.",
+            "Dica para a prova: uma política ou permissão aplicada em um nível vale para tudo que está abaixo dele. Quanto mais alto o nível, maior o alcance."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "servicos-de-computacao",
+      "dominio": "arquitetura",
+      "titulo": "Serviços de computação do Azure",
+      "resumo": "Máquinas virtuais, Scale Sets, conjuntos de disponibilidade, Azure Virtual Desktop, contêineres, Azure Functions e opções de hospedagem de aplicações.",
+      "minutos": 30,
+      "learn": "https://learn.microsoft.com/pt-br/training/modules/describe-azure-compute-networking-services/",
+      "objetivos": [
+        "Comparar tipos de computação: contêineres, máquinas virtuais e funções",
+        "Descrever opções de máquina virtual: Azure Virtual Machines, Virtual Machine Scale Sets, conjuntos de disponibilidade e Azure Virtual Desktop",
+        "Descrever os recursos necessários para máquinas virtuais",
+        "Descrever opções de hospedagem de aplicações: web apps, contêineres e máquinas virtuais"
+      ],
+      "conteudo": [
+        {
+          "titulo": "Três tipos de computação",
+          "texto": "Computação é o poder de processamento que roda as suas aplicações. Na prova, a comparação principal é entre máquinas virtuais, contêineres e funções, que vão do maior controle ao menor esforço de gerenciamento.",
+          "itens": [
+            "Máquinas virtuais (IaaS): você controla o sistema operacional inteiro e tudo que roda nele. Cada VM tem o próprio sistema operacional, que você configura e atualiza.",
+            "Contêineres: empacotam a aplicação com o que ela precisa e rodam em um host compartilhado, sem que você gerencie o sistema operacional. São leves, sobem e param rápido e escalam com facilidade.",
+            "Funções (Azure Functions): serverless e orientadas a eventos. Você entrega só o código, ele roda quando um evento dispara e você não mantém VMs nem contêineres ligados.",
+            "Regra prática: precisa de controle total do sistema operacional ou de um software personalizado? VM. Quer várias instâncias leves e escalar partes da aplicação de forma independente? Contêineres. Tem uma tarefa curta disparada por um evento? Functions."
+          ]
+        },
+        {
+          "titulo": "Azure Virtual Machines",
+          "texto": "As VMs do Azure são servidores virtualizados oferecidos como IaaS. Como em um servidor físico, você escolhe o sistema operacional e o software instalado, mas sem comprar nem manter hardware. Em troca, patches, atualizações e configuração dentro da VM continuam sendo responsabilidade sua. Para criar rápido, você parte de uma imagem: um modelo que já traz o sistema operacional e, às vezes, ferramentas instaladas.",
+          "itens": [
+            "Quando usar: controle total do sistema operacional, software personalizado ou configurações de hospedagem específicas.",
+            "Teste e desenvolvimento: criar rapidamente combinações de sistema operacional e aplicação e apagar a VM quando o teste acabar.",
+            "Hospedagem de aplicações na nuvem, com capacidade ajustada conforme a demanda.",
+            "Extensão do datacenter: ligar a rede do seu ambiente on-premises ao Azure e rodar cargas de trabalho em uma rede virtual conectada.",
+            "Recuperação de desastres e migração lift-and-shift: manter capacidade reserva no Azure ou mover servidores existentes com pouca mudança na aplicação."
+          ]
+        },
+        {
+          "titulo": "Recursos necessários para uma VM",
+          "texto": "Criar uma VM não é criar um recurso só. Ela depende de outros recursos, que também aparecem no grupo de recursos e também podem gerar custo.",
+          "itens": [
+            "Tamanho: define a finalidade, o número de vCPUs e a quantidade de memória RAM. Os tamanhos são organizados em famílias, como B (burstable, econômica para cargas com picos ocasionais), D (uso geral), E (otimizada para memória), F (otimizada para computação) e N (com GPU).",
+            "Discos de armazenamento: pelo menos o disco do sistema operacional, mais discos de dados se for preciso, em HDD ou SSD.",
+            "Rede: uma rede virtual com sub-rede e uma interface de rede para a VM se comunicar, além de, se necessário, um endereço IP público e as regras que liberam as portas de acesso.",
+            "Como ler o nome de um tamanho: em D2s_v5, D é a família (uso geral), 2 é o número de vCPUs, s indica suporte a SSD Premium e v5 é a geração do hardware."
+          ]
+        },
+        {
+          "titulo": "Virtual Machine Scale Sets e conjuntos de disponibilidade",
+          "texto": "Uma VM sozinha resolve testes e tarefas pequenas. Em produção, você costuma agrupar VMs para ganhar escala e resiliência, e o Azure tem dois recursos para isso.",
+          "itens": [
+            "Virtual Machine Scale Sets: criam e gerenciam um grupo de VMs idênticas com balanceamento de carga. A configuração fica centralizada, e a quantidade de instâncias pode aumentar ou diminuir automaticamente conforme a demanda ou em horários definidos.",
+            "Conjuntos de disponibilidade (availability sets): distribuem as VMs para que uma manutenção ou uma falha de hardware não derrube todas ao mesmo tempo.",
+            "Domínio de atualização (update domain): grupo de VMs que podem ser reiniciadas juntas na manutenção planejada. As atualizações passam por um domínio de cada vez.",
+            "Domínio de falha (fault domain): grupo de VMs que compartilham um mesmo ponto de falha, como a fonte de energia e o switch de rede.",
+            "O conjunto de disponibilidade não custa nada a mais: você paga só pelas VMs. Nas regiões com zonas de disponibilidade, espalhar as VMs entre zonas costuma ser preferido, porque isola falhas de forma mais ampla."
+          ]
+        },
+        {
+          "titulo": "Azure Virtual Desktop",
+          "texto": "O Azure Virtual Desktop é um serviço de virtualização de desktops e aplicativos que roda no Azure. Os usuários acessam desktops e aplicativos Windows de vários tipos de dispositivo, de onde estiverem, enquanto os desktops ficam na nuvem, e não no aparelho de cada pessoa.",
+          "itens": [
+            "Bom para equipes distribuídas, terceirizados e trabalho híbrido, com desktops padronizados e gerenciados de forma centralizada.",
+            "Usa o Microsoft Entra ID para identidade e controle de acesso.",
+            "Reduz a exposição de dados nos dispositivos locais, porque aplicativos e dados ficam nas sessões hospedadas no Azure.",
+            "Suporta Windows de sessão única e de várias sessões (multissessão), em que vários usuários compartilham a mesma VM."
+          ]
+        },
+        {
+          "titulo": "Contêineres no Azure",
+          "texto": "Uma VM roda um único sistema operacional. Com contêineres, você roda várias aplicações isoladas no mesmo host, físico ou virtual, sem gerenciar o sistema operacional de cada uma. Eles são leves, criados e parados dinamicamente, e voltam rápido depois de uma falha. O Docker é um dos mecanismos de contêiner mais populares, e o Azure tem suporte a ele.",
+          "itens": [
+            "Azure Container Instances (ACI): o jeito mais rápido e simples de rodar um contêiner no Azure, sem gerenciar VMs. É PaaS: você envia o contêiner e o serviço o executa.",
+            "Azure Container Apps: também PaaS e simples de começar, mas com balanceamento de carga e escala embutidos, para acompanhar a variação da demanda.",
+            "Azure Kubernetes Service (AKS): serviço de orquestração, que gerencia o ciclo de vida de uma frota de contêineres.",
+            "Microsserviços: dividir a aplicação em partes independentes, como front end, back end e armazenamento, cada uma em um contêiner, permite atualizar e escalar cada parte separadamente."
+          ]
+        },
+        {
+          "titulo": "Azure Functions",
+          "texto": "O Azure Functions é a opção de computação serverless e orientada a eventos. Com VMs e contêineres, os recursos precisam ficar ligados para a aplicação funcionar. Com o Functions, um evento acorda a função, e nada precisa ficar provisionado quando não há eventos.",
+          "itens": [
+            "Gatilhos comuns: uma requisição HTTP (REST), um temporizador ou uma mensagem de outro serviço do Azure.",
+            "Ideal para tarefas que terminam rápido, em segundos ou menos, e para demanda variável, porque escala automaticamente.",
+            "Cobrança: no modelo de consumo, você paga pelo tempo de processamento enquanto a função roda, e os recursos são liberados quando ela termina.",
+            "Sem estado (o padrão): a função se comporta como se reiniciasse a cada evento. Com estado (Durable Functions): o runtime passa um contexto que guarda o que aconteceu nas execuções anteriores."
+          ]
+        },
+        {
+          "titulo": "Opções de hospedagem de aplicações",
+          "texto": "Para hospedar uma aplicação no Azure, as três opções cobradas na prova são máquinas virtuais, contêineres e o Azure App Service (web apps). Quanto mais controle você quer, mais coisa fica sob sua responsabilidade.",
+          "itens": [
+            "Máquinas virtuais: controle máximo do ambiente, configurado exatamente como você quiser. É o caminho mais familiar para quem vem do datacenter próprio, mas o sistema operacional é seu.",
+            "Contêineres: isolam e gerenciam separadamente cada parte da solução, com agilidade para escalar e atualizar.",
+            "Azure App Service: PaaS baseado em HTTP para hospedar web apps, APIs REST e back ends de aplicativos móveis sem gerenciar infraestrutura. Tem escala automática e alta disponibilidade, roda em Windows ou Linux, aceita linguagens como .NET, Java, Node.js, PHP e Python e faz deploy contínuo a partir do GitHub, do Azure DevOps ou de qualquer repositório Git.",
+            "Tipos de app no App Service: web apps, API apps, WebJobs (programas ou scripts em segundo plano, agendados ou disparados por um gatilho) e mobile apps (back end para aplicativos iOS e Android)."
+          ]
         }
       ]
     },

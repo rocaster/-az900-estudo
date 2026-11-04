@@ -11,6 +11,9 @@
   --certo-fundo: #e3f4ea;
   --erro: #b42318;
   --erro-fundo: #fdeae8;
+  --destaque-fundo: #e6f0fc;
+  --alerta: #9a5b00;
+  --alerta-fundo: #fff4e0;
   --raio: 12px;
 }
 
@@ -28,6 +31,9 @@
     --certo-fundo: #123324;
     --erro: #ff8a80;
     --erro-fundo: #3a1a18;
+    --destaque-fundo: #12263d;
+    --alerta: #ffc266;
+    --alerta-fundo: #3a2a10;
   }
 }
 
@@ -41,6 +47,11 @@ body {
   color: var(--texto);
   font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
   line-height: 1.6;
+}
+
+/* Links de texto seguem a cor de destaque (legível também no modo escuro). */
+a {
+  color: var(--destaque);
 }
 
 .topo {
@@ -306,6 +317,237 @@ a.modulo p {
 
 .rodape a {
   color: var(--destaque);
+}
+
+/* Chamada do simulado e prontidão, na página inicial */
+.chamada-simulado {
+  border: 2px solid var(--destaque);
+  background: var(--destaque-fundo);
+}
+
+.chamada-simulado .acoes {
+  margin-top: 14px;
+}
+
+.prontidao .barra {
+  margin: 6px 0;
+}
+
+.prontidao-linha {
+  font-weight: 700;
+  margin: 8px 0 4px;
+}
+
+/* Simulado: barra com contador e cronômetro */
+.barra-simulado {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 16px;
+  align-items: center;
+  padding: 10px 14px;
+  margin: 0 0 8px;
+  background: var(--superficie);
+  border: 1px solid var(--borda);
+  border-radius: var(--raio);
+}
+
+.barra-simulado .respondidas {
+  color: var(--texto-suave);
+  font-size: 0.9rem;
+}
+
+.cronometro {
+  margin-left: auto;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.cronometro.alerta {
+  color: var(--erro);
+}
+
+.aviso {
+  padding: 10px 14px;
+  border-radius: var(--raio);
+  background: var(--alerta-fundo);
+  color: var(--alerta);
+  font-weight: 600;
+}
+
+.alerta-texto {
+  color: var(--alerta);
+  font-weight: 600;
+}
+
+.opcao.selecionada {
+  border-color: var(--destaque);
+  background: var(--destaque-fundo);
+  font-weight: 600;
+}
+
+button.botao:disabled {
+  opacity: 0.45;
+  cursor: default;
+  filter: none;
+}
+
+/* Navegador de questões */
+.navegador {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(48px, 1fr));
+  gap: 6px;
+}
+
+.nav-item {
+  min-height: 40px;
+  padding: 4px;
+  border: 2px solid var(--borda);
+  border-radius: 8px;
+  background: var(--superficie);
+  color: var(--texto);
+  font: inherit;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.nav-item.respondida {
+  background: var(--destaque);
+  border-color: var(--destaque);
+  color: var(--destaque-texto);
+}
+
+.nav-item.marcada {
+  border-color: var(--alerta);
+}
+
+.nav-item.atual {
+  outline: 3px solid var(--texto);
+  outline-offset: 1px;
+}
+
+/* Resultado do simulado */
+.nota-escala {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--texto-suave);
+}
+
+.situacao {
+  display: inline-block;
+  padding: 2px 12px;
+  border-radius: 999px;
+  font-weight: 700;
+}
+
+.situacao.aprovado {
+  background: var(--certo-fundo);
+  color: var(--certo);
+}
+
+.situacao.ainda-nao {
+  background: var(--erro-fundo);
+  color: var(--erro);
+}
+
+.dominio.fraco .barra-preenchida {
+  background: var(--erro);
+}
+
+.selo-fraco {
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 1px 8px;
+  border-radius: 999px;
+  background: var(--erro-fundo);
+  color: var(--erro);
+}
+
+.filtros {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.filtro {
+  padding: 6px 12px;
+  border: 2px solid var(--borda);
+  border-radius: 999px;
+  background: var(--superficie);
+  color: var(--texto);
+  font: inherit;
+  cursor: pointer;
+}
+
+.filtro[aria-pressed="true"] {
+  border-color: var(--destaque);
+  background: var(--destaque-fundo);
+  font-weight: 600;
+}
+
+.item-revisao {
+  border-left: 4px solid var(--borda);
+  padding: 8px 0 8px 14px;
+  margin: 14px 0;
+}
+
+.item-revisao.acerto {
+  border-left-color: var(--certo);
+}
+
+.item-revisao.falha {
+  border-left-color: var(--erro);
+}
+
+.item-revisao p {
+  margin: 4px 0;
+}
+
+.resposta-certa {
+  color: var(--certo);
+  font-weight: 600;
+}
+
+.resposta-errada {
+  color: var(--erro);
+  font-weight: 600;
+}
+
+/* Histórico dos simulados */
+.tabela-rolagem {
+  overflow-x: auto;
+}
+
+.tabela {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.tabela th,
+.tabela td {
+  padding: 6px 8px;
+  border-bottom: 1px solid var(--borda);
+  text-align: left;
+  white-space: nowrap;
+}
+
+.tabela th {
+  color: var(--texto-suave);
+  font-weight: 600;
+}
+
+.tabela .numero {
+  font-variant-numeric: tabular-nums;
+}
+
+.tabela .situacao {
+  background: none;
+  padding: 6px 8px;
+  border-radius: 0;
 }
 
 @media (min-width: 640px) {

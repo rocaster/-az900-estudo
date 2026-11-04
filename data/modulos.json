@@ -252,7 +252,7 @@
             "Fronteira de cobrança: cada assinatura tem seus próprios relatórios de cobrança e faturas. Assinaturas separadas ajudam a separar custos.",
             "Fronteira de controle de acesso: as políticas de gerenciamento de acesso podem ser aplicadas no nível da assinatura, por exemplo, com regras e limites de gasto diferentes para desenvolvimento e produção.",
             "Motivos comuns para criar mais assinaturas: separar ambientes (sandbox, desenvolvimento, teste e produção), separar equipes ou projetos e separar a cobrança.",
-            "Para praticar: a conta gratuita do Azure oferece um crédito para os primeiros 30 dias, alguns serviços populares grátis por 12 meses e mais de 65 serviços sempre gratuitos. Estudantes têm uma oferta própria, que dispensa cartão de crédito. Confira as condições atuais no site do Azure e apague o que não usar mais, para não ter custos inesperados."
+            "Para praticar: a conta gratuita do Azure oferece um crédito para os primeiros 30 dias, alguns serviços populares grátis por 12 meses e dezenas de serviços sempre gratuitos (a lista e as quantidades mudam com o tempo). Estudantes têm uma oferta própria, que dispensa cartão de crédito. Confira as condições atuais no site do Azure e apague o que não usar mais, para não ter custos inesperados."
           ]
         },
         {

@@ -35,3 +35,40 @@ function mostrarErro(erro) {
   );
   area.append(caixa);
 }
+
+// Escreve o bloco "Prontidão estimada" dentro de um elemento (usado na página inicial e no simulado).
+function desenharProntidao(alvo, prontidao) {
+  alvo.replaceChildren();
+
+  if (!prontidao.fonte) {
+    alvo.append(criar("p", "detalhe", "Faça um simulado para ver sua prontidão."));
+    return;
+  }
+
+  const fraco =
+    prontidao.fracos.length > 0
+      ? " — ponto fraco: " + prontidao.fracos.map((d) => d.nome).join(" e ")
+      : " — nenhum ponto fraco no momento";
+  alvo.append(criar("p", "prontidao-linha", "Prontidão estimada: " + prontidao.percentual + "%" + fraco));
+
+  const barra = criar("div", "barra");
+  const preenchimento = criar("div", "barra-preenchida");
+  preenchimento.style.width = prontidao.percentual + "%";
+  barra.append(preenchimento);
+  alvo.append(barra);
+
+  const origem =
+    prontidao.fonte === "simulados"
+      ? "com base " +
+        (prontidao.quantidade === 1 ? "no seu último simulado" : "nos seus últimos " + prontidao.quantidade + " simulados")
+      : "com base nas notas dos quizzes dos módulos, porque você ainda não fez um simulado";
+  alvo.append(
+    criar(
+      "p",
+      "detalhe",
+      "Média dos domínios ponderada pelo peso de cada um na prova, " +
+        origem +
+        ". É só uma estimativa para orientar o estudo, não uma previsão oficial."
+    )
+  );
+}

@@ -1,10 +1,15 @@
-// Página inicial: mostra o progresso por domínio e os módulos agrupados por domínio.
+// Página inicial: mostra a chamada do simulado com a prontidão, o progresso por domínio
+// e os módulos agrupados por domínio.
 
 async function iniciar() {
   const dados = await carregarJson("data/modulos.json");
   const progresso = lerProgresso();
   desenharDominios(dados, progresso);
   desenharModulos(dados, progresso);
+  desenharProntidao(
+    document.getElementById("prontidao"),
+    calcularProntidao(dados, progresso, lerHistoricoSimulados())
+  );
 }
 
 function desenharDominios(dados, progresso) {

@@ -1,19 +1,23 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" data-titulo="titulo.modulo">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Módulo · Estudo AZ-900</title>
+    <title>Estudo AZ-900</title>
+    <script src="js/i18n.js"></script>
     <link rel="icon" href="favicon.svg" type="image/svg+xml" />
     <link rel="stylesheet" href="css/estilo.css" />
   </head>
   <body>
     <header class="topo">
-      <a class="marca" href="index.html">Estudo AZ-900</a>
+      <div class="topo-conteudo">
+        <a class="marca" href="index.html" data-i18n="marca"></a>
+        <div class="idiomas"></div>
+      </div>
     </header>
 
     <main id="conteudo" class="pagina">
-      <p>Carregando…</p>
+      <p data-i18n="carregando"></p>
     </main>
 
     <script src="js/comum.js"></script>

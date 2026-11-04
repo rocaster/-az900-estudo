@@ -1,0 +1,1181 @@
+{
+  "computacao-em-nuvem": [
+    {
+      "pergunta": "Which description best defines cloud computing?",
+      "opcoes": [
+        "The delivery of computing services, such as servers, storage, and databases, over the internet and on demand",
+        "Buying and installing servers in the company's own datacenter",
+        "Software installed on each employee's computer",
+        "A private physical network between two branch offices"
+      ],
+      "correta": 0,
+      "explicacao": "In the cloud you use IT resources over the internet, when you need them, without buying and maintaining hardware. Buying servers for your own datacenter is the traditional model, on-premises."
+    },
+    {
+      "pergunta": "In any type of cloud service, which item is always the customer's responsibility?",
+      "opcoes": [
+        "The physical datacenter",
+        "The provider's physical network",
+        "The data and information stored in the cloud",
+        "The physical hosts"
+      ],
+      "correta": 2,
+      "explicacao": "The provider always takes care of the physical layer: datacenter, physical network, and hosts. The customer always takes care of the data, the devices that connect, and the accounts and identities."
+    },
+    {
+      "pergunta": "A startup needs resources that can grow quickly, without buying hardware and paying only for what it uses. Which cloud model fits this best?",
+      "opcoes": [
+        "Private cloud",
+        "Public cloud",
+        "Hybrid cloud",
+        "On-premises"
+      ],
+      "correta": 1,
+      "explicacao": "In the public cloud there's no capital expenditure to scale up, resources are provisioned and deprovisioned quickly, and you pay for what you use."
+    },
+    {
+      "pergunta": "Which characteristic describes a private cloud?",
+      "opcoes": [
+        "It's shared by anyone who buys the service, with no control over the hardware",
+        "It's a mandatory combination of two public clouds",
+        "The organization has no hardware costs at all",
+        "It's used by a single organization, which has complete control over resources and security"
+      ],
+      "correta": 3,
+      "explicacao": "A private cloud serves a single organization and gives complete control, but it usually costs more, because it requires buying and maintaining the hardware."
+    },
+    {
+      "pergunta": "A company keeps sensitive data in its own datacenter but wants to use public cloud resources when demand spikes. Which model is it using?",
+      "opcoes": [
+        "Public cloud",
+        "Private cloud",
+        "Hybrid cloud",
+        "Multi-cloud"
+      ],
+      "correta": 2,
+      "explicacao": "A hybrid cloud combines a private environment and the public cloud. Multi-cloud would be using two or more public cloud providers."
+    },
+    {
+      "pergunta": "Which statement about the consumption-based model is correct?",
+      "opcoes": [
+        "You pay a fixed amount per month, regardless of usage",
+        "You pay only for the resources you use, without buying hardware up front",
+        "You must estimate peak capacity and buy it before using it",
+        "Payment is made in full at the start of the contract"
+      ],
+      "correta": 1,
+      "explicacao": "In the consumption-based model you rent resources, pay for usage, and release what you no longer need. This avoids paying for idle capacity."
+    },
+    {
+      "pergunta": "What is the difference between CapEx and OpEx?",
+      "opcoes": [
+        "CapEx is up-front spending on physical infrastructure, and OpEx is ongoing spending on services over time",
+        "CapEx is ongoing spending on services, and OpEx is up-front spending on physical infrastructure",
+        "CapEx applies to software, and OpEx applies to hardware",
+        "There's no difference; both terms mean the same thing"
+      ],
+      "correta": 0,
+      "explicacao": "Servers and your own datacenter are CapEx. Cloud services paid for based on consumption are OpEx."
+    },
+    {
+      "pergunta": "What characterizes serverless computing?",
+      "opcoes": [
+        "No physical server is involved at any point",
+        "You must provision and maintain virtual machines to run the code",
+        "The code runs 24 hours a day, at a fixed cost",
+        "You focus on the code, which runs in response to events, and pay for execution time, without managing servers"
+      ],
+      "correta": 3,
+      "explicacao": "The servers exist, but they're managed by the provider. The code is triggered by events, scales automatically, and you pay for what you use. Azure Functions is an example."
+    }
+  ],
+  "beneficios-da-nuvem": [
+    {
+      "pergunta": "What does high availability mean?",
+      "opcoes": [
+        "Keeping resources available when needed, despite failures or disruptions",
+        "Always having twice the capacity you need",
+        "Paying less when usage drops",
+        "Running the entire system in a single, very powerful datacenter"
+      ],
+      "correta": 0,
+      "explicacao": "High availability means keeping the service available even when there are failures. That's why each service has an SLA that states the promised availability."
+    },
+    {
+      "pergunta": "What is a cloud provider's SLA (service-level agreement)?",
+      "opcoes": [
+        "A list of the prices of each resource",
+        "The availability commitment the provider makes for each service",
+        "A license to use a piece of software",
+        "A report of last month's incidents"
+      ],
+      "correta": 1,
+      "explicacao": "The SLA is the uptime guarantee the provider makes for a service. When designing a solution, you need to consider the SLA of each service you use."
+    },
+    {
+      "pergunta": "You increased the CPU and memory of an existing virtual machine to handle more load. What type of scaling is this?",
+      "opcoes": [
+        "Horizontal scaling (scale out)",
+        "Load balancing",
+        "Vertical scaling (scale up)",
+        "Geo-redundancy"
+      ],
+      "correta": 2,
+      "explicacao": "Changing the capability of an existing resource is vertical scaling. Adding more resources, such as new VMs, is horizontal scaling."
+    },
+    {
+      "pergunta": "To handle more traffic, you add more instances of the application, for example more virtual machines or containers. What type of scaling is this?",
+      "opcoes": [
+        "Horizontal scaling (scale out)",
+        "Vertical scaling (scale up)",
+        "Disaster recovery",
+        "Governance"
+      ],
+      "correta": 0,
+      "explicacao": "Horizontal scaling changes the number of resources, and it can be done manually or automatically."
+    },
+    {
+      "pergunta": "A ticketing app has peaks on Fridays and almost no usage on other days. The platform increases and reduces instances automatically. Which benefit does this illustrate?",
+      "opcoes": [
+        "Governance",
+        "Elasticity",
+        "Data sovereignty",
+        "Management through the CLI"
+      ],
+      "correta": 1,
+      "explicacao": "Elasticity is the automatic adjustment of resources up and down, following demand."
+    },
+    {
+      "pergunta": "An entire region has a major event, but the application keeps running in another region. Which cloud benefit does this illustrate?",
+      "opcoes": [
+        "Cost predictability",
+        "Governance",
+        "Reliability",
+        "Manageability"
+      ],
+      "correta": 2,
+      "explicacao": "Reliability is the ability to recover from failures and continue to function. Because the cloud is decentralized, other regions stay up."
+    },
+    {
+      "pergunta": "Which tool helps you forecast and plan cloud spending (cost predictability)?",
+      "opcoes": [
+        "Load balancer",
+        "Availability zones",
+        "Azure pricing calculator",
+        "Management through the CLI"
+      ],
+      "correta": 2,
+      "explicacao": "The pricing calculator estimates future spending. Load balancing and autoscaling help with performance predictability, not cost."
+    },
+    {
+      "pergunta": "Your company needs to make sure deployed resources follow technical and regulatory standards, and wants to identify those that are out of compliance. Which cloud benefit supports this?",
+      "opcoes": [
+        "Elasticity",
+        "Governance, with governance templates and compliance auditing",
+        "Vertical scaling",
+        "Cost predictability"
+      ],
+      "correta": 1,
+      "explicacao": "Governance templates apply standards to resources, and compliance auditing flags what's out of compliance and suggests fixes."
+    },
+    {
+      "pergunta": "Which item is an example of management IN the cloud, that is, how you access and control the environment?",
+      "opcoes": [
+        "Autoscaling that adds resources as demand changes",
+        "Templates that deploy preconfigured settings",
+        "Using the web portal, the CLI, PowerShell, or APIs to administer resources",
+        "Health monitoring that replaces failing resources automatically"
+      ],
+      "correta": 2,
+      "explicacao": "Management in the cloud is how you access it: portal, CLI, APIs, and PowerShell. Autoscaling, templates, health monitoring, and alerts are management of the cloud, that is, of the resources themselves."
+    }
+  ],
+  "tipos-de-servico": [
+    {
+      "pergunta": "Which service type gives the most control over the environment and, in exchange, leaves the most responsibility with the customer?",
+      "opcoes": [
+        "SaaS",
+        "PaaS",
+        "IaaS",
+        "They all give the same level of control"
+      ],
+      "correta": 2,
+      "explicacao": "With IaaS you control everything above the physical hardware, such as the operating system, networking, and databases, and that's why you carry most of the operational responsibility."
+    },
+    {
+      "pergunta": "A company wants to migrate its applications to the cloud by recreating an environment similar to its datacenter, with minimal changes (lift-and-shift). Which service type fits best?",
+      "opcoes": [
+        "IaaS",
+        "PaaS",
+        "SaaS",
+        "None; everything must be rewritten"
+      ],
+      "correta": 0,
+      "explicacao": "IaaS lets you recreate an environment similar to on-premises and move workloads with few changes."
+    },
+    {
+      "pergunta": "In an IaaS service, what does the provider maintain?",
+      "opcoes": [
+        "The operating system and its updates",
+        "The database configuration",
+        "The customer's data",
+        "The physical hardware, network connectivity, and physical security"
+      ],
+      "correta": 3,
+      "explicacao": "With IaaS the provider takes care of the physical layer. The operating system, patches, networking, and data stay with the customer."
+    },
+    {
+      "pergunta": "With PaaS, what is usually the customer's responsibility?",
+      "opcoes": [
+        "The physical hardware",
+        "The operating system and middleware",
+        "The application code, the data, and access control",
+        "The physical security of the datacenter"
+      ],
+      "correta": 2,
+      "explicacao": "With PaaS the provider manages the infrastructure, operating system, and platform. The customer takes care of the code, the data, and access."
+    },
+    {
+      "pergunta": "Which of these services is an example of PaaS?",
+      "opcoes": [
+        "Azure Virtual Machines",
+        "Azure App Service",
+        "Microsoft 365",
+        "A physical server in the office"
+      ],
+      "correta": 1,
+      "explicacao": "Azure App Service hosts web applications without you managing the operating system. Virtual Machines is IaaS and Microsoft 365 is SaaS."
+    },
+    {
+      "pergunta": "What is an advantage of SaaS?",
+      "opcoes": [
+        "Less operational effort, because the provider handles most of the maintenance",
+        "More flexibility to configure the operating system",
+        "More control over the hardware",
+        "It lets you install any software on the server"
+      ],
+      "correta": 0,
+      "explicacao": "With SaaS the provider manages almost the whole stack. The trade-off is less flexibility: you use the software the way it was built."
+    },
+    {
+      "pergunta": "Even when using SaaS such as Microsoft 365, what remains the customer's responsibility?",
+      "opcoes": [
+        "Installing application updates",
+        "The data, identity and access settings, and the security of the devices that connect",
+        "Server maintenance",
+        "The physical datacenter"
+      ],
+      "correta": 1,
+      "explicacao": "With SaaS the provider manages the application and infrastructure, but data, identities, and devices remain the customer's."
+    },
+    {
+      "pergunta": "Which sequence orders the service types from LEAST to MOST management effort for the customer?",
+      "opcoes": [
+        "IaaS, PaaS, SaaS",
+        "PaaS, SaaS, IaaS",
+        "SaaS, PaaS, IaaS",
+        "IaaS, SaaS, PaaS"
+      ],
+      "correta": 2,
+      "explicacao": "With SaaS the provider takes on almost everything, with PaaS responsibility is shared, and with IaaS the customer takes on most of it."
+    }
+  ],
+  "componentes-da-arquitetura": [
+    {
+      "pergunta": "What is an Azure region?",
+      "opcoes": [
+        "A single datacenter with its own power and cooling",
+        "A geographical area with one or more nearby datacenters connected by a low-latency network",
+        "A logical container that groups an application's resources",
+        "A subscription dedicated to customers in one country"
+      ],
+      "correta": 1,
+      "explicacao": "A region is a geographical area that contains at least one datacenter, usually several, close together and connected by a low-latency network. The logical container for resources is the resource group."
+    },
+    {
+      "pergunta": "A company wants its application to stay up even if an entire datacenter fails, without moving it to another region. What should it do?",
+      "opcoes": [
+        "Put all resources in the same resource group",
+        "Create a second subscription",
+        "Spread the resources across the region's availability zones",
+        "Move the application to a sovereign region"
+      ],
+      "correta": 2,
+      "explicacao": "Availability zones are physically separate datacenters within the same region, with independent power, cooling, and networking. If one zone goes down, the others keep working."
+    },
+    {
+      "pergunta": "In an Azure region that supports availability zones, what is the minimum number of zones?",
+      "opcoes": [
+        "One",
+        "Two",
+        "Three",
+        "Six"
+      ],
+      "correta": 2,
+      "explicacao": "Every region that supports zones has at least three availability zones. But note: not every Azure region supports zones."
+    },
+    {
+      "pergunta": "Which statement about region pairs is correct?",
+      "opcoes": [
+        "All services replicate data to the paired region automatically, with no configuration",
+        "Planned Azure updates are rolled out to one region of the pair at a time",
+        "Both regions in a pair are in the same datacenter, to reduce latency",
+        "Every Azure region must have a pair in the same geography"
+      ],
+      "correta": 1,
+      "explicacao": "Azure updates one region of the pair at a time to reduce the risk of downtime. Not every service replicates on its own (often the customer configures replication), the regions are at least 300 miles apart, and there are exceptions, such as Brazil South, whose pair is in another geography, and regions without a traditional pair."
+    },
+    {
+      "pergunta": "A US government agency needs to use an instance of Azure isolated from the main instance, operated by screened personnel and with additional compliance certifications. Which option meets this need?",
+      "opcoes": [
+        "A sovereign region, such as US Gov Virginia",
+        "A region pair in the United States",
+        "A dedicated availability zone",
+        "A dedicated management group"
+      ],
+      "correta": 0,
+      "explicacao": "Sovereign regions are instances of Azure isolated from the main instance, used because of legal or compliance requirements. The US government regions are one example, and the China regions, operated by 21Vianet, are another."
+    },
+    {
+      "pergunta": "Which statement about resource groups is correct?",
+      "opcoes": [
+        "A resource group can be placed inside another resource group",
+        "A resource can be in multiple resource groups at the same time",
+        "A resource group can be renamed at any time",
+        "Each resource belongs to exactly one resource group at a time"
+      ],
+      "correta": 3,
+      "explicacao": "Every resource belongs to a single resource group at a time, although many can be moved to another group. Resource groups can't be nested or renamed after they're created."
+    },
+    {
+      "pergunta": "A company wants separate invoices for its development and production environments, with different access rules for each. What is the most appropriate way to organize this?",
+      "opcoes": [
+        "Create a subscription for each environment",
+        "Create two resource groups in the same subscription",
+        "Put each environment in a different availability zone",
+        "Use both regions of the same pair"
+      ],
+      "correta": 0,
+      "explicacao": "A subscription is a billing boundary (each one produces its own invoice) and an access control boundary. Resource groups help organize and filter costs, but invoices are issued per subscription."
+    },
+    {
+      "pergunta": "An organization has 40 subscriptions and wants to prevent, with a single configuration, any of them from creating resources outside certain regions. Where should it apply this rule?",
+      "opcoes": [
+        "On each resource group, one by one",
+        "On one availability zone in each region",
+        "On a management group that contains the subscriptions",
+        "On the most important resource in each subscription"
+      ],
+      "correta": 2,
+      "explicacao": "Management groups sit above subscriptions. A policy applied to them is inherited by all subscriptions, resource groups, and resources below, and a subscription owner can't override it."
+    },
+    {
+      "pergunta": "What is the correct order of the Azure organizational hierarchy, from the highest level to the lowest?",
+      "opcoes": [
+        "Subscriptions → management groups → resources → resource groups",
+        "Management groups → subscriptions → resource groups → resources",
+        "Resource groups → subscriptions → management groups → resources",
+        "Resources → resource groups → subscriptions → management groups"
+      ],
+      "correta": 1,
+      "explicacao": "Management groups organize subscriptions, subscriptions organize resource groups, and resource groups organize resources. Settings applied at one level are inherited by the levels below."
+    }
+  ],
+  "servicos-de-computacao": [
+    {
+      "pergunta": "A team needs to install legacy software that requires specific operating system settings. Which compute option provides that level of control?",
+      "opcoes": [
+        "Azure Functions",
+        "Azure Virtual Machines",
+        "Azure Container Instances",
+        "Azure App Service"
+      ],
+      "correta": 1,
+      "explicacao": "VMs are IaaS: you control the operating system and installed software, as with a physical server. In exchange, patches and configuration inside the VM are up to you."
+    },
+    {
+      "pergunta": "A company wants to run a short piece of code whenever a message arrives from another Azure service, without keeping servers running and paying only for the time the code executes. Which service fits best?",
+      "opcoes": [
+        "Azure Virtual Machines",
+        "Virtual Machine Scale Sets",
+        "Azure Functions",
+        "Azure Virtual Desktop"
+      ],
+      "correta": 2,
+      "explicacao": "Azure Functions is serverless and event-driven: the function is woken by a trigger, scales automatically, and, in the consumption model, you pay only for execution time."
+    },
+    {
+      "pergunta": "Which statement correctly describes a difference between containers and virtual machines?",
+      "opcoes": [
+        "Each container needs its own complete operating system, managed by you",
+        "Virtual machines are lighter and start faster than containers",
+        "Containers only work on physical servers, never inside a VM",
+        "With containers, you don't manage the operating system, and many of them can run on the same host"
+      ],
+      "correta": 3,
+      "explicacao": "Each VM has its own operating system, which you manage. Containers are lighter, many run on the same host (physical or virtual), and you don't manage their operating system."
+    },
+    {
+      "pergunta": "An online store gets much more traffic on Black Friday. It wants a group of identical, load-balanced VMs that increases and decreases the number of instances automatically. Which option meets this need?",
+      "opcoes": [
+        "Virtual Machine Scale Sets",
+        "Availability sets",
+        "Azure Virtual Desktop",
+        "Management groups"
+      ],
+      "correta": 0,
+      "explicacao": "Virtual Machine Scale Sets manage a group of identical, load-balanced VMs and scale automatically based on demand or on a defined schedule. Availability sets handle resiliency, not autoscaling."
+    },
+    {
+      "pergunta": "In an availability set, what is a fault domain?",
+      "opcoes": [
+        "A group of VMs that can be rebooted together during planned maintenance",
+        "A group of VMs that share a common point of failure, such as a power source and a network switch",
+        "An entire region reserved for disaster recovery",
+        "A set of identical VMs that scales automatically"
+      ],
+      "correta": 1,
+      "explicacao": "A fault domain groups VMs that can go down together because of a common physical failure, such as power or networking. The group of VMs rebooted together during planned maintenance is the update domain."
+    },
+    {
+      "pergunta": "A company wants employees and contractors to access standardized Windows desktops from any device, keeping apps and data in the cloud rather than on the devices. Which service meets this need?",
+      "opcoes": [
+        "Azure Container Instances",
+        "Azure Functions",
+        "Virtual Machine Scale Sets",
+        "Azure Virtual Desktop"
+      ],
+      "correta": 3,
+      "explicacao": "Azure Virtual Desktop virtualizes Windows desktops and apps on Azure, with access from many devices, centralized management, and identity through Microsoft Entra ID."
+    },
+    {
+      "pergunta": "When you create a VM in Azure, which resources are part of its configuration?",
+      "opcoes": [
+        "Size (vCPUs and memory), storage disks, and networking (virtual network, IP, and ports)",
+        "Only the application code and an event trigger",
+        "A management group and a sovereign region",
+        "A container image and a Kubernetes orchestrator"
+      ],
+      "correta": 0,
+      "explicacao": "A VM needs a size (purpose, vCPUs, and RAM), disks (at least the operating system disk), and networking (virtual network, network interface, and, if needed, a public IP and port rules). All of these resources can incur costs."
+    },
+    {
+      "pergunta": "A team wants to publish a website and a REST API in Python, with automatic scaling and continuous deployment from GitHub, without managing servers. Which hosting option is the most appropriate?",
+      "opcoes": [
+        "Azure Virtual Machines",
+        "Azure App Service",
+        "Azure Virtual Desktop",
+        "Availability sets"
+      ],
+      "correta": 1,
+      "explicacao": "Azure App Service is PaaS for web apps, APIs, and mobile back ends: Azure takes care of the infrastructure, with automatic scaling, high availability, and continuous deployment from Git repos. A VM would also work, but it would require managing the operating system."
+    },
+    {
+      "pergunta": "A company runs dozens of microservices in containers and needs a service that orchestrates this fleet, managing the containers' lifecycle. Which is the most appropriate?",
+      "opcoes": [
+        "Azure Container Instances",
+        "Azure Virtual Desktop",
+        "Azure Kubernetes Service (AKS)",
+        "Availability sets"
+      ],
+      "correta": 2,
+      "explicacao": "AKS is an orchestration service that manages the lifecycle of many containers. Azure Container Instances is the simplest way to run individual containers, without orchestration."
+    }
+  ],
+  "servicos-de-rede": [
+    {
+      "pergunta": "A team wants to separate, within the same virtual network, the web servers and the database servers, applying different security rules to each group. What should it create?",
+      "opcoes": [
+        "A subscription for each group of servers",
+        "Subnets within the virtual network",
+        "An ExpressRoute circuit",
+        "A public DNS zone"
+      ],
+      "correta": 1,
+      "explicacao": "Subnets divide the VNet's address space into segments. Each subnet can have its own rules, for example with an associated network security group (NSG)."
+    },
+    {
+      "pergunta": "Two virtual networks, in different Azure regions, need to communicate privately, without traffic going over the public internet. Which feature meets this most directly?",
+      "opcoes": [
+        "A public IP address on each VM",
+        "Azure DNS",
+        "Virtual network peering",
+        "An alias record"
+      ],
+      "correta": 2,
+      "explicacao": "Peering connects two VNets directly, including in different regions. Traffic is private and travels over the Microsoft backbone network, never over the public internet."
+    },
+    {
+      "pergunta": "A developer works from home and needs to connect her own laptop, with encryption, to an Azure virtual network. Which VPN Gateway connection type is appropriate?",
+      "opcoes": [
+        "Point-to-site",
+        "Site-to-site",
+        "ExpressRoute Global Reach",
+        "Virtual network peering"
+      ],
+      "correta": 0,
+      "explicacao": "A point-to-site connection links an individual computer to the virtual network through an encrypted tunnel. Site-to-site links the VPN device of an entire office or datacenter."
+    },
+    {
+      "pergunta": "A company wants to connect its office VPN device to an Azure virtual network over the internet, with encryption, so the office and Azure servers communicate as if they were on the same network. Which option meets this need?",
+      "opcoes": [
+        "Point-to-site VPN",
+        "Virtual network peering",
+        "A private zone in Azure DNS",
+        "Site-to-site VPN with Azure VPN Gateway"
+      ],
+      "correta": 3,
+      "explicacao": "A site-to-site VPN links the on-premises VPN device to the VNet's VPN Gateway. Traffic travels encrypted over the internet, and Azure resources appear to be part of the local network."
+    },
+    {
+      "pergunta": "A bank needs to connect its datacenter to Azure with predictable latency, high bandwidth, and without traffic going over the public internet. Which service is the most appropriate?",
+      "opcoes": [
+        "Site-to-site VPN Gateway",
+        "Azure ExpressRoute",
+        "Azure DNS",
+        "A public endpoint with a static IP"
+      ],
+      "correta": 1,
+      "explicacao": "ExpressRoute uses a private connection, made through a connectivity provider, that doesn't go over the internet. A VPN is also encrypted, but it uses the internet as its path."
+    },
+    {
+      "pergunta": "Which statement about Azure VPN Gateway is correct?",
+      "opcoes": [
+        "Each virtual network can have multiple VPN gateways, one for each location",
+        "It creates a private connection that never goes over the internet",
+        "Traffic travels encrypted over the public internet",
+        "It only connects individual computers, never entire datacenters"
+      ],
+      "correta": 2,
+      "explicacao": "VPN Gateway creates encrypted tunnels over the internet. Each VNet supports a single VPN gateway, which can connect to multiple locations through site-to-site, point-to-site, or network-to-network connections."
+    },
+    {
+      "pergunta": "Which statement about Azure DNS is correct?",
+      "opcoes": [
+        "It hosts DNS domains and lets you manage records with the same credentials and tools as other Azure services",
+        "It's used to buy and register new domain names",
+        "It removes the need for network security groups",
+        "It only works for public names, never inside virtual networks"
+      ],
+      "correta": 0,
+      "explicacao": "Azure DNS hosts your domains' records on Azure infrastructure and also supports private domains inside VNets. It doesn't sell domains: you buy them from a registrar."
+    },
+    {
+      "pergunta": "A company wants its storage account to be accessed only by resources in a virtual network, through a private IP address from that network. What should it use?",
+      "opcoes": [
+        "A public endpoint",
+        "An alias record in Azure DNS",
+        "An availability set",
+        "A private endpoint"
+      ],
+      "correta": 3,
+      "explicacao": "A private endpoint lives inside the VNet and uses a private IP from its address space, letting you access the service without internet exposure."
+    },
+    {
+      "pergunta": "What characterizes a public endpoint?",
+      "opcoes": [
+        "It has a private IP from the virtual network and can only be reached from inside it",
+        "It has a public IP address and can be reached over the internet, from anywhere",
+        "It exists only in sovereign regions",
+        "It only accepts connections coming from ExpressRoute"
+      ],
+      "correta": 1,
+      "explicacao": "A public endpoint has a public IP and is reachable over the internet, subject to the configured firewall and authentication rules. A private endpoint uses a private IP from the VNet."
+    }
+  ],
+  "servicos-de-armazenamento": [
+    {
+      "pergunta": "Which redundancy option is the cheapest and keeps three copies of the data within a single datacenter in the primary region?",
+      "opcoes": [
+        "ZRS",
+        "GRS",
+        "LRS",
+        "RA-GZRS"
+      ],
+      "correta": 2,
+      "explicacao": "LRS keeps three copies in a single datacenter. It protects against disk and rack failures, but not against a disaster that affects the entire datacenter."
+    },
+    {
+      "pergunta": "A company needs its data to remain available for reads and writes even if an availability zone goes down, but the data can't leave the region. Which redundancy option meets this need?",
+      "opcoes": [
+        "ZRS",
+        "LRS",
+        "GRS",
+        "RA-GRS"
+      ],
+      "correta": 0,
+      "explicacao": "ZRS copies data synchronously across three availability zones in the primary region. The geo options (GRS, RA-GRS) send a copy to another region."
+    },
+    {
+      "pergunta": "An application needs protection against a zone failure and a regional disaster, and it also needs to read data in the secondary region at any time, without waiting for a failover. Which option meets this need?",
+      "opcoes": [
+        "GZRS",
+        "RA-GRS",
+        "ZRS",
+        "RA-GZRS"
+      ],
+      "correta": 3,
+      "explicacao": "RA-GZRS uses ZRS in the primary region, copies to the secondary region, and allows reads there at any time. GZRS only allows reading the secondary after a failover, and RA-GRS uses LRS in the primary, with no zone protection."
+    },
+    {
+      "pergunta": "A company must keep backups for seven years because of a legal requirement. The data will almost never be read and, when it is, a wait of a few hours is acceptable. Which access tier has the lowest storage cost for this case?",
+      "opcoes": [
+        "Hot",
+        "Cool",
+        "Archive",
+        "Cold"
+      ],
+      "correta": 2,
+      "explicacao": "The Archive tier has the lowest storage cost, for data kept for at least 180 days. In exchange, access costs more and the blob must be rehydrated before it can be read, which can take hours."
+    },
+    {
+      "pergunta": "A company wants cloud file shares that on-premises Windows servers can mount over SMB, like a regular network folder. Which service meets this need?",
+      "opcoes": [
+        "Azure Blobs",
+        "Azure Files",
+        "Azure Queues",
+        "Azure Tables"
+      ],
+      "correta": 1,
+      "explicacao": "Azure Files provides managed file shares over SMB or NFS that can be mounted at the same time by machines in the cloud and on-premises."
+    },
+    {
+      "pergunta": "Two parts of an application need to exchange messages asynchronously: one places orders to be processed and the other consumes them at its own pace. Which Azure Storage service was built for this?",
+      "opcoes": [
+        "Azure Disks",
+        "Azure Tables",
+        "Azure Files",
+        "Azure Queues"
+      ],
+      "correta": 3,
+      "explicacao": "Azure Queues stores large numbers of messages for asynchronous processing between application components, and pairs well with Azure Functions."
+    },
+    {
+      "pergunta": "A company wants to keep the office's Windows file server, but with the files centralized in Azure Files and synchronized automatically in both directions. Which tool meets this need?",
+      "opcoes": [
+        "Azure File Sync",
+        "AzCopy",
+        "Azure Storage Explorer",
+        "Azure Data Box"
+      ],
+      "correta": 0,
+      "explicacao": "Azure File Sync keeps a local Windows server synchronized in both directions with Azure Files, working as a cache. AzCopy syncs in one direction only, and Storage Explorer is a graphical interface for managing data."
+    },
+    {
+      "pergunta": "A company needs to move 60 TB of data to Azure, but its internet connection is slow and the transfer would take months. Which option is the most appropriate?",
+      "opcoes": [
+        "Azure Migrate",
+        "Azure File Sync",
+        "Azure Data Box",
+        "AzCopy over the internet"
+      ],
+      "correta": 2,
+      "explicacao": "Azure Data Box is a physical device, with up to 80 TB of usable capacity, that Microsoft ships to you, you fill, and you send back. It's ideal for large volumes with limited bandwidth. Azure Migrate and AzCopy depend on the network."
+    },
+    {
+      "pergunta": "Which storage account type is recommended for most scenarios and supports Blob, Files, Queue, and Table with all redundancy options?",
+      "opcoes": [
+        "Premium block blobs",
+        "Standard general-purpose v2",
+        "Premium file shares",
+        "Premium page blobs"
+      ],
+      "correta": 1,
+      "explicacao": "Standard general-purpose v2 is the default account: it supports all these services and all redundancy options, from LRS to RA-GZRS. Premium accounts are specific to one service and have fewer redundancy options."
+    }
+  ],
+  "identidade-acesso-seguranca": [
+    {
+      "pergunta": "A company wants to bring to Azure a legacy application that depends on domain join, group policy, and Kerberos authentication, without having to deploy or maintain domain controllers. Which service meets this need?",
+      "opcoes": [
+        "Microsoft Entra Connect",
+        "Microsoft Entra Domain Services",
+        "Microsoft Entra Conditional Access",
+        "Azure RBAC"
+      ],
+      "correta": 1,
+      "explicacao": "Microsoft Entra Domain Services provides domain join, group policy, LDAP, and Kerberos/NTLM as a managed service. Entra Connect only synchronizes identities between on-premises AD and Entra ID."
+    },
+    {
+      "pergunta": "A user types a password and then confirms the sign-in with a phone notification. Which authentication method is being used?",
+      "opcoes": [
+        "Single sign-on (SSO)",
+        "Multifactor authentication (MFA)",
+        "B2B collaboration",
+        "Microsoft Entra Domain Services"
+      ],
+      "correta": 1,
+      "explicacao": "MFA combines factors from different categories: something you know (the password) and something you have (the phone). That way, a leaked password isn't enough to sign in."
+    },
+    {
+      "pergunta": "Which of these options is a passwordless method supported by Microsoft Entra ID?",
+      "opcoes": [
+        "A long password with special characters",
+        "A security question",
+        "A FIDO2 security key",
+        "Self-service password reset"
+      ],
+      "correta": 2,
+      "explicacao": "Entra ID supports three passwordless options: Windows Hello for Business, the Microsoft Authenticator app, and FIDO2 security keys. The other options still depend on a password or something you know."
+    },
+    {
+      "pergunta": "A company wants a vendor's employees to access some internal apps using their own work accounts, without creating new credentials for them. Which feature meets this need?",
+      "opcoes": [
+        "B2B collaboration, part of Microsoft Entra External ID",
+        "Microsoft Entra Domain Services",
+        "An Azure RBAC custom role",
+        "An Azure DNS private zone"
+      ],
+      "correta": 0,
+      "explicacao": "With B2B collaboration, external users sign in with the identity they already have and appear in your directory as guests. Their provider handles authentication, and you control what they can access."
+    },
+    {
+      "pergunta": "A company wants to require MFA only when the sign-in comes from outside the office network or from an unmanaged device. Which feature does this?",
+      "opcoes": [
+        "Azure RBAC",
+        "Microsoft Defender for Cloud",
+        "Microsoft Entra Domain Services",
+        "Microsoft Entra Conditional Access"
+      ],
+      "correta": 3,
+      "explicacao": "Conditional Access evaluates signals such as location, device, and application and decides whether to grant access, block it, or require an extra step, such as MFA."
+    },
+    {
+      "pergunta": "An analyst only needs to view all the resources in a subscription, without being able to change anything. What is the best way to grant this access?",
+      "opcoes": [
+        "Assign the Owner role on each resource group",
+        "Assign the Reader role at the subscription scope",
+        "Create an Azure Policy definition",
+        "Apply a ReadOnly lock to the subscription"
+      ],
+      "correta": 1,
+      "explicacao": "Azure RBAC assigns roles at a scope, and the permission is inherited by the scopes below. Reader on the subscription lets you see all its resource groups and resources, following least privilege. A ReadOnly lock would freeze the subscription for everyone."
+    },
+    {
+      "pergunta": "Which idea sums up the Zero Trust model?",
+      "opcoes": [
+        "Trust all devices that are on the company's internal network",
+        "Protect only the network perimeter with a firewall",
+        "Verify each request explicitly, assuming a breach may already have happened",
+        "Give everyone broad access to reduce permission requests"
+      ],
+      "correta": 2,
+      "explicacao": "Zero Trust is based on three principles: verify explicitly, use least privilege access, and assume breach. Being inside the company network doesn't guarantee access."
+    },
+    {
+      "pergunta": "In the defense-in-depth model, what is the main advantage of using multiple layers of protection?",
+      "opcoes": [
+        "If one layer is breached, the next one keeps protecting the data, and the attack is slowed down",
+        "All protection is concentrated in a single perimeter firewall",
+        "Users no longer need to authenticate",
+        "Only the physical security layer needs to be monitored"
+      ],
+      "correta": 0,
+      "explicacao": "The layers (physical, identity and access, perimeter, network, compute, application, and data) protect the data at the center. Not relying on a single layer slows the attack and gives you time to respond."
+    },
+    {
+      "pergunta": "A team wants to track the security posture of its Azure resources, with prioritized recommendations, a secure score, and threat alerts, including on-premises servers and resources in AWS. Which service meets this need?",
+      "opcoes": [
+        "Microsoft Entra ID",
+        "Azure Migrate",
+        "Azure DNS",
+        "Microsoft Defender for Cloud"
+      ],
+      "correta": 3,
+      "explicacao": "Microsoft Defender for Cloud manages security posture and protects against threats in Azure, on-premises, and in other clouds, such as AWS and GCP, with a secure score, recommendations, and alerts."
+    }
+  ],
+  "gerenciamento-de-custos": [
+    {
+      "pergunta": "A team wants to estimate the monthly cost of an application with App Service, a database, and storage, before creating any resource. Which tool should it use?",
+      "opcoes": [
+        "Azure Service Health",
+        "Azure pricing calculator",
+        "Azure Advisor",
+        "Cost Management cost analysis"
+      ],
+      "correta": 1,
+      "explicacao": "The pricing calculator estimates cost before deployment, without provisioning or charging anything. Cost analysis shows what has already been spent."
+    },
+    {
+      "pergunta": "After a few months on Azure, a manager wants to see actual spending grouped by resource group and by service, to find out where the money is going. Which feature should they use?",
+      "opcoes": [
+        "Microsoft Cost Management cost analysis",
+        "Pricing calculator",
+        "Resource lock",
+        "Azure Policy"
+      ],
+      "correta": 0,
+      "explicacao": "Cost analysis shows actual costs visually, grouped by subscription, resource group, service, region, and other criteria."
+    },
+    {
+      "pergunta": "A company wants to be notified by email when the development subscription's monthly spending reaches 80% of the planned amount. What should it configure?",
+      "opcoes": [
+        "A CostCenter tag on each resource",
+        "An Azure Advisor recommendation",
+        "A ReadOnly lock on the subscription",
+        "A budget with an alert in Cost Management"
+      ],
+      "correta": 3,
+      "explicacao": "The budget sets the spending limit, and the budget alert notifies you in the portal and by email when the configured percentage is reached. To stop resources automatically, you need to configure automation."
+    },
+    {
+      "pergunta": "The same VM, with exactly the same configuration, shows different prices in two Azure regions. Why does this happen?",
+      "opcoes": [
+        "The price depends on the name of the resource group",
+        "Costs such as power, labor, taxes, and fees vary by location",
+        "Older regions are always more expensive",
+        "It's a mistake, because Azure prices are the same worldwide"
+      ],
+      "correta": 1,
+      "explicacao": "Geography is one of the cost factors: local differences in power, labor, taxes, and fees make the same resource cost differently in different regions."
+    },
+    {
+      "pergunta": "A team deleted several test VMs, but the charges continued. What is the most likely cause?",
+      "opcoes": [
+        "Disks, public IPs, and other resources created with the VMs still exist",
+        "The VMs' tags keep generating charges",
+        "Deleting a VM only takes effect after 30 days",
+        "Azure charges for deleted VMs until the end of the year"
+      ],
+      "correta": 0,
+      "explicacao": "When you create a VM, other resources, such as disks and networking, are created too, and they may not be removed along with it. Keeping the environment clean is part of cost control."
+    },
+    {
+      "pergunta": "Which statement about network traffic in Azure is correct?",
+      "opcoes": [
+        "Billing zones and availability zones are the same thing",
+        "Some inbound data transfer into datacenters is free, and outbound transfer is billed by billing zones",
+        "All data transfer, inbound and outbound, is always free",
+        "Only transfer within the same region is billed"
+      ],
+      "correta": 1,
+      "explicacao": "Outbound data transfer (egress) is billed by billing zones, which are groups of regions used for pricing. They have nothing to do with availability zones."
+    },
+    {
+      "pergunta": "A company wants to know how much each cost center spends on Azure, but resources from several cost centers are in the same subscription and resource group. What helps most?",
+      "opcoes": [
+        "Using the pricing calculator",
+        "Applying tags such as CostCenter to resources and filtering costs by them",
+        "Applying resource locks",
+        "Creating a region for each cost center"
+      ],
+      "correta": 1,
+      "explicacao": "Tags are name-value metadata that let you group resources in cost reports and allocate costs by cost center, regardless of subscription or resource group."
+    },
+    {
+      "pergunta": "An Environment = Prod tag was applied to a resource group. What happens to the resources inside it?",
+      "opcoes": [
+        "They all receive the tag automatically",
+        "Nothing automatically: resources don't inherit tags from the resource group",
+        "Resources without this tag are deleted",
+        "The tag starts working as a delete lock"
+      ],
+      "correta": 1,
+      "explicacao": "Resources don't inherit tags from the subscription or the resource group. To require or copy tags, you can use Azure Policy."
+    },
+    {
+      "pergunta": "A company buys a VM in Azure Marketplace with third-party software already installed. How is it billed?",
+      "opcoes": [
+        "It's always free, because Marketplace belongs to Microsoft",
+        "It pays only the vendor, never for Azure usage",
+        "It's billed only once, at purchase, with no usage cost",
+        "It may pay for the Azure services used and also for the vendor's product, at a price set by the vendor"
+      ],
+      "correta": 3,
+      "explicacao": "In Marketplace, the bill can include the Azure services consumed and the vendor's product or service. The billing method is set by the vendor."
+    }
+  ],
+  "governanca-basica": [
+    {
+      "pergunta": "Your company wants to make sure no one creates virtual machines outside the Brazil South region. Which service enforces this rule?",
+      "opcoes": [
+        "Azure Policy",
+        "Azure RBAC",
+        "Azure Advisor",
+        "Azure Monitor"
+      ],
+      "correta": 0,
+      "explicacao": "Azure Policy defines rules about how resources can be created, such as limiting the allowed regions."
+    },
+    {
+      "pergunta": "A company wants to automatically discover and classify sensitive data spread across Azure, on-premises databases, and Amazon S3, with a single map and data lineage. Which solution meets this need?",
+      "opcoes": [
+        "Microsoft Purview",
+        "Azure Policy",
+        "Azure Advisor",
+        "Resource locks"
+      ],
+      "correta": 0,
+      "explicacao": "Microsoft Purview is the family of data governance, risk, and compliance solutions, with automated discovery, sensitive data classification, and lineage, including outside Azure."
+    },
+    {
+      "pergunta": "Which feature prevents an important resource from being accidentally deleted, even by someone with full permissions?",
+      "opcoes": [
+        "A CanNotDelete resource lock",
+        "An environment tag",
+        "A resource group",
+        "A secondary region"
+      ],
+      "correta": 0,
+      "explicacao": "A lock applies even to someone with Owner permission. Deletion is only possible after the lock is removed."
+    },
+    {
+      "pergunta": "A team wants a production database to keep receiving configuration changes, but no one should be able to delete it. Which lock should it use?",
+      "opcoes": [
+        "Delete (CanNotDelete)",
+        "None: just give everyone the Reader role",
+        "ReadOnly",
+        "An Azure Policy initiative"
+      ],
+      "correta": 0,
+      "explicacao": "A Delete lock allows reading and modifying, but prevents deletion. ReadOnly would also prevent changes."
+    },
+    {
+      "pergunta": "A ReadOnly lock is applied to a resource group. What happens to the resources inside it?",
+      "opcoes": [
+        "They can be modified, but not deleted",
+        "They inherit the lock and can't be modified or deleted",
+        "They're moved to another resource group",
+        "Nothing, because the lock only applies to the group itself"
+      ],
+      "correta": 1,
+      "explicacao": "Locks are inherited by the resources below the scope where they were applied. ReadOnly allows reading only."
+    },
+    {
+      "pergunta": "In Azure Policy, what is a group of related policy definitions, used to track a larger compliance goal, called?",
+      "opcoes": [
+        "Initiative",
+        "Tag",
+        "Lock",
+        "Management group"
+      ],
+      "correta": 0,
+      "explicacao": "An initiative groups several policy definitions to track compliance with a larger goal, such as a set of security recommendations."
+    },
+    {
+      "pergunta": "A policy that allows only certain VM sizes is assigned to a subscription that already has VMs. What does Azure Policy do with the VMs created before the policy?",
+      "opcoes": [
+        "Automatically deletes the non-compliant VMs",
+        "Evaluates those VMs and flags the ones that are non-compliant",
+        "Ignores the old VMs and evaluates only new ones",
+        "Resizes the old VMs without warning"
+      ],
+      "correta": 1,
+      "explicacao": "Azure Policy also evaluates existing resources and shows which ones are non-compliant. The policy is also enforced when someone creates or resizes a VM."
+    },
+    {
+      "pergunta": "What is the difference between Azure Policy and Azure RBAC?",
+      "opcoes": [
+        "Azure Policy controls what people can do, and RBAC controls how resources must be configured",
+        "Azure Policy only works on on-premises resources",
+        "They do the same thing, just with different names",
+        "RBAC controls what people can do, and Azure Policy controls how resources must be configured"
+      ],
+      "correta": 3,
+      "explicacao": "RBAC deals with the permissions of users, groups, and applications. Azure Policy deals with the rules resources must follow, such as allowed regions or required tags."
+    }
+  ],
+  "ferramentas-de-gerenciamento": [
+    {
+      "pergunta": "A new administrator prefers to manage Azure resources through a graphical interface in the browser, with custom dashboards. Which tool should they use?",
+      "opcoes": [
+        "Azure portal",
+        "Azure CLI",
+        "Azure Arc",
+        "ARM templates"
+      ],
+      "correta": 0,
+      "explicacao": "The Azure portal is the web console with a graphical interface for building, managing, and monitoring resources, with customizable dashboards."
+    },
+    {
+      "pergunta": "An administrator is on a borrowed computer where they can't install anything, and needs to run Azure CLI commands already authenticated to their account. What is the best option?",
+      "opcoes": [
+        "Azure Arc",
+        "Azure Service Health",
+        "Install Azure PowerShell on the computer",
+        "Azure Cloud Shell"
+      ],
+      "correta": 3,
+      "explicacao": "Cloud Shell runs in the browser, requires no installation, and is already authenticated with your Azure credentials, with Bash (Azure CLI) or PowerShell."
+    },
+    {
+      "pergunta": "Which statement correctly compares Azure PowerShell and Azure CLI?",
+      "opcoes": [
+        "Only Azure CLI lets you automate tasks with scripts",
+        "Azure PowerShell only works on Windows",
+        "Azure CLI only works inside the Azure portal",
+        "Both do practically the same tasks, and the main difference is the command syntax"
+      ],
+      "correta": 3,
+      "explicacao": "Both tools manage Azure through the REST API, work for one-off tasks and scripts, and run on Windows, Linux, macOS, and Cloud Shell. The choice usually depends on the language you know."
+    },
+    {
+      "pergunta": "A company has servers in its own datacenter and Kubernetes clusters in another cloud, and wants to manage them and apply policies from Azure, alongside its Azure resources. Which service meets this need?",
+      "opcoes": [
+        "Microsoft Purview",
+        "Azure Arc",
+        "ARM templates",
+        "Azure Cloud Shell"
+      ],
+      "correta": 1,
+      "explicacao": "Azure Arc projects resources outside Azure into Azure Resource Manager, so you can manage and govern them as if they were in Azure."
+    },
+    {
+      "pergunta": "Which statement describes Azure Resource Manager?",
+      "opcoes": [
+        "It's a command-line tool installed on the administrator's computer",
+        "It's the deployment and management layer that receives, authenticates, and authorizes requests made to Azure resources",
+        "It's a service that only monitors application performance",
+        "It's used only by the portal, while the CLI and PowerShell talk directly to the services"
+      ],
+      "correta": 1,
+      "explicacao": "Every request, whether from the portal, CLI, PowerShell, APIs, or SDKs, goes through Azure Resource Manager, which authenticates it, authorizes it, and forwards it to the service."
+    },
+    {
+      "pergunta": "A team wants to recreate the same environment identically in development, test, and production, keeping the infrastructure definition in versioned files. Which approach meets this need?",
+      "opcoes": [
+        "Ask Azure Advisor to generate the environments",
+        "Apply resource locks to each environment",
+        "Infrastructure as code, with ARM templates or Bicep",
+        "Create everything manually in the portal, following a checklist"
+      ],
+      "correta": 2,
+      "explicacao": "With infrastructure as code, the environment definition lives in files, and the same definition produces identical environments every time it's deployed."
+    },
+    {
+      "pergunta": "What does it mean to say that ARM templates are declarative?",
+      "opcoes": [
+        "Templates can only be used to delete resources",
+        "You describe the desired end state, and Azure Resource Manager takes care of the order and execution",
+        "You write each command in the exact order it must run",
+        "Templates must be written in PowerShell"
+      ],
+      "correta": 1,
+      "explicacao": "In a declarative template you say what you want, not how to do it. ARM validates the template, resolves dependencies, and creates the resources, in parallel when possible."
+    },
+    {
+      "pergunta": "What is the relationship between Bicep and ARM templates?",
+      "opcoes": [
+        "Bicep is a type of resource lock",
+        "Bicep replaces Azure Resource Manager and deploys resources without going through it",
+        "Bicep is a declarative language, simpler and more concise than JSON, for deploying resources through Azure Resource Manager",
+        "Bicep is a graphical tool for building dashboards in the portal"
+      ],
+      "correta": 2,
+      "explicacao": "Bicep has the same purpose as JSON ARM templates, with a syntax that's easier to read and write. Deployments still go through Azure Resource Manager."
+    },
+    {
+      "pergunta": "Why do different tools, such as the portal, Azure PowerShell, and Azure CLI, produce consistent results in Azure?",
+      "opcoes": [
+        "Because they all send requests through the same Azure Resource Manager API",
+        "Because each one keeps its own copy of the resources",
+        "Because they all only work inside Cloud Shell",
+        "Because they all must be installed on the same computer"
+      ],
+      "correta": 0,
+      "explicacao": "Because all requests go through the same Azure Resource Manager API, the capabilities and results are the same in any tool."
+    }
+  ],
+  "monitoramento": [
+    {
+      "pergunta": "A company wants personalized recommendations to reduce costs and improve the security and reliability of its Azure resources. Which service meets this need?",
+      "opcoes": [
+        "Azure Arc",
+        "Azure Service Health",
+        "Azure Advisor",
+        "Log Analytics"
+      ],
+      "correta": 2,
+      "explicacao": "Azure Advisor evaluates your resources and makes recommendations, each with a suggested action that you can apply, postpone, or dismiss."
+    },
+    {
+      "pergunta": "Which of these is one of the five Azure Advisor recommendation categories?",
+      "opcoes": [
+        "Network Capacity",
+        "Migration",
+        "Licensing",
+        "Operational Excellence"
+      ],
+      "correta": 3,
+      "explicacao": "The Advisor categories are Reliability, Security, Performance, Operational Excellence, and Cost."
+    },
+    {
+      "pergunta": "A company wants to be notified about planned maintenance and outages that specifically affect the services and regions it uses. Which Azure Service Health view is the most appropriate?",
+      "opcoes": [
+        "Azure Status",
+        "Service Health",
+        "Azure Advisor",
+        "Resource Health"
+      ],
+      "correta": 1,
+      "explicacao": "Service Health focuses on the services and regions you use, shows outages, planned maintenance, and advisories, and lets you configure alerts. Azure Status is the global view."
+    },
+    {
+      "pergunta": "A specific VM stopped responding, and the administrator wants to know whether the problem is with the Azure platform or with their own configuration. Which view helps most?",
+      "opcoes": [
+        "Azure Advisor",
+        "Pricing calculator",
+        "Resource Health",
+        "Azure Status"
+      ],
+      "correta": 2,
+      "explicacao": "Resource Health shows the health of an individual resource and indicates whether the problem is on Azure's side or yours."
+    },
+    {
+      "pergunta": "Which Azure Service Health view shows the global health of all Azure services and regions, including those you don't use?",
+      "opcoes": [
+        "Service Health",
+        "Azure Status",
+        "Resource Health",
+        "Application Insights"
+      ],
+      "correta": 1,
+      "explicacao": "Azure Status gives the overall view of Azure worldwide. Service Health is limited to what you use, and Resource Health looks at a specific resource."
+    },
+    {
+      "pergunta": "An engineer wants to write a query to list all errors logged by VMs in the last hour, using data collected by Azure Monitor. Which tool should they use?",
+      "opcoes": [
+        "Azure Status",
+        "Pricing calculator",
+        "Log Analytics",
+        "Azure Advisor"
+      ],
+      "correta": 2,
+      "explicacao": "Log Analytics is the portal tool for writing and running queries on the data Azure Monitor collects, from simple queries to advanced analysis."
+    },
+    {
+      "pergunta": "A team wants to receive an email whenever a VM's CPU goes above 80%. What should it configure in Azure Monitor?",
+      "opcoes": [
+        "A budget in Cost Management",
+        "An Azure Advisor recommendation",
+        "A ReadOnly lock on the VM",
+        "A metric alert rule with an action group that sends the email"
+      ],
+      "correta": 3,
+      "explicacao": "The alert rule defines the condition (CPU above 80%), and the action group defines who is notified and how."
+    },
+    {
+      "pergunta": "A team wants to track the response time, failure rate, and dependency calls of a web application, with availability tests. Which feature should it use?",
+      "opcoes": [
+        "Microsoft Purview",
+        "Application Insights",
+        "Azure Arc",
+        "Resource Health"
+      ],
+      "correta": 1,
+      "explicacao": "Application Insights, part of Azure Monitor, tracks the performance and usage of web applications, including outside Azure, and offers availability tests."
+    },
+    {
+      "pergunta": "Which statement about Azure Monitor is correct?",
+      "opcoes": [
+        "It only monitors Azure resources, never on-premises ones",
+        "It's used to estimate costs before deployment",
+        "It collects metrics and logs from resources and applications in Azure, on-premises, and in other clouds",
+        "It replaces Azure Policy for enforcing rules"
+      ],
+      "correta": 2,
+      "explicacao": "Azure Monitor collects, stores, and analyzes metrics and logs from many environments and makes them available in dashboards, queries, and alerts."
+    }
+  ]
+}

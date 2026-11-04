@@ -1,55 +1,57 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" data-titulo="titulo.home">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Estudo AZ-900</title>
+    <script src="js/i18n.js"></script>
     <meta
       name="description"
       content="Ferramenta gratuita e aberta para estudar para a certificação Microsoft Azure Fundamentals (AZ-900)."
+      data-i18n-content="meta.descricao"
     />
     <link rel="icon" href="favicon.svg" type="image/svg+xml" />
     <link rel="stylesheet" href="css/estilo.css" />
   </head>
   <body>
     <header class="topo">
-      <a class="marca" href="index.html">Estudo AZ-900</a>
+      <div class="topo-conteudo">
+        <a class="marca" href="index.html" data-i18n="marca"></a>
+        <div class="idiomas"></div>
+      </div>
     </header>
 
     <main id="conteudo" class="pagina">
       <section class="abertura">
-        <h1>Sua jornada até a AZ-900</h1>
-        <p>
-          Estude um módulo, teste o que aprendeu e acompanhe seu progresso em cada
-          domínio da prova. Gratuito e feito pela comunidade.
-        </p>
+        <h1 data-i18n="home.h1"></h1>
+        <p data-i18n="home.abertura"></p>
       </section>
 
       <section class="cartao chamada-simulado" aria-labelledby="titulo-simulado">
-        <h2 id="titulo-simulado">Simulado</h2>
-        <p>40 questões em 45 minutos, sorteadas na proporção do peso de cada domínio, como na prova.</p>
+        <h2 id="titulo-simulado" data-i18n="home.simuladoTitulo"></h2>
+        <p data-i18n="home.simuladoTexto"></p>
         <div id="prontidao" class="prontidao">
-          <p class="detalhe">Faça um simulado para ver sua prontidão.</p>
+          <p class="detalhe" data-i18n="prontidao.vazia"></p>
         </div>
         <div class="acoes">
-          <a class="botao" href="simulado.html">Fazer o simulado</a>
+          <a class="botao" href="simulado.html" data-i18n="home.simuladoBotao"></a>
         </div>
       </section>
 
       <section>
-        <h2>Seu progresso por domínio</h2>
+        <h2 data-i18n="home.progressoTitulo"></h2>
         <div id="dominios" class="cartao"></div>
       </section>
 
       <section>
-        <h2>Módulos</h2>
+        <h2 data-i18n="home.modulosTitulo"></h2>
         <div id="modulos"></div>
       </section>
     </main>
 
     <footer class="rodape">
-      Projeto independente da comunidade, sem vínculo com a Microsoft. Conteúdo de apoio
-      no <a href="https://learn.microsoft.com/credentials/certifications/resources/study-guides/az-900">Microsoft Learn</a>.
+      <span data-i18n="rodape.texto"></span>
+      <a data-i18n="rodape.link" data-i18n-href="rodape.url" href="https://learn.microsoft.com/pt-br/credentials/certifications/resources/study-guides/az-900"></a>.
     </footer>
 
     <script src="js/comum.js"></script>

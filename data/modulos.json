@@ -11,7 +11,7 @@
       "titulo": "Computação em nuvem",
       "resumo": "O que é a nuvem, responsabilidade compartilhada, modelos de nuvem, modelo de consumo e serverless.",
       "minutos": 25,
-      "learn": "https://learn.microsoft.com/training/modules/describe-cloud-compute",
+      "learn": "https://learn.microsoft.com/pt-br/training/modules/describe-cloud-compute/",
       "objetivos": [
         "Definir computação em nuvem",
         "Descrever o modelo de responsabilidade compartilhada",
@@ -74,7 +74,7 @@
       "titulo": "Benefícios da nuvem",
       "resumo": "Alta disponibilidade, escalabilidade, confiabilidade, previsibilidade, segurança, governança e gerenciabilidade.",
       "minutos": 20,
-      "learn": "https://learn.microsoft.com/training/modules/describe-benefits-use-cloud-services",
+      "learn": "https://learn.microsoft.com/pt-br/training/modules/describe-benefits-use-cloud-services/",
       "objetivos": [
         "Descrever os benefícios de alta disponibilidade e escalabilidade na nuvem",
         "Descrever os benefícios de confiabilidade e previsibilidade na nuvem",
@@ -128,7 +128,7 @@
       "titulo": "Tipos de serviço: IaaS, PaaS e SaaS",
       "resumo": "As três camadas de serviço, quem cuida de quê em cada uma e quando escolher cada uma.",
       "minutos": 20,
-      "learn": "https://learn.microsoft.com/training/modules/describe-cloud-service-types",
+      "learn": "https://learn.microsoft.com/pt-br/training/modules/describe-cloud-service-types/",
       "objetivos": [
         "Descrever infraestrutura como serviço (IaaS)",
         "Descrever plataforma como serviço (PaaS)",

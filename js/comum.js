@@ -4,7 +4,7 @@
 async function carregarJson(caminho) {
   const resposta = await fetch(caminho);
   if (!resposta.ok) {
-    throw new Error("Não foi possível carregar " + caminho);
+    throw new Error(t("erro.carregar", { caminho: caminho }));
   }
   return resposta.json();
 }
@@ -24,13 +24,8 @@ function mostrarErro(erro) {
   area.replaceChildren();
   const caixa = criar("div", "cartao erro");
   caixa.append(
-    criar("h2", "", "Ops, algo deu errado"),
-    criar(
-      "p",
-      "",
-      "Se você abriu o arquivo direto no navegador, tente abrir por um servidor local: " +
-        "rode 'python3 -m http.server 8000' na pasta do projeto e acesse http://localhost:8000."
-    ),
+    criar("h2", "", t("erro.titulo")),
+    criar("p", "", t("erro.servidor")),
     criar("p", "detalhe", String(erro.message || erro))
   );
   area.append(caixa);
@@ -41,15 +36,15 @@ function desenharProntidao(alvo, prontidao) {
   alvo.replaceChildren();
 
   if (!prontidao.fonte) {
-    alvo.append(criar("p", "detalhe", "Faça um simulado para ver sua prontidão."));
+    alvo.append(criar("p", "detalhe", t("prontidao.vazia")));
     return;
   }
 
   const fraco =
     prontidao.fracos.length > 0
-      ? " — ponto fraco: " + prontidao.fracos.map((d) => d.nome).join(" e ")
-      : " — nenhum ponto fraco no momento";
-  alvo.append(criar("p", "prontidao-linha", "Prontidão estimada: " + prontidao.percentual + "%" + fraco));
+      ? t("prontidao.fraco", { nomes: prontidao.fracos.map((d) => d.nome).join(t("prontidao.e")) })
+      : t("prontidao.semFraco");
+  alvo.append(criar("p", "prontidao-linha", t("prontidao.linha", { p: prontidao.percentual, fraco: fraco })));
 
   const barra = criar("div", "barra");
   const preenchimento = criar("div", "barra-preenchida");
@@ -59,18 +54,9 @@ function desenharProntidao(alvo, prontidao) {
 
   const origem =
     prontidao.fonte === "simulados"
-      ? "com base " +
-        (prontidao.quantidade === 1 ? "no seu último simulado" : "nos seus últimos " + prontidao.quantidade + " simulados")
-      : "com base nas notas dos quizzes dos módulos, porque você ainda não fez um simulado";
-  alvo.append(
-    criar(
-      "p",
-      "detalhe",
-      "Média dos domínios ponderada pelo peso de cada um na prova, " +
-        origem +
-        ". É só uma estimativa para orientar o estudo, não uma previsão oficial."
-    )
-  );
+      ? t("prontidao.baseSimulados", { n: prontidao.quantidade })
+      : t("prontidao.baseModulos");
+  alvo.append(criar("p", "detalhe", t("prontidao.explicacao", { origem: origem })));
 }
 
 // Céu decorativo com nuvens flutuando (só visual; o CSS cuida da animação).
@@ -88,4 +74,15 @@ function desenharCeu() {
   document.body.prepend(ceu);
 }
 
+// A página avisa aqui o que redesenhar quando o idioma muda (PT | EN no cabeçalho).
+function aoTrocarIdioma(funcao) {
+  document.addEventListener("idioma-alterado", () => {
+    Promise.resolve()
+      .then(funcao)
+      .catch(mostrarErro);
+  });
+}
+
+aplicarTextosFixos();
+desenharSeletorIdioma();
 desenharCeu();

@@ -3,15 +3,15 @@
 async function iniciar() {
   // A URL é modulo.html?id=computacao-em-nuvem. Aqui pegamos o valor depois de "id=".
   const id = new URLSearchParams(window.location.search).get("id");
-  const dados = await carregarJson("data/modulos.json");
+  const dados = await carregarJson(caminhoDados("modulos.json"));
   const modulo = dados.modulos.find((m) => m.id === id);
 
   if (!modulo) {
-    throw new Error("Módulo não encontrado.");
+    throw new Error(t("modulo.naoEncontrado"));
   }
 
   const dominio = dados.dominios.find((d) => d.id === modulo.dominio);
-  document.title = modulo.titulo + " · Estudo AZ-900";
+  definirTitulo(modulo.titulo);
 
   const area = document.getElementById("conteudo");
   area.replaceChildren();
@@ -24,7 +24,7 @@ async function iniciar() {
   // Lista "O que você precisa saber": espelha os itens do guia oficial da prova.
   if (modulo.objetivos && modulo.objetivos.length > 0) {
     const caixa = criar("section", "cartao objetivos");
-    caixa.append(criar("h2", "", "O que você precisa saber"), criarLista(modulo.objetivos));
+    caixa.append(criar("h2", "", t("modulo.objetivos")), criarLista(modulo.objetivos));
     area.append(caixa);
   }
 
@@ -39,10 +39,10 @@ async function iniciar() {
 
   const acoes = criar("div", "acoes");
 
-  const botaoQuiz = criar("a", "botao", "Fazer o quiz deste módulo");
+  const botaoQuiz = criar("a", "botao", t("modulo.fazerQuiz"));
   botaoQuiz.href = "quiz.html?id=" + encodeURIComponent(modulo.id);
 
-  const linkLearn = criar("a", "botao secundario", "Aprofundar no Microsoft Learn");
+  const linkLearn = criar("a", "botao secundario", t("modulo.learn"));
   linkLearn.href = modulo.learn;
   linkLearn.target = "_blank";
   linkLearn.rel = "noopener noreferrer";
@@ -60,4 +60,5 @@ function criarLista(textos) {
   return lista;
 }
 
+aoTrocarIdioma(iniciar);
 iniciar().catch(mostrarErro);

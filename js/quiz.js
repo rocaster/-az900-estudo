@@ -4,17 +4,34 @@ let idModulo = "";
 let perguntas = [];
 let posicao = 0;
 let acertos = 0;
+// Estado da tela atual, para redesenhar no outro idioma sem perder nada:
+let ordemAtual = []; // ordem (embaralhada) das opções da pergunta atual, em índices do JSON
+let respostaAtual = null; // índice escolhido na pergunta atual (null = ainda não respondeu)
+let notaFinal = null; // preenchida quando o resultado aparece
+
+async function carregarPerguntas() {
+  const todas = await carregarJson(caminhoDados("perguntas.json"));
+  perguntas = todas[idModulo];
+  if (!perguntas || perguntas.length === 0) {
+    throw new Error(t("quiz.semPerguntas"));
+  }
+}
 
 async function iniciar() {
   idModulo = new URLSearchParams(window.location.search).get("id");
-  const todas = await carregarJson("data/perguntas.json");
-  perguntas = todas[idModulo];
+  await carregarPerguntas();
+  novaPergunta();
+}
 
-  if (!perguntas || perguntas.length === 0) {
-    throw new Error("Não há perguntas para este módulo.");
+// Troca de idioma: recarrega as perguntas no outro idioma (mesmos ids, mesma ordem e mesma
+// resposta certa) e redesenha a tela atual, mantendo posição, acertos e resposta.
+async function trocarIdiomaDoQuiz() {
+  await carregarPerguntas();
+  if (notaFinal !== null) {
+    desenharResultado();
+  } else {
+    desenharPergunta();
   }
-
-  mostrarPergunta();
 }
 
 // Devolve uma cópia da lista em ordem aleatória (para a resposta certa não ficar sempre na mesma posição).
@@ -27,100 +44,105 @@ function embaralhar(lista) {
   return copia;
 }
 
-function mostrarPergunta() {
+function novaPergunta() {
+  ordemAtual = embaralhar(perguntas[posicao].opcoes.map((_, indice) => indice));
+  respostaAtual = null;
+  desenharPergunta();
+}
+
+function desenharPergunta() {
   const pergunta = perguntas[posicao];
   const area = document.getElementById("conteudo");
   area.replaceChildren();
 
   const cartao = criar("div", "cartao");
   cartao.append(
-    criar("p", "detalhe", "Pergunta " + (posicao + 1) + " de " + perguntas.length),
+    criar("p", "detalhe", t("quiz.contador", { n: posicao + 1, total: perguntas.length })),
     criar("h2", "", pergunta.pergunta)
-  );
-
-  // Marcamos qual opção é a correta antes de embaralhar.
-  const opcoes = embaralhar(
-    pergunta.opcoes.map((texto, indice) => ({
-      texto: texto,
-      correta: indice === pergunta.correta,
-    }))
   );
 
   const lista = criar("div", "opcoes");
   const retorno = criar("div", "retorno");
 
-  for (const opcao of opcoes) {
-    const botao = criar("button", "opcao", opcao.texto);
+  for (const indice of ordemAtual) {
+    const botao = criar("button", "opcao", pergunta.opcoes[indice]);
     botao.type = "button";
-    botao.addEventListener("click", () =>
-      responder(botao, opcao, lista, retorno, pergunta)
-    );
+    botao.dataset.indice = String(indice);
+    botao.addEventListener("click", () => responder(indice));
     lista.append(botao);
   }
 
   cartao.append(lista, retorno);
   area.append(cartao);
+
+  if (respostaAtual !== null) mostrarCorrecao(lista, retorno, pergunta);
 }
 
-function responder(botaoClicado, opcao, lista, retorno, pergunta) {
+function responder(indice) {
+  if (respostaAtual !== null) return;
+  respostaAtual = indice;
+  if (indice === perguntas[posicao].correta) acertos++;
+  desenharPergunta();
+}
+
+function mostrarCorrecao(lista, retorno, pergunta) {
   // Trava todos os botões e mostra qual era a certa.
   const botoes = lista.querySelectorAll("button");
   botoes.forEach((b) => (b.disabled = true));
+  const acertou = respostaAtual === pergunta.correta;
 
-  if (opcao.correta) {
-    acertos++;
-    botaoClicado.classList.add("certa");
-    retorno.append(criar("strong", "", "Isso mesmo! "));
-  } else {
-    botaoClicado.classList.add("errada");
-    // Destaca a opção correta.
-    botoes.forEach((b) => {
-      if (b.textContent === pergunta.opcoes[pergunta.correta]) b.classList.add("certa");
-    });
-    retorno.append(criar("strong", "", "Não foi dessa vez. "));
-  }
-
+  botoes.forEach((b) => {
+    const indice = Number(b.dataset.indice);
+    if (indice === respostaAtual) b.classList.add(acertou ? "certa" : "errada");
+    if (!acertou && indice === pergunta.correta) b.classList.add("certa");
+  });
+  retorno.append(criar("strong", "", acertou ? t("quiz.certo") : t("quiz.errado")));
   retorno.append(criar("span", "", pergunta.explicacao));
 
   const ultima = posicao === perguntas.length - 1;
-  const proxima = criar("button", "botao", ultima ? "Ver resultado" : "Próxima pergunta");
+  const proxima = criar("button", "botao", ultima ? t("quiz.verResultado") : t("quiz.proxima"));
   proxima.type = "button";
   proxima.addEventListener("click", () => {
     if (ultima) {
       mostrarResultado();
     } else {
       posicao++;
-      mostrarPergunta();
+      novaPergunta();
     }
   });
   retorno.append(proxima);
 }
 
 function mensagemPara(nota) {
-  if (nota === 100) return "Perfeito! Esse assunto já está no bolso.";
-  if (nota >= 70) return "Muito bem! Você está no caminho certo para a certificação.";
-  if (nota >= 40) return "Bom começo. Releia o módulo e tente de novo para fixar.";
-  return "Tudo bem, é assim que se aprende. Releia o módulo com calma e tente outra vez.";
+  if (nota === 100) return t("quiz.msg100");
+  if (nota >= 70) return t("quiz.msg70");
+  if (nota >= 40) return t("quiz.msg40");
+  return t("quiz.msg0");
 }
 
 function mostrarResultado() {
-  const nota = registrarResultado(idModulo, acertos, perguntas.length);
+  notaFinal = registrarResultado(idModulo, acertos, perguntas.length);
+  desenharResultado();
+}
+
+function desenharResultado() {
+  const nota = notaFinal;
   const area = document.getElementById("conteudo");
   area.replaceChildren();
 
   const cartao = criar("div", "cartao resultado");
   cartao.append(
-    criar("h2", "", "Você acertou " + acertos + " de " + perguntas.length),
+    criar("h2", "", t("quiz.acertou", { acertos: acertos, total: perguntas.length })),
     criar("p", "nota", nota + "%"),
     criar("p", "", mensagemPara(nota))
   );
 
   const acoes = criar("div", "acoes");
-  const refazer = criar("a", "botao", "Tentar de novo");
+  const refazer = criar("a", "botao", t("quiz.tentarDeNovo"));
   refazer.href = "quiz.html?id=" + encodeURIComponent(idModulo);
-  const revisar = criar("a", "botao secundario", "Reler o módulo");
+  const revisar = criar("a", "botao secundario", t("quiz.reler"));
   revisar.href = "modulo.html?id=" + encodeURIComponent(idModulo);
-  const inicio = criar("a", "botao secundario", "Voltar ao início");
+  const inicio = criar("a", "botao secundario", t("comum.voltarInicio"));
   inicio.href = "index.html";
   acoes.append(refazer, revisar, inicio);
 
@@ -128,4 +150,5 @@ function mostrarResultado() {
   area.append(cartao);
 }
 
+aoTrocarIdioma(trocarIdiomaDoQuiz);
 iniciar().catch(mostrarErro);

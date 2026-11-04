@@ -14,6 +14,7 @@ Ferramenta gratuita e aberta para estudar para a certificação **Microsoft Azur
 - **Simulado** de 40 questões em 45 minutos, sorteadas pelo peso de cada domínio (11, 15 e 14), com navegação entre questões, marcação para revisão, nota estimada de 0 a 1000 (aprovação em 700), resultado por domínio, revisão comentada e histórico dos 10 últimos
 - **Prontidão estimada** na página inicial
 - Progresso salvo no navegador (sem login, sem banco de dados)
+- **Dois idiomas: português e inglês**, com o seletor PT | EN no topo de todas as páginas. O progresso, as notas e os simulados são os mesmos nos dois idiomas, e dá para trocar no meio de um quiz ou simulado sem perder as respostas. Link direto para a versão em inglês: `?lang=en` (por exemplo, `https://polite-coast-0d1f46c0f.6.azurestaticapps.net/?lang=en`)
 - Visual com **fundo animado de nuvens** (claro e escuro automáticos, mais discreto no quiz e no simulado; fica parado se o sistema estiver com animações desativadas)
 
 ## Conteúdo
@@ -44,6 +45,7 @@ modulo.html       Mostra o conteúdo de um módulo
 quiz.html         Quiz de um módulo
 simulado.html     Simulado no formato da prova
 css/estilo.css    Visual (cores ficam nas variáveis do topo)
+js/i18n.js        Idiomas: textos da interface em PT e EN e o seletor PT | EN
 js/comum.js       Funções usadas por todas as páginas
 js/progresso.js   Salva e lê o progresso no navegador
 js/home.js        Lógica da página inicial
@@ -52,12 +54,19 @@ js/quiz.js        Lógica do quiz
 js/simulado.js    Lógica do simulado (sorteio, cronômetro, correção e revisão)
 data/modulos.json Domínios e módulos (o conteúdo de estudo)
 data/perguntas.json Perguntas do quiz, por módulo
+data/en/          Os mesmos arquivos de dados, em inglês
 ```
+
+## Idiomas
+
+- O idioma vem, nesta ordem, de `?lang=pt` ou `?lang=en` na URL (a escolha fica salva), da escolha salva no navegador ou do idioma do navegador: português para navegadores em português, inglês para os demais.
+- Os textos da interface ficam em `js/i18n.js` (mesma chave em `pt` e `en`). O conteúdo em inglês fica em `data/en/`, com os mesmos `id`, a mesma ordem das opções e o mesmo índice `correta` do português, por isso o progresso vale para os dois idiomas.
 
 ## Como adicionar conteúdo
 
 1. **Novo módulo:** adicione um item em `data/modulos.json`, com um `id` único e o `dominio` correspondente. Os campos opcionais `objetivos` (lista "O que você precisa saber") e `itens` (marcadores dentro de uma seção do conteúdo) ajudam a organizar o texto.
 2. **Perguntas:** em `data/perguntas.json`, crie uma lista com o mesmo `id` do módulo. Cada pergunta tem `pergunta`, `opcoes`, `correta` (posição da resposta certa, começando em 0) e `explicacao`.
+3. **Inglês:** repita a mudança em `data/en/modulos.json` e `data/en/perguntas.json`, com o mesmo `id`, as opções na mesma ordem e o mesmo `correta`.
 
 ## Como o percentual é calculado
 
@@ -95,3 +104,11 @@ Sugestões de perguntas e correções são bem-vindas via issue ou pull request.
 ## Autor
 
 Feito por **Alex "Rokay" Costa** · [rokay.dev](https://rokay.dev) · [LinkedIn](https://www.linkedin.com/in/alex-costa-2232b434b/)
+
+## About (English)
+
+**AZ-900 Study** is a free, open study tool for the **Microsoft Azure Fundamentals (AZ-900)** certification: 12 modules covering the three exam domains, 105 original quiz questions with explanations, and a 40-question, 45-minute practice exam with an estimated score, results by domain, and a question review. Progress is saved in your browser, with no sign-in.
+
+The site is available in Portuguese and English. Use the PT | EN switch in the header, or open the English version directly: https://polite-coast-0d1f46c0f.6.azurestaticapps.net/?lang=en
+
+It's an independent community project, not affiliated with Microsoft. Built by **Alex "Rokay" Costa** and hosted on Azure Static Web Apps.

@@ -19,12 +19,11 @@ let prova = null; // simulado em andamento
 let relogio = null; // intervalo do cronômetro
 let avisoMostrado = false;
 let confirmando = false;
+let tela = "inicio"; // "inicio", "prova" ou "resultado": o que está na tela (para trocar de idioma)
+let provaCorrigida = null; // { prova, fim, automatico } do último simulado finalizado nesta visita
 
 async function iniciar() {
-  [dados, banco] = await Promise.all([
-    carregarJson("data/modulos.json"),
-    carregarJson("data/perguntas.json"),
-  ]);
+  await carregarDados();
 
   const salva = lerProvaSalva();
   if (salva) {
@@ -32,11 +31,35 @@ async function iniciar() {
     if (Date.now() >= fimDaProva()) {
       finalizar(true);
     } else {
-      mostrarProva("Seu simulado em andamento foi retomado. O cronômetro continuou correndo.");
+      mostrarProva(t("sim.retomado"));
     }
     return;
   }
   mostrarInicio();
+}
+
+// Os dois idiomas têm os mesmos ids, a mesma ordem de opções e a mesma resposta certa,
+// então o simulado salvo (que guarda só ids e índices) vale em qualquer idioma.
+async function carregarDados() {
+  [dados, banco] = await Promise.all([
+    carregarJson(caminhoDados("modulos.json")),
+    carregarJson(caminhoDados("perguntas.json")),
+  ]);
+}
+
+// Troca de idioma: recarrega o conteúdo e redesenha a tela atual sem perder respostas,
+// marcações, cronômetro nem o resultado que está aberto.
+async function trocarIdiomaDoSimulado() {
+  await carregarDados();
+  if (tela === "prova" && prova) {
+    const estavaConfirmando = confirmando;
+    mostrarProva();
+    if (estavaConfirmando) pedirConfirmacao();
+  } else if (tela === "resultado" && provaCorrigida) {
+    mostrarResultado(corrigir(provaCorrigida.prova, provaCorrigida.fim, provaCorrigida.automatico));
+  } else {
+    mostrarInicio();
+  }
 }
 
 // ---------- Utilidades ----------
@@ -58,7 +81,7 @@ function formatarTempo(ms) {
 }
 
 function formatarPercentual(valor) {
-  return (Math.round(valor * 10) / 10).toLocaleString("pt-BR") + "%";
+  return (Math.round(valor * 10) / 10).toLocaleString(localidade()) + "%";
 }
 
 function nomeDoDominio(id) {
@@ -157,31 +180,34 @@ function sortearQuestoes() {
 function mostrarInicio() {
   const area = document.getElementById("conteudo");
   area.replaceChildren();
-  document.title = "Simulado · Estudo AZ-900";
+  tela = "inicio";
+  definirTitulo(t("titulo.simulado"));
 
   const total = Object.values(DISTRIBUICAO).reduce((soma, n) => soma + n, 0);
-  area.append(criar("span", "etiqueta", "Simulado"), criar("h1", "", "Simulado AZ-900"));
+  area.append(criar("span", "etiqueta", t("sim.etiqueta")), criar("h1", "", t("sim.h1")));
 
   const regras = criar("section", "cartao objetivos");
-  regras.append(criar("h2", "", "Como funciona"));
+  regras.append(criar("h2", "", t("sim.comoFunciona")));
   const lista = criar("ul", "lista");
   const itens = [
-    total + " questões sorteadas do banco do site, na proporção do peso de cada domínio na prova: " +
-      dados.dominios.map((d) => nomeDoDominio(d.id) + " (" + (DISTRIBUICAO[d.id] || 0) + ")").join(", ") + ".",
-    "45 minutos, com cronômetro na tela e aviso quando faltarem 5 minutos. Quando o tempo acabar, o simulado é enviado automaticamente.",
-    "Uma questão por vez. Você pode voltar, pular e marcar questões para revisar antes de finalizar.",
-    "Nenhuma correção durante a prova: o resultado, por domínio, e a revisão de cada questão aparecem no final.",
-    "Nota estimada de 0 a 1000, proporcional aos acertos. Para ser aprovado na prova real, a Microsoft exige 700.",
+    t("sim.regra1", {
+      total: total,
+      lista: dados.dominios.map((d) => nomeDoDominio(d.id) + " (" + (DISTRIBUICAO[d.id] || 0) + ")").join(", "),
+    }),
+    t("sim.regra2"),
+    t("sim.regra3"),
+    t("sim.regra4"),
+    t("sim.regra5"),
   ];
   for (const texto of itens) lista.append(criar("li", "", texto));
   regras.append(lista);
 
   const acoes = criar("div", "acoes");
-  const comecar = criar("button", "botao", "Começar simulado");
+  const comecar = criar("button", "botao", t("sim.comecar"));
   comecar.type = "button";
   comecar.id = "comecar";
   comecar.addEventListener("click", comecarProva);
-  const voltar = criar("a", "botao secundario", "Voltar ao início");
+  const voltar = criar("a", "botao secundario", t("comum.voltarInicio"));
   voltar.href = "index.html";
   acoes.append(comecar, voltar);
   regras.append(acoes);
@@ -189,7 +215,7 @@ function mostrarInicio() {
 
   const historico = lerHistoricoSimulados();
   const blocoProntidao = criar("section", "cartao");
-  blocoProntidao.append(criar("h2", "", "Sua prontidão"));
+  blocoProntidao.append(criar("h2", "", t("sim.suaProntidao")));
   const alvo = criar("div", "prontidao");
   blocoProntidao.append(alvo);
   area.append(blocoProntidao);
@@ -201,17 +227,17 @@ function mostrarInicio() {
 function criarHistorico(historico) {
   const bloco = criar("section", "cartao");
   bloco.id = "historico";
-  bloco.append(criar("h2", "", "Seus últimos simulados"));
+  bloco.append(criar("h2", "", t("sim.historico")));
 
   if (historico.length === 0) {
-    bloco.append(criar("p", "detalhe", "Você ainda não fez nenhum simulado. Os 10 últimos vão aparecer aqui."));
+    bloco.append(criar("p", "detalhe", t("sim.historicoVazio")));
     return bloco;
   }
 
   const rolagem = criar("div", "tabela-rolagem");
   const tabela = criar("table", "tabela");
   const cabecalho = criar("tr");
-  for (const titulo of ["Data", "Nota", "Resultado", ...dados.dominios.map((d) => d.nome), "Duração"]) {
+  for (const titulo of [t("sim.colData"), t("sim.colNota"), t("sim.colResultado"), ...dados.dominios.map((d) => d.nome), t("sim.colDuracao")]) {
     cabecalho.append(criar("th", "", titulo));
   }
   const thead = criar("thead");
@@ -222,15 +248,15 @@ function criarHistorico(historico) {
     const linha = criar("tr");
     const data = new Date(tentativa.data);
     linha.append(
-      criar("td", "", data.toLocaleString("pt-BR", { dateStyle: "short", timeStyle: "short" })),
+      criar("td", "", data.toLocaleString(localidade(), { dateStyle: "short", timeStyle: "short" })),
       criar("td", "numero", String(tentativa.nota)),
-      criar("td", tentativa.aprovado ? "situacao aprovado" : "situacao ainda-nao", tentativa.aprovado ? "Aprovado" : "Ainda não")
+      criar("td", tentativa.aprovado ? "situacao aprovado" : "situacao ainda-nao", tentativa.aprovado ? t("sim.aprovado") : t("sim.aindaNao"))
     );
     for (const dominio of dados.dominios) {
       const valor = tentativa.dominios?.[dominio.id];
       linha.append(criar("td", "numero", valor ? valor.percentual + "%" : "—"));
     }
-    linha.append(criar("td", "numero", formatarTempo(tentativa.duracaoMs) + (tentativa.automatico ? " (tempo esgotado)" : "")));
+    linha.append(criar("td", "numero", formatarTempo(tentativa.duracaoMs) + (tentativa.automatico ? t("sim.tempoEsgotado") : "")));
     tbody.append(linha);
   }
 
@@ -260,7 +286,8 @@ function comecarProva() {
 function mostrarProva(mensagem) {
   const area = document.getElementById("conteudo");
   area.replaceChildren();
-  document.title = "Simulado em andamento · Estudo AZ-900";
+  tela = "prova";
+  definirTitulo(t("titulo.simuladoAndamento"));
   avisoMostrado = false;
   confirmando = false;
 
@@ -272,7 +299,7 @@ function mostrarProva(mensagem) {
   const cronometro = criar("span", "cronometro");
   cronometro.id = "cronometro";
   cronometro.setAttribute("role", "timer");
-  cronometro.setAttribute("aria-label", "Tempo restante");
+  cronometro.setAttribute("aria-label", t("sim.tempoRestante"));
   barra.append(contador, respondidas, cronometro);
 
   const aviso = criar("div", "aviso");
@@ -286,14 +313,10 @@ function mostrarProva(mensagem) {
   questao.id = "questao";
 
   const navegador = criar("section", "cartao");
-  navegador.append(criar("h2", "", "Questões"));
+  navegador.append(criar("h2", "", t("sim.questoes")));
   const grade = criar("div", "navegador");
   grade.id = "navegador";
-  const legenda = criar(
-    "p",
-    "detalhe",
-    "Azul: respondida. Contorno: sem resposta. ⚑: marcada para revisão. Toque em um número para ir até a questão."
-  );
+  const legenda = criar("p", "detalhe", t("sim.legenda"));
   navegador.append(grade, legenda);
 
   area.append(barra, aviso, questao, navegador);
@@ -325,15 +348,15 @@ function atualizarRelogio() {
   }
   if (restante <= AVISO_MS && !avisoMostrado) {
     avisoMostrado = true;
-    mostrarAviso("Atenção: faltam 5 minutos ou menos. Quando o tempo acabar, o simulado será enviado automaticamente.");
+    mostrarAviso(t("sim.aviso5"));
   }
 }
 
 function atualizarResumo() {
   const total = prova.itens.length;
   const feitas = prova.respostas.filter((r) => r !== null).length;
-  document.getElementById("contador").textContent = "Questão " + (prova.atual + 1) + " de " + total;
-  document.getElementById("respondidas").textContent = "Respondidas: " + feitas + "/" + total;
+  document.getElementById("contador").textContent = t("sim.contador", { n: prova.atual + 1, total: total });
+  document.getElementById("respondidas").textContent = t("sim.respondidas", { feitas: feitas, total: total });
 
   const grade = document.getElementById("navegador");
   grade.replaceChildren();
@@ -350,7 +373,11 @@ function atualizarResumo() {
     }
     botao.setAttribute(
       "aria-label",
-      "Questão " + (i + 1) + ", " + (respondida ? "respondida" : "sem resposta") + (marcada ? ", marcada para revisão" : "")
+      t("sim.navRotulo", {
+        n: i + 1,
+        estado: respondida ? t("sim.navRespondida") : t("sim.navSemResposta"),
+        marcada: marcada ? t("sim.navMarcada") : "",
+      })
     );
     botao.addEventListener("click", () => irPara(i));
     grade.append(botao);
@@ -373,7 +400,7 @@ function desenharQuestao() {
   const pergunta = perguntaDo(item);
 
   area.append(
-    criar("p", "detalhe", "Questão " + (i + 1) + " de " + prova.itens.length + (prova.marcadas[i] ? " · ⚑ marcada para revisão" : "")),
+    criar("p", "detalhe", t("sim.contador", { n: i + 1, total: prova.itens.length }) + (prova.marcadas[i] ? t("sim.marcadaRevisao") : "")),
     criar("h2", "", pergunta.pergunta)
   );
 
@@ -393,19 +420,19 @@ function desenharQuestao() {
   area.append(opcoes);
 
   const acoes = criar("div", "acoes");
-  const anterior = criar("button", "botao secundario", "← Anterior");
+  const anterior = criar("button", "botao secundario", t("sim.anterior"));
   anterior.type = "button";
   anterior.id = "anterior";
   anterior.disabled = i === 0;
   anterior.addEventListener("click", () => irPara(i - 1));
 
   const ultima = i === prova.itens.length - 1;
-  const proxima = criar("button", "botao", ultima ? "Revisar e finalizar" : "Próxima →");
+  const proxima = criar("button", "botao", ultima ? t("sim.revisarFinalizar") : t("sim.proxima"));
   proxima.type = "button";
   proxima.id = "proxima";
   proxima.addEventListener("click", () => (ultima ? pedirConfirmacao() : irPara(i + 1)));
 
-  const marcar = criar("button", "botao secundario", prova.marcadas[i] ? "⚑ Desmarcar revisão" : "⚑ Marcar para revisão");
+  const marcar = criar("button", "botao secundario", prova.marcadas[i] ? t("sim.desmarcar") : t("sim.marcar"));
   marcar.type = "button";
   marcar.id = "marcar";
   marcar.setAttribute("aria-pressed", prova.marcadas[i] ? "true" : "false");
@@ -415,7 +442,7 @@ function desenharQuestao() {
     desenharQuestao();
   });
 
-  const terminar = criar("button", "botao secundario", "Finalizar simulado");
+  const terminar = criar("button", "botao secundario", t("sim.finalizar"));
   terminar.type = "button";
   terminar.id = "finalizar";
   terminar.addEventListener("click", pedirConfirmacao);
@@ -433,32 +460,22 @@ function pedirConfirmacao() {
   const semResposta = prova.respostas.filter((r) => r === null).length;
   const marcadas = prova.marcadas.filter(Boolean).length;
 
-  area.append(criar("h2", "", "Finalizar o simulado?"));
-  area.append(criar("p", "", "Você respondeu " + (total - semResposta) + " de " + total + " questões."));
+  area.append(criar("h2", "", t("sim.confirmarTitulo")));
+  area.append(criar("p", "", t("sim.confirmarRespondidas", { feitas: total - semResposta, total: total })));
   if (semResposta > 0) {
-    area.append(
-      criar(
-        "p",
-        "alerta-texto",
-        semResposta === 1
-          ? "1 questão está sem resposta e vai contar como errada."
-          : semResposta + " questões estão sem resposta e vão contar como erradas."
-      )
-    );
+    area.append(criar("p", "alerta-texto", t("sim.confirmarSemResposta", { n: semResposta })));
   }
   if (marcadas > 0) {
-    area.append(
-      criar("p", "", marcadas === 1 ? "1 questão está marcada para revisão." : marcadas + " questões estão marcadas para revisão.")
-    );
+    area.append(criar("p", "", t("sim.confirmarMarcadas", { n: marcadas })));
   }
-  area.append(criar("p", "detalhe", "Depois de finalizar, não dá para mudar as respostas."));
+  area.append(criar("p", "detalhe", t("sim.confirmarAviso")));
 
   const acoes = criar("div", "acoes");
-  const confirmar = criar("button", "botao", "Finalizar agora");
+  const confirmar = criar("button", "botao", t("sim.finalizarAgora"));
   confirmar.type = "button";
   confirmar.id = "confirmar-finalizar";
   confirmar.addEventListener("click", () => finalizar(false));
-  const voltar = criar("button", "botao secundario", "Voltar ao simulado");
+  const voltar = criar("button", "botao secundario", t("sim.voltarSimulado"));
   voltar.type = "button";
   voltar.id = "voltar-simulado";
   voltar.addEventListener("click", () => irPara(prova.atual));
@@ -510,6 +527,7 @@ function finalizar(automatico) {
   const { questoes, ...resumo } = resultado;
   salvarResultadoSimulado(resumo);
   apagarProvaSalva();
+  provaCorrigida = { prova: prova, fim: fim, automatico: automatico };
   prova = null;
   mostrarResultado(resultado);
 }
@@ -517,34 +535,34 @@ function finalizar(automatico) {
 function mostrarResultado(resultado) {
   const area = document.getElementById("conteudo");
   area.replaceChildren();
-  document.title = "Resultado do simulado · Estudo AZ-900";
+  tela = "resultado";
+  definirTitulo(t("titulo.simuladoResultado"));
 
   // Placar geral
   const placar = criar("section", "cartao resultado");
   placar.id = "resultado";
-  placar.append(criar("h1", "", "Resultado do simulado"));
+  placar.append(criar("h1", "", t("sim.resultadoTitulo")));
   if (resultado.automatico) {
-    placar.append(criar("p", "alerta-texto", "O tempo acabou e o simulado foi enviado automaticamente."));
+    placar.append(criar("p", "alerta-texto", t("sim.enviadoAuto")));
   }
   const nota = criar("p", "nota", String(resultado.nota));
   nota.id = "nota";
   nota.append(criar("span", "nota-escala", " / 1000"));
   placar.append(
     nota,
-    criar("p", resultado.aprovado ? "situacao aprovado" : "situacao ainda-nao", resultado.aprovado ? "Aprovado" : "Ainda não"),
+    criar("p", resultado.aprovado ? "situacao aprovado" : "situacao ainda-nao", resultado.aprovado ? t("sim.aprovado") : t("sim.aindaNao")),
     criar(
       "p",
       "",
-      "Você acertou " + resultado.acertos + " de " + resultado.total + " (" + formatarPercentual((resultado.acertos / resultado.total) * 100) +
-        "). Nota mínima para aprovação: " + NOTA_APROVACAO + "."
+      t("sim.acertos", {
+        acertos: resultado.acertos,
+        total: resultado.total,
+        pct: formatarPercentual((resultado.acertos / resultado.total) * 100),
+        minimo: NOTA_APROVACAO,
+      })
     ),
-    criar("p", "detalhe", "Tempo usado: " + formatarTempo(resultado.duracaoMs) + " de " + formatarTempo(DURACAO_MS) + "."),
-    criar(
-      "p",
-      "detalhe",
-      "Nota estimada: proporcional aos acertos (acertos ÷ " + resultado.total + " × 1000). Não é a escala oficial da Microsoft, " +
-        "que calcula a nota de outro jeito. Use como referência de estudo."
-    )
+    criar("p", "detalhe", t("sim.tempoUsado", { usado: formatarTempo(resultado.duracaoMs), total: formatarTempo(DURACAO_MS) })),
+    criar("p", "detalhe", t("sim.notaExplicacao", { total: resultado.total }))
   );
   area.append(placar);
 
@@ -555,7 +573,7 @@ function mostrarResultado(resultado) {
 
   const blocoDominios = criar("section", "cartao");
   blocoDominios.id = "por-dominio";
-  blocoDominios.append(criar("h2", "", "Desempenho por domínio"));
+  blocoDominios.append(criar("h2", "", t("sim.porDominio")));
   for (const dominio of dominiosFeitos) {
     const placarDominio = resultado.dominios[dominio.id];
     const fraco = fracos.includes(dominio);
@@ -563,9 +581,9 @@ function mostrarResultado(resultado) {
     linha.dataset.dominio = dominio.id;
     const topo = criar("div", "dominio-topo");
     topo.append(criar("strong", "", dominio.nome));
-    if (fraco) topo.append(criar("span", "selo-fraco", "Ponto fraco"));
+    if (fraco) topo.append(criar("span", "selo-fraco", t("sim.pontoFraco")));
     topo.append(
-      criar("span", "peso", placarDominio.acertos + " de " + placarDominio.total),
+      criar("span", "peso", t("sim.deTotal", { acertos: placarDominio.acertos, total: placarDominio.total })),
       criar("span", "percentual", placarDominio.percentual + "%")
     );
     const barra = criar("div", "barra");
@@ -581,9 +599,9 @@ function mostrarResultado(resultado) {
   const reforco = criar("section", "cartao objetivos");
   reforco.id = "reforco";
   if (fracos.length > 0) {
-    reforco.append(criar("h2", "", "Onde reforçar"));
+    reforco.append(criar("h2", "", t("sim.ondeReforcar")));
     for (const dominio of fracos) {
-      reforco.append(criar("p", "", dominio.nome + ": releia os módulos e refaça os quizzes."));
+      reforco.append(criar("p", "", t("sim.reforcarTexto", { dominio: dominio.nome })));
       const lista = criar("ul", "lista");
       for (const modulo of dados.modulos.filter((m) => m.dominio === dominio.id)) {
         const li = criar("li");
@@ -595,16 +613,16 @@ function mostrarResultado(resultado) {
       reforco.append(lista);
     }
   } else {
-    reforco.append(criar("h2", "", "Nenhum ponto fraco"), criar("p", "", "Você acertou todas as questões. Excelente!"));
+    reforco.append(criar("h2", "", t("sim.nenhumFraco")), criar("p", "", t("sim.tudoCerto")));
   }
   area.append(reforco);
 
   area.append(criarRevisao(resultado));
 
   const acoes = criar("div", "acoes");
-  const outro = criar("a", "botao", "Fazer outro simulado");
+  const outro = criar("a", "botao", t("sim.outro"));
   outro.href = "simulado.html";
-  const inicio = criar("a", "botao secundario", "Voltar ao início");
+  const inicio = criar("a", "botao secundario", t("comum.voltarInicio"));
   inicio.href = "index.html";
   acoes.append(outro, inicio);
   area.append(acoes);
@@ -614,14 +632,14 @@ function mostrarResultado(resultado) {
 function criarRevisao(resultado) {
   const bloco = criar("section", "cartao");
   bloco.id = "revisao";
-  bloco.append(criar("h2", "", "Revisão das questões"));
+  bloco.append(criar("h2", "", t("sim.revisao")));
 
   const erradas = resultado.questoes.filter((q) => !q.acertou);
   const filtros = criar("div", "filtros");
-  const botaoErradas = criar("button", "filtro", "Erradas e em branco (" + erradas.length + ")");
+  const botaoErradas = criar("button", "filtro", t("sim.filtroErradas", { n: erradas.length }));
   botaoErradas.type = "button";
   botaoErradas.dataset.filtro = "erradas";
-  const botaoTodas = criar("button", "filtro", "Todas (" + resultado.questoes.length + ")");
+  const botaoTodas = criar("button", "filtro", t("sim.filtroTodas", { n: resultado.questoes.length }));
   botaoTodas.type = "button";
   botaoTodas.dataset.filtro = "todas";
   filtros.append(botaoErradas, botaoTodas);
@@ -635,7 +653,7 @@ function criarRevisao(resultado) {
     lista.replaceChildren();
     const mostrar = filtro === "erradas" ? erradas : resultado.questoes;
     if (mostrar.length === 0) {
-      lista.append(criar("p", "detalhe", "Nenhuma questão errada ou em branco. Parabéns!"));
+      lista.append(criar("p", "detalhe", t("sim.nenhumaErrada")));
       return;
     }
     for (const q of mostrar) {
@@ -644,18 +662,22 @@ function criarRevisao(resultado) {
         criar(
           "p",
           "detalhe",
-          "Questão " + q.numero + " · " + nomeDoDominio(q.item.dominio) + " · " + nomeDoModulo(q.item.modulo) +
-            " · " + (q.acertou ? "Certa" : q.resposta === null ? "Em branco" : "Errada")
+          t("sim.itemCabecalho", {
+            n: q.numero,
+            dominio: nomeDoDominio(q.item.dominio),
+            modulo: nomeDoModulo(q.item.modulo),
+            situacao: q.acertou ? t("sim.certa") : q.resposta === null ? t("sim.emBranco") : t("sim.errada"),
+          })
         ),
         criar("h3", "", q.pergunta.pergunta),
         criar(
           "p",
           q.acertou ? "resposta-certa" : "resposta-errada",
-          "Sua resposta: " + (q.resposta === null ? "sem resposta" : q.pergunta.opcoes[q.resposta])
+          t("sim.suaResposta", { resposta: q.resposta === null ? t("sim.semResposta") : q.pergunta.opcoes[q.resposta] })
         )
       );
       if (!q.acertou) {
-        item.append(criar("p", "resposta-certa", "Resposta correta: " + q.pergunta.opcoes[q.pergunta.correta]));
+        item.append(criar("p", "resposta-certa", t("sim.respostaCorreta", { resposta: q.pergunta.opcoes[q.pergunta.correta] })));
       }
       item.append(criar("p", "", q.pergunta.explicacao));
       lista.append(item);
@@ -670,4 +692,5 @@ function criarRevisao(resultado) {
   return bloco;
 }
 
+aoTrocarIdioma(trocarIdiomaDoSimulado);
 iniciar().catch(mostrarErro);

@@ -2,7 +2,7 @@
 // e os módulos agrupados por domínio.
 
 async function iniciar() {
-  const dados = await carregarJson("data/modulos.json");
+  const dados = await carregarJson(caminhoDados("modulos.json"));
   const progresso = lerProgresso();
   desenharDominios(dados, progresso);
   desenharModulos(dados, progresso);
@@ -24,7 +24,7 @@ function desenharDominios(dados, progresso) {
     const cabecalho = criar("div", "dominio-topo");
     cabecalho.append(
       criar("strong", "", dominio.nome),
-      criar("span", "peso", "Peso na prova: " + dominio.peso),
+      criar("span", "peso", t("home.peso", { peso: dominio.peso })),
       criar("span", "percentual", percentual + "%")
     );
 
@@ -48,7 +48,7 @@ function desenharModulos(dados, progresso) {
     if (modulos.length === 0) continue;
 
     const grupo = criar("section", "grupo");
-    grupo.append(criar("h3", "grupo-titulo", dominio.nome + " · " + dominio.peso + " da prova"));
+    grupo.append(criar("h3", "grupo-titulo", t("home.grupo", { dominio: dominio.nome, peso: dominio.peso })));
 
     const grade = criar("div", "grade");
     for (const modulo of modulos) {
@@ -57,14 +57,12 @@ function desenharModulos(dados, progresso) {
       const cartao = criar("a", "cartao modulo");
       cartao.href = "modulo.html?id=" + encodeURIComponent(modulo.id);
 
-      const estado = feito
-        ? "Melhor nota: " + feito.melhorNota + "%"
-        : "Ainda não iniciado";
+      const estado = feito ? t("home.melhorNota", { nota: feito.melhorNota }) : t("home.naoIniciado");
 
       cartao.append(
         criar("h4", "", modulo.titulo),
         criar("p", "", modulo.resumo),
-        criar("p", "detalhe", "~" + modulo.minutos + " min · " + estado)
+        criar("p", "detalhe", t("home.minutos", { min: modulo.minutos, estado: estado }))
       );
       grade.append(cartao);
     }
@@ -74,4 +72,5 @@ function desenharModulos(dados, progresso) {
   }
 }
 
+aoTrocarIdioma(iniciar);
 iniciar().catch(mostrarErro);

@@ -209,16 +209,67 @@ a {
   }
 }
 
+/* Linha do cabeçalho: marca à esquerda, seletor de idioma à direita */
+.topo-conteudo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  max-width: 820px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
 .marca {
   display: flex;
   align-items: center;
   gap: 8px;
-  max-width: 820px;
-  margin: 0 auto;
-  padding: 14px 16px;
+  min-width: 0;
+  padding: 14px 0;
   font-weight: 700;
   color: var(--texto);
   text-decoration: none;
+}
+
+/* Seletor de idioma PT | EN */
+.idiomas {
+  display: inline-flex;
+  flex: none;
+  min-width: 84px; /* reserva o espaço antes dos botões aparecerem */
+  min-height: 34px;
+  padding: 2px;
+  border: 1px solid var(--borda);
+  border-radius: 999px;
+  background: var(--superficie);
+}
+
+.idioma {
+  min-width: 40px;
+  min-height: 30px;
+  padding: 0 10px;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--texto-suave);
+  font: inherit;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+}
+
+.idioma:hover {
+  color: var(--texto);
+}
+
+.idioma[aria-pressed="true"] {
+  background: var(--destaque);
+  color: var(--destaque-texto);
+}
+
+.idioma:focus-visible {
+  outline: 3px solid var(--destaque);
+  outline-offset: 2px;
 }
 
 /* Pequena nuvem ao lado do título */

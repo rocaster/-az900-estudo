@@ -4,7 +4,9 @@ Ferramenta gratuita e aberta para estudar para a certificação **Microsoft Azur
 
 > Projeto independente da comunidade, sem vínculo com a Microsoft. As perguntas são originais, escritas para este projeto.
 
-## O que já funciona (MVP)
+**Acesse o site:** https://polite-coast-0d1f46c0f.6.azurestaticapps.net/
+
+## O que já funciona
 
 - Página inicial com o **progresso por domínio** da prova
 - **Módulos** separados por domínio (com o peso de cada um na prova), cada um com uma lista "O que você precisa saber" baseada no guia oficial e link para o Microsoft Learn
@@ -12,6 +14,17 @@ Ferramenta gratuita e aberta para estudar para a certificação **Microsoft Azur
 - **Simulado** de 40 questões em 45 minutos, sorteadas pelo peso de cada domínio (11, 15 e 14), com navegação entre questões, marcação para revisão, nota estimada de 0 a 1000 (aprovação em 700), resultado por domínio, revisão comentada e histórico dos 10 últimos
 - **Prontidão estimada** na página inicial
 - Progresso salvo no navegador (sem login, sem banco de dados)
+- Visual com **fundo animado de nuvens** (claro e escuro automáticos, mais discreto no quiz e no simulado; fica parado se o sistema estiver com animações desativadas)
+
+## Conteúdo
+
+Baseado no guia oficial de habilidades medidas da AZ-900 e nos módulos do Microsoft Learn: **12 módulos e 105 perguntas**.
+
+| Domínio | Peso na prova | Módulos | Perguntas |
+|---|---|---|---|
+| Conceitos de nuvem | 25–30% | 3 | 25 |
+| Arquitetura e serviços do Azure | 35–40% | 5 | 45 |
+| Gerenciamento e governança do Azure | 30–35% | 4 | 35 |
 
 ## Como rodar no seu computador
 
@@ -63,13 +76,22 @@ O percentual de cada domínio é a média das **melhores notas** dos quizzes dos
 
 ## Próximos passos
 
-- [ ] Publicar no Azure Static Web Apps com GitHub Actions
-- [ ] Mais módulos e perguntas para os três domínios
+- [x] Publicar no Azure Static Web Apps com GitHub Actions
+- [x] Módulos cobrindo os três domínios da prova
+- [ ] Ampliar o banco de perguntas
 - [x] Simulado com perguntas de todos os módulos
 - [ ] Revisão espaçada das perguntas erradas
 - [ ] Meta de data da prova e cronograma
 - [ ] Login e progresso na nuvem (Functions + Cosmos DB)
 
+## Hospedagem
+
+O site é estático e fica no **Azure Static Web Apps** (plano Free). Cada push na branch `main` publica automaticamente pelo GitHub Actions (`.github/workflows/`).
+
 ## Contribuindo
 
 Sugestões de perguntas e correções são bem-vindas via issue ou pull request. Escreva as perguntas com suas próprias palavras, sem copiar de simulados de terceiros nem de material de prova real.
+
+## Autor
+
+Feito por **Alex "Rokay" Costa** · [rokay.dev](https://rokay.dev) · [LinkedIn](https://www.linkedin.com/in/alex-costa-2232b434b/)
